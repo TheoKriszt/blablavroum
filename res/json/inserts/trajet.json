@@ -1,0 +1,48 @@
+[
+	{
+		"depart" : {"ville" : "Montpellier", "adresse" : "Geant Casino"},
+		"arrivee" : {"ville" : "Lyon", "adresse" : "Avenue Charles de Gaulle"},
+		"prix" : "20",
+		"nbPlace" : "4",
+		"tpsMoyen" : "3h50",
+		"conducteur" : "",
+		"passager" : []
+	},
+	{
+		"depart" : {"ville" : "Amiens", "adresse" : "Place Gambetta"},
+		"arrivee" : {"ville" : "Marseille", "adresse" : "Gare Saint Charles"},
+		"prix" : "20",
+		"nbPlace" : "4",
+		"tpsMoyen" : "9h00",
+		"conducteur" : "",
+		"passager" : []
+	},
+	{
+		"depart" : {"ville" : "Paris", "adresse" : "Stade de France"},
+		"arrivee" : {"ville" : "Marseille", "adresse" : "Gare Saint Charles"},
+		"prix" : "50",
+		"nbPlace" : "4",
+		"tpsMoyen" : "9h00",
+		"conducteur" : "",
+		"passager" : []
+	},
+	{
+		"depart" : {"ville" : "Tourcoing", "adresse" : "Place de la Mairie"},
+		"arrivee" : {"ville" : "Toulouse", "adresse" : "ENAC"},
+		"prix" : "60",
+		"nbPlace" : "4",
+		"tpsMoyen" : "10h00",
+		"conducteur" : "",
+		"passager" : []
+	},
+	{
+		"depart" : {"ville" : "Lille", "adresse" : "Carrefour"},
+		"arrivee" : {"ville" : "Paris", "adresse" : "Porte dorée"},
+		"prix" : "15",
+		"nbPlace" : "2",
+		"tpsMoyen" : "3h27",
+		"conducteur" : "",
+		"passager" : []
+	}
+]
+	
