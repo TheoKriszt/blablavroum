@@ -1,0 +1,92 @@
+[
+	{
+		"nom": "Dodard", 
+		"prenom" : "Mathieu",
+		"mail" : "mathieu.dodard@covoit.fr",
+		"telephone" : "069858447",
+		"age":"21", 
+		"adresse" : "Montpellier",
+		"role" : ["Admin", "Membre"]
+	},
+	{
+		"nom": "Kriszt", 
+		"prenom" : "Theo",
+		"mail" : "theo.kriszt@covoit.fr",
+		"telephone" : "45324245",
+		"age":"22", 
+		"adresse" : "Marseille",
+		"role" : ["Admin", "Membre"]
+	},
+	{
+		"nom": "Monod", 
+		"prenom" : "Quentin",
+		"mail" : "quentin.monod@covoit.fr",
+		"telephone" : "45574465",
+		"age":"21", 
+		"adresse" : "Lyon",
+		"role" : ["Membre"]
+	},
+	{
+		"nom": "Julien", 
+		"prenom" : "Marin",
+		"mail" : "theo.kriszt@covoit.fr",
+		"telephone" : "0698532447",
+		"age":"22", 
+		"adresse" : "Lille",
+		"role" : ["Membre"]
+	},
+	{
+		"nom": "Daviaud", 
+		"prenom" : "Louis",
+		"mail" : "louis.daviaud@covoit.fr",
+		"telephone" : "064858447",
+		"age":"54", 
+		"adresse" : "Toulouse",
+		"role" : ["Admin", "Membre"]
+	},
+	{
+		"nom": "Chaillot", 
+		"prenom" : "Anthony",
+		"mail" : "anthony.chaillot@covoit.fr",
+		"telephone" : "069898447",
+		"age":"65", 
+		"adresse" : "Montpellier",
+		"role" : ["Membre"]
+	},
+	{
+		"nom": "Bellandras", 
+		"prenom" : "Louis",
+		"mail" : "louis.bellandras@covoit.fr",
+		"telephone" : "469858447",
+		"age":"23",
+		"adresse" : "Marseille", 
+		"role" : ["Membre"]
+	},
+	{
+		"nom": "Teron", 
+		"prenom" : "Nicolas",
+		"mail" : "nicolas.teron@covoit.fr",
+		"telephone" : "069858457",
+		"age":"21", 
+		"adresse" : "Amiens",
+		"role" : ["Admin"]
+	},
+	{
+		"nom": "Guy", 
+		"prenom" : "Guy",
+		"mail" : "guy.guy@covoit.fr",
+		"telephone" : "060858447",
+		"age":"21",
+		"adresse" : "Tourcoing",
+		"role" : ["Admin"]
+	},
+	{
+		"nom": "", 
+		"prenom" : "",
+		"mail" : "",
+		"telephone" : "",
+		"age":"",
+		"adresse" : "", 
+		"role" : ["Invite"]
+	}
+]
