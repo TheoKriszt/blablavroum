@@ -40,7 +40,34 @@
 		"arrivee" : {"ville" : "Paris", "adresse" : "Porte dorée"},
 		"prix" : "15",
 		"nbPlace" : "2",
-		"tpsMoyen" : "3h27",
+		"tpsMoyen" : "3h",
+		"conducteur" : "",
+		"passager" : []
+	},
+	{
+		"depart" : {"ville" : "Bordeaux", "adresse" : "Auchan"},
+		"arrivee" : {"ville" : "Toulouse", "adresse" : "ENAC"},
+		"prix" : "15",
+		"nbPlace" : "3",
+		"tpsMoyen" : "3h00",
+		"conducteur" : "",
+		"passager" : []
+	},
+	{
+		"depart" : {"ville" : "Strasbourg", "adresse" : "Gare de Strasbourg"},
+		"arrivee" : {"ville" : "Paris", "adresse" : "Porte dorée"},
+		"prix" : "21",
+		"nbPlace" : "4",
+		"tpsMoyen" : "7h57",
+		"conducteur" : "",
+		"passager" : []
+	},
+	{
+		"depart" : {"ville" : "Nancy", "adresse" : "Place de l'hotel de ville"},
+		"arrivee" : {"ville" : "Brest", "adresse" : "Port militaire"},
+		"prix" : "58",
+		"nbPlace" : "3",
+		"tpsMoyen" : "10h50",
 		"conducteur" : "",
 		"passager" : []
 	}
