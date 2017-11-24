@@ -7,9 +7,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TrajetsComponent implements OnInit {
 
-  constructor() { }
+  private trajets = [];
+  constructor(trajetService : TrajetsService) { }
 
   ngOnInit() {
+	this.trajetService.getTrajets().subscribe(rd => trajets = res);
   }
 
 }

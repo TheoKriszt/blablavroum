@@ -1,3 +1,10 @@
 <p>
-  trajets works!
+	<div>
+		Voici la liste des trajets :
+		<ul>
+			<li *ngFor = "let trajet of trajets"> 
+				{{trajet.depart.ville}} à {{trajet.arrivee.ville}}
+			</li>
+		</ul>
+  	</div>
 </p>
