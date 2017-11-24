@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { TrajetsService } from '../trajets.service';
+import { TrajetsService } from './trajets.service';
 
 
 @Component({
@@ -8,12 +8,12 @@ import { TrajetsService } from '../trajets.service';
   styleUrls: ['./trajets.component.css']
 })
 export class TrajetsComponent implements OnInit {
+  private trajets: Object;
 
-  private trajets = [];
-  constructor(trajetsService: TrajetsService) { }
+  constructor(private trajetsService: TrajetsService) {}
 
   ngOnInit() {
-	trajetsService.getTrajets().subscribe(res => this.trajets = res);
+    this.trajetsService.getTrajets().subscribe(res => this.trajets = res);
   }
 
 }
