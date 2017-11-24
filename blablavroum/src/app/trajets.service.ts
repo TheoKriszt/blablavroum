@@ -1,11 +1,15 @@
 import { Injectable } from '@angular/core';
-import {httpClient} from '@angular/common/http';
+import {HttpClient} from "@angular/common/http";
+// import * as http from "http";
 
 @Injectable()
 export class TrajetsService {
 
-  constructor(http : HTTPClient) { }
+  constructor(http : HttpClient) {
+
+  }
   getTrajets(){
-	return this.http.get("http://localhost:8888");
+	return http.get("http://localhost:8888/trajets");
+  }
 
 }

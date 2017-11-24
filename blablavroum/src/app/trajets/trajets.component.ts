@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { TrajetsService } from '../trajets.service.ts';
-';
+import { TrajetsService } from '../trajets.service';
+
 
 @Component({
   selector: 'app-trajets',
@@ -10,10 +10,10 @@ import { TrajetsService } from '../trajets.service.ts';
 export class TrajetsComponent implements OnInit {
 
   private trajets = [];
-  constructor(trajetService : TrajetsService) { }
+  constructor(trajetsService: TrajetsService) { }
 
   ngOnInit() {
-	this.trajetService.getTrajets().subscribe(rd => trajets = res);
+	trajetsService.getTrajets().subscribe(res => this.trajets = res);
   }
 
 }
