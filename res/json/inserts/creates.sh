@@ -8,3 +8,4 @@ mongoimport --db Covoit --collection trajets --file trajets.json --jsonArray
 # use Covoit
 # show collections
 # db.membres.find({'prenom':'Marin'})
+# db.dropDatabase()
