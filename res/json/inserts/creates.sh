@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 mongoimport --db Covoit --collection vehicules --file vehicules.json --jsonArray
 mongoimport --db Covoit --collection membres --file membres.json --jsonArray
-mongoimport --db Covoit --collection trajets --file trajets.json --jsonArray
+mongoimport --db Covoit --collection trajet --file trajets.json --jsonArray
 
 # Dans mongo
 # show dbs
