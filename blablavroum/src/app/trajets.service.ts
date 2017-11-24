@@ -5,9 +5,7 @@ import {HttpClient} from "@angular/common/http";
 @Injectable()
 export class TrajetsService {
 
-  constructor(http : HttpClient) {
-
-  }
+  constructor(http : HttpClient) {}
   getTrajets(){
 	return http.get("http://localhost:8888/trajets");
   }
