@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { TrajetsService } from '../trajets.service.ts';
+';
 
 @Component({
   selector: 'app-trajets',
