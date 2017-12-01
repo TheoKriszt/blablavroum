@@ -2,6 +2,8 @@
 	{
 		"depart" : {"ville" : "Montpellier", "adresse" : "Geant Casino"},
 		"arrivee" : {"ville" : "Lyon", "adresse" : "Avenue Charles de Gaulle"},
+		"date" : "2018-02-22",
+		"heure" : "18:20",
 		"prix" : "20",
 		"nbPlace" : "4",
 		"tpsMoyen" : "3h50",
@@ -11,6 +13,8 @@
 	{
 		"depart" : {"ville" : "Amiens", "adresse" : "Place Gambetta"},
 		"arrivee" : {"ville" : "Marseille", "adresse" : "Gare Saint Charles"},
+		"date" : "12:02:2018",
+		"heure" : "17:20",
 		"prix" : "20",
 		"nbPlace" : "4",
 		"tpsMoyen" : "9h00",
@@ -20,6 +24,8 @@
 	{
 		"depart" : {"ville" : "Paris", "adresse" : "Stade de France"},
 		"arrivee" : {"ville" : "Marseille", "adresse" : "Gare Saint Charles"},
+		"date" : "13:02:2018",
+		"heure" : "15:00",
 		"prix" : "50",
 		"nbPlace" : "4",
 		"tpsMoyen" : "9h00",
@@ -29,6 +35,8 @@
 	{
 		"depart" : {"ville" : "Tourcoing", "adresse" : "Place de la Mairie"},
 		"arrivee" : {"ville" : "Toulouse", "adresse" : "ENAC"},
+		"date" : "12:03:2018",
+		"heure" : "11:30",
 		"prix" : "60",
 		"nbPlace" : "4",
 		"tpsMoyen" : "10h00",
@@ -38,6 +46,8 @@
 	{
 		"depart" : {"ville" : "Lille", "adresse" : "Carrefour"},
 		"arrivee" : {"ville" : "Paris", "adresse" : "Porte dorée"},
+		"date" : "14:02:2018",
+		"heure" : "15:40",
 		"prix" : "15",
 		"nbPlace" : "2",
 		"tpsMoyen" : "3h",
@@ -47,6 +57,8 @@
 	{
 		"depart" : {"ville" : "Bordeaux", "adresse" : "Auchan"},
 		"arrivee" : {"ville" : "Toulouse", "adresse" : "ENAC"},
+		"date" : "17:02:2018",
+		"heure" : "12:30",
 		"prix" : "15",
 		"nbPlace" : "3",
 		"tpsMoyen" : "3h00",
@@ -56,6 +68,8 @@
 	{
 		"depart" : {"ville" : "Strasbourg", "adresse" : "Gare de Strasbourg"},
 		"arrivee" : {"ville" : "Paris", "adresse" : "Porte dorée"},
+		"date" : "20:02:2018",
+		"heure" : "18:00",
 		"prix" : "21",
 		"nbPlace" : "4",
 		"tpsMoyen" : "7h57",
@@ -65,6 +79,8 @@
 	{
 		"depart" : {"ville" : "Nancy", "adresse" : "Place de l'hotel de ville"},
 		"arrivee" : {"ville" : "Brest", "adresse" : "Port militaire"},
+		"date" : "22:02:2018",
+		"heure" : "17:30",
 		"prix" : "58",
 		"nbPlace" : "3",
 		"tpsMoyen" : "10h50",
