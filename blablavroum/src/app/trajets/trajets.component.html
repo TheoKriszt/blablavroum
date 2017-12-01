@@ -6,10 +6,10 @@
 	    Ce trajet coûte {{trajet.prix}}€.
     </li>
   </ul>
-  <!--<span>Recherche de <input type="text" name="villeDepart"> à <input type="text" name="villeArrivee"> </span>-->
-  <!--<a [routerLink]="['/trajets', 'trajets-recherche', villeDepart, villeArrivee]">-->
-    <!--Va chercher le trajet de {{villeDepart}} vers {{villeArrivee}}-->
-  <!--</a>-->
-  <!--<router-outlet></router-outlet>-->
+  <span>Recherche de <input type="text" name="villeDepart"> à <input type="text" name="villeArrivee"> </span>
+  <a [routerLink]="['/trajets', 'trajets-recherche', villeDepart, villeArrivee]">
+    Va chercher le trajet de {{villeDepart}} vers {{villeArrivee}}
+  </a>
+  <router-outlet></router-outlet>
   <app-trajets-recherche></app-trajets-recherche>
   </div>
