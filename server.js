@@ -1,5 +1,7 @@
 var express = require('express');
 var app=express();
+var cors = require("cors");
+app.use(cors());
 //creation client
 
 var mongoClient=require("mongodb").MongoClient;
@@ -74,6 +76,7 @@ mongoClient.connect(url,function(err,db){
                 var json=JSON.stringify(documents);
                 //renvoie du resultat
                 res.setHeader("Content-type","application/json");
+                res.setHeader("Access-Control-Allow-Origin", "*");
 
                 res.end(json);
             });
@@ -86,6 +89,7 @@ mongoClient.connect(url,function(err,db){
                 var json=JSON.stringify(documents);
                 //renvoie du resultat
                 res.setHeader("Content-type","application/json");
+                res.setHeader("Access-Control-Allow-Origin", "*");
 
                 res.end(json);
             });
