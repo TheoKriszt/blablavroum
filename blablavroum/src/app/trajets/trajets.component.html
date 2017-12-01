@@ -3,11 +3,13 @@
   <ul>
     <li *ngFor = "let trajet of trajets">
       De {{trajet.depart.ville}} à {{trajet.arrivee.ville}} le {{trajet.date}} à {{trajet.heure}}.
-	Ce trajet coûte {{trajet.prix}}€.
+	    Ce trajet coûte {{trajet.prix}}€.
     </li>
   </ul>
-  <!--<a [routerLink]="['/trajets', villeDepart, villeArrivee]">
-    Va cherche le trajet de {{villeDepart}} vers {{villeArrivee}}
-  </a>
-  <router-outlet></router-outlet>-->
- </div>
+  <!--<span>Recherche de <input type="text" name="villeDepart"> à <input type="text" name="villeArrivee"> </span>-->
+  <!--<a [routerLink]="['/trajets', 'trajets-recherche', villeDepart, villeArrivee]">-->
+    <!--Va chercher le trajet de {{villeDepart}} vers {{villeArrivee}}-->
+  <!--</a>-->
+  <!--<router-outlet></router-outlet>-->
+  <app-trajets-recherche></app-trajets-recherche>
+  </div>

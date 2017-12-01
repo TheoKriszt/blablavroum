@@ -1,15 +1,25 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { TrajetsService } from "./trajets.service";
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {TrajetsService} from "./trajets.service";
 import {TrajetsComponent} from "./trajets.component";
 import {HttpClientModule} from "@angular/common/http";
+import {RouterModule, Routes} from "@angular/router";
+import {TrajetsRechercheComponent} from './trajets-recherche/trajets-recherche.component';
+
+
+const routes: Routes = [
+  {
+    path: 'trajets-recherche',
+    component: TrajetsRechercheComponent
+  },
+];
 
 @NgModule({
   imports: [
-    CommonModule, HttpClientModule
+    CommonModule, HttpClientModule, RouterModule.forChild(routes)
   ],
-  exports:[TrajetsComponent],
-  declarations: [TrajetsComponent],
+  exports:[TrajetsComponent, RouterModule],
+  declarations: [TrajetsComponent, TrajetsRechercheComponent],
   providers: [TrajetsService]
 })
 export class TrajetsModule { }

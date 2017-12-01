@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { TrajetsService } from './trajets.service';
+import {Component, OnInit} from '@angular/core';
+import {TrajetsService} from './trajets.service';
 
 
 @Component({
@@ -7,6 +7,7 @@ import { TrajetsService } from './trajets.service';
   templateUrl: './trajets.component.html',
   styleUrls: ['./trajets.component.css']
 })
+
 export class TrajetsComponent implements OnInit {
   private trajets: Object;
   villeDepart: String;
