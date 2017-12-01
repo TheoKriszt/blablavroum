@@ -6,4 +6,8 @@
 	Ce trajet coûte {{trajet.prix}}€.
     </li>
   </ul>
+  <a [routerLink]="['/trajets', villeDepart, villeArrivee]">
+    Va cherche le trajet de {{villeDepart}} vers {{villeArrivee}}
+  </a>
+  <router-outlet></router-outlet>
   </div>

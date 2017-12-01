@@ -9,6 +9,8 @@ import { TrajetsService } from './trajets.service';
 })
 export class TrajetsComponent implements OnInit {
   private trajets: Object;
+  villeDepart: String;
+  villeArrivee: String;
 
   constructor(private trajetsService: TrajetsService) {}
 
