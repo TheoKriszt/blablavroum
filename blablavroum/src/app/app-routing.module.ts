@@ -3,6 +3,7 @@ import {Routes, RouterModule} from "@angular/router";
 import {TrajetsComponent} from "./trajets/trajets.component";
 import {MembresComponent} from "./membres/membres.component";
 import {TrajetsService} from "./trajets/trajets.service";
+import {MembresService} from "./membres/membres.service";
 
 const routes: Routes = [
   {
@@ -18,7 +19,7 @@ const routes: Routes = [
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
-  providers: [TrajetsService] // ajouter le service trajets ?
+  providers: [TrajetsService, MembresService]
 })
 
 export class AppRoutingModule {}

@@ -11,6 +11,7 @@ export class TrajetsService {
   constructor(private http: HttpClient) {}
 
   getTrajets(): Observable<any>{
+    console.log("getTrajets()");
 	return this.http.get("http://localhost:8888/trajets");
   }
 

@@ -13,6 +13,7 @@ export class TrajetsComponent implements OnInit {
   constructor(private trajetsService: TrajetsService) {}
 
   ngOnInit() {
+    console.log("Chargement du composant trajets");
     this.trajetsService.getTrajets().subscribe(res => this.trajets = res);
   }
 

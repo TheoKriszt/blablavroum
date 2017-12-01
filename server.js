@@ -65,10 +65,22 @@ mongoClient.connect(url,function(err,db){
         db.collection("membres").remove({'mail':req.params.mail});
     });
 
-    /////////////////////////////////////////
+    ////////////////  == TRAJETS ==  /////////////////////////
     //requête tous les trajets
     app.get("/trajets",function(req,res){
         db.collection("trajets").find()
+            .toArray(function(err,documents){
+                //récuperation du résultat
+                var json=JSON.stringify(documents);
+                //renvoie du resultat
+                res.setHeader("Content-type","application/json");
+
+                res.end(json);
+            });
+    });
+
+    app.get("/trajets/:villed/:villea",function(req,res){
+        db.collection("trajets").find({'depart.ville': req.params.villed, 'arrivee.ville': req.params.villea})
             .toArray(function(err,documents){
                 //récuperation du résultat
                 var json=JSON.stringify(documents);
