@@ -88,15 +88,5 @@
     "adresse" : "Tourcoing",
     "role" : ["admin"],
     "vehicule_ids":[]
-  },
-  {
-    "nom": "",
-    "prenom" : "",
-    "mail" : "",
-    "telephone" : "",
-    "age":"",
-    "adresse" : "",
-    "role" : ["invite"],
-    "vehicule_ids":[]
   }
 ]

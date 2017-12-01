@@ -17,7 +17,7 @@ var sendRes = function(res, json){
 mongoClient.connect(url,function(err,db){
 
 
-    //requête tous le smembres
+    //requête tous les smembres
     app.get("/membres",function(req,res){
         db.collection("membres").find()
             .toArray(function(err,documents){
