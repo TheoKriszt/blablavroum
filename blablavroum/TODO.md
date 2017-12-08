@@ -1,5 +1,9 @@
 # TODO
 
+## Général
+- Mettre message quand aucun trajet trouvé
+
+
 ## Fonctionnalités minimales attendues
 - Base MongoDB avec au moins les collections
   - membres (rôle admin/non admin) (users)

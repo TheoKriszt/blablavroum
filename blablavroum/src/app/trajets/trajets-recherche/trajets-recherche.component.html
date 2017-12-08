@@ -1,4 +1,7 @@
-<div>
+<div *ngIf="trajets.length == 0">
+  <p> Aucun trajet ne correspond à votre recherche. Essayez peut-être&nbsp;à une autre date.</p>
+</div>
+<div *ngIf="trajets.length > 0">
   Voici le(s) resulat(s) de votre recherche :
   <ul>
     <li *ngFor = "let trajet of trajets">

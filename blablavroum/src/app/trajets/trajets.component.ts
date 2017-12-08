@@ -12,6 +12,7 @@ export class TrajetsComponent implements OnInit {
   private trajets: Object;
   villeDepart: String;
   villeArrivee: String;
+  dateDepart: String;
 
   constructor(private trajetsService: TrajetsService) {}
 
@@ -19,8 +20,9 @@ export class TrajetsComponent implements OnInit {
    * Quand un attribut est changé
    */
   ngOnChange() {
-    console.log("Trajets a changé");
-    console.log(this.trajets);
+    // console.log("Trajets a changé");
+    // console.log(this.trajets);
+    // console.log("Date : "+ this.date);
   }
 
   ngOnInit() {

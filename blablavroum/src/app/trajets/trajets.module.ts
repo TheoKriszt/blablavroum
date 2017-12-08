@@ -10,6 +10,10 @@ import {FormsModule} from "@angular/forms";
 
 const routes: Routes = [
   {
+    path: 'trajets-recherche/:villeDepart/:villeArrivee/:dateDepart',
+    component: TrajetsRechercheComponent
+  },
+  {
     path: 'trajets-recherche/:villeDepart/:villeArrivee',
     component: TrajetsRechercheComponent
   },

@@ -7,13 +7,21 @@
     </li>
   </ul>
   <span>Recherche de
-    <input type="text" [(ngModel)]="villeDepart">
+    <input type="text" [(ngModel)]="villeDepart" placeholder="ex. Montpellier">
      à
-    <input type="text" [(ngModel)]="villeArrivee">
+    <input type="text" [(ngModel)]="villeArrivee" placeholder="ex. Lyon">
+     à partir du
+    <input type="date" [(ngModel)]="dateDepart" placeholder="aaaa-mm-dd" >
   </span>
-  <a [routerLink]="['/trajets', 'trajets-recherche', villeDepart, villeArrivee]">
-    Va chercher le trajet de {{villeDepart}} vers {{villeArrivee}}
+
+  <a *ngIf="dateDepart != undefined" [routerLink]="['/trajets', 'trajets-recherche', villeDepart, villeArrivee, dateDepart]">
+    Recherche du trajet de {{villeDepart}} vers {{villeArrivee}}à partir du {{dateDepart}}
   </a>
+
+  <a *ngIf="dateDepart == undefined" [routerLink]="['/trajets', 'trajets-recherche', villeDepart, villeArrivee]">
+    Recherche du trajet de {{villeDepart}} vers {{villeArrivee}}
+  </a>
+
   <router-outlet></router-outlet>
-  <!--<app-trajets-recherche></app-trajets-recherche>-->
-  </div>
+
+</div>

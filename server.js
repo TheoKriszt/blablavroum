@@ -95,6 +95,32 @@ mongoClient.connect(url,function(err,db){
             });
     });
 
+    app.get("/trajets/:villed/:villea/:dateDepart",function(req,res){
+
+        // changer de aaaa-mm-jj
+        // vers jj:mm:aaaa
+        var dateIn = req.params.dateDepart.split('-');
+        var dateOut = dateIn[2] + "-" + dateIn[1] + "-" + dateIn[0];
+
+        console.log("Demande de trajet par date : " + req.params.dateDepart);
+        console.log(dateIn);
+        console.log(dateOut);
+
+
+
+        db.collection("trajets").find({'depart.ville': req.params.villed, 'arrivee.ville': req.params.villea, 'date': {$ge: dateOut}})
+            .toArray(function(err,documents){
+                //récuperation du résultat
+                var json=JSON.stringify(documents);
+                //renvoie du resultat
+                res.setHeader("Content-type","application/json");
+                res.setHeader("Access-Control-Allow-Origin", "*");
+
+                res.end(json);
+                console.log(json);
+            });
+    });
+
  
 });
 
