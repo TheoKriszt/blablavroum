@@ -4,7 +4,7 @@
 - Base MongoDB avec au moins les collections
   - membres (rôle admin/non admin) (users)
   - trajets
-  - trajetsTypes (si la distance entre deux villes ne peut  être récupérée automatiquement)
+  - trajetsTypes (si la distance entre deux villes ne peut  être récupérée automatiquement) (à moins qu'on ne pase par l'API google maps)
   - vehicules
   - (Avis) (les infos peuvenet être intégrées à membres)
 - Serveur Node avec autant de services web que nécessaires

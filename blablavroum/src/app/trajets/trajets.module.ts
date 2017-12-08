@@ -5,6 +5,7 @@ import {TrajetsComponent} from "./trajets.component";
 import {HttpClientModule} from "@angular/common/http";
 import {RouterModule, Routes} from "@angular/router";
 import {TrajetsRechercheComponent} from './trajets-recherche/trajets-recherche.component';
+import {FormsModule} from "@angular/forms";
 
 
 const routes: Routes = [
@@ -16,7 +17,7 @@ const routes: Routes = [
 
 @NgModule({
   imports: [
-    CommonModule, HttpClientModule, RouterModule.forChild(routes)
+    CommonModule, HttpClientModule, RouterModule.forChild(routes), FormsModule
   ],
   exports:[TrajetsComponent, RouterModule],
   declarations: [TrajetsComponent, TrajetsRechercheComponent],
