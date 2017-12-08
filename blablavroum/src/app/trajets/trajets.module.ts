@@ -10,7 +10,7 @@ import {FormsModule} from "@angular/forms";
 
 const routes: Routes = [
   {
-    path: 'trajets-recherche',
+    path: 'trajets-recherche/:villeDepart/:villeArrivee',
     component: TrajetsRechercheComponent
   },
 ];

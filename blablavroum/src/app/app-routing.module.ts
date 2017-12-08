@@ -1,16 +1,17 @@
 import {NgModule} from "@angular/core";
 import {RouterModule, Routes} from "@angular/router";
-import {TrajetsComponent} from "./trajets/trajets.component";
-import {MembresComponent} from "./membres/membres.component";
 
 const routes: Routes = [
   {
     path: 'trajets',
-    component: TrajetsComponent
+    // component: TrajetsComponent,
+    loadChildren: './trajets/trajets.module#TrajetsModule'
   },
   {
     path: 'membres',
-    component: MembresComponent
+    // component: MembresComponent,
+    // loadChildren: MembresComponent
+    loadChildren: './membres/membres.module#MembresModule'
   }
 ];
 

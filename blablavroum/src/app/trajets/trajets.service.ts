@@ -15,7 +15,7 @@ export class TrajetsService {
   }
 
   getTrajetsRecherche(villeDepart: String, villeArrivee: String): Observable<any>{
-    console.log("getTrajetsRecherche()");
+    console.log("getTrajetsRecherche("+ this.villeDepart+", " + this.villeArrivee + ")");
 	  return this.http.get("http://localhost:8888/trajets/" + villeDepart + "/" + villeArrivee);
   }
 
