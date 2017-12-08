@@ -8,10 +8,13 @@ import {ActivatedRoute} from "@angular/router";
 })
 export class TrajetsRechercheComponent implements OnInit {
 
+  villeDepart: String;
+  villeArrivee: String;
+
   constructor(private route: ActivatedRoute) { }
 
   ngOnInit() {
-    this.route.params.subscribe(res => console.log("Invocation !"));
+    this.route.params.subscribe(res => console.log("Invocation de trajets-recherche"));
 
   }
 
