@@ -1,3 +1,8 @@
-<p>
-  trajets-recherche works!
-</p>
+<div>
+  Voici le(s) resulat(s) de votre recherche :
+  <ul>
+    <li *ngFor = "let trajet of trajets">
+      De {{trajet.depart.ville}} à {{trajet.arrivee.ville}} le {{trajet.date}} à {{trajet.heure}}.
+	    Ce trajet coûte {{trajet.prix}}€.
+    </li>
+  </div>

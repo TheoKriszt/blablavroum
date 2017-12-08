@@ -14,4 +14,9 @@ export class TrajetsService {
 	  return this.http.get("http://localhost:8888/trajets");
   }
 
+  getTrajetsRecherche(): Observable<any>{
+    console.log("getTrajetsRecherche()");
+	  return this.http.get("http://localhost:8888/trajets/" + villeDepart + "/" + villeArrivee);
+  }
+
 }
