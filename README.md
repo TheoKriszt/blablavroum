@@ -1,8 +1,22 @@
-# blablavroum
-Projet site de covoiturage en stack MEAN
+# Blablavroum
+Computer Science Master degree project consisting in mimicking a famous carpooling website using a MEAN (MongoDB, Express, Angular, NodeJS) stack.
 
-# Usage en local (dev mode)
-- Lancer npm install sur blablavroum/blablavroum
-- Lancer une instance de NodeJS sur serveur.js
-- Lancer Angular par ng serve -o
-- Naviguer vers http://localhost:4200
+Projet généré avec [Angular CLI](https://github.com/angular/angular-cli) version 1.4.3.
+
+## Development server
+
+Clone this repo via `git clone`
+
+You can populate mongoDB with test examples provided in `res/json/inserts`
+
+Select download directory `cd blablavroum`
+
+Launch Node.js server `node server` 
+
+Make sure node packets are installed with `npm install`
+
+Run `ng serve -o` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+
+## Build
+
+Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `-prod` flag for a production build.
