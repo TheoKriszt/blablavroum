@@ -1,0 +1,19 @@
+<div class="loginBox">
+  <div *ngIf="!isLogged">
+    <button [routerLink]="['/inscription']" class="btn btn-primary">Inscription</button>
+    <button [routerLink]="['/login']" class="btn btn-primary">Connexion</button>
+  </div>
+
+  <div *ngIf="isLogged">
+    <div>
+      <h2 >
+        <!--<i class="">  &#xE072 hello</i>-->
+        <a [routerLink]="['/dashboard']" >
+          <i class="fa fa-user-circle-o"></i>{{displayedName}} </a>
+      </h2>
+    </div>
+
+    <button (click)="logout()" class="btn btn-primary">déconnexion</button>
+
+  </div>
+</div>

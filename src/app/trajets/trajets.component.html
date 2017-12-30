@@ -1,0 +1,49 @@
+
+<form name="searchForm" (ngSubmit)="searchForm.form.valid && submitTripSearch() " #searchForm="ngForm" novalidate>
+
+  <div class="form-group" [ngClass]="{ 'has-error': searchForm.submitted && !villeDepart.valid }">
+    <label for="villeDepart">Ville de départ</label>
+    <input type="text" class="form-control" name="villeDepart" [(ngModel)]="formModel.villeDepart" #villeDepart="ngModel" required />
+    <div *ngIf="searchForm.submitted && !villeDepart.valid" class="help-block">Champ manquant</div>
+  </div>
+
+  <div (click)="swap()" class="swap-arrow fa fa-arrows-h fa-4x"></div>
+
+  <div class="form-group" [ngClass]="{ 'has-error': searchForm.submitted && !villeArrivee.valid }">
+    <label for="villeArrivee">Ville d'arrivée</label>
+    <input type="text" class="form-control" name="villeArrivee" [(ngModel)]="formModel.villeArrivee" #villeArrivee="ngModel" required />
+    <div *ngIf="searchForm.submitted && !villeArrivee.valid" class="help-block">Champ manquant</div>
+  </div>
+
+  <div class="form-group" [ngClass]="{ 'has-error': searchForm.submitted && !villeArrivee.valid }">
+    <label for="dateDepart">Date</label>
+    <input type="date" class="form-control" name="dateDepart" [(ngModel)]="formModel.dateDepart" #dateDepart="ngModel"/>
+  </div>
+
+
+  <div class="form-group">
+    <button [disabled]="loading" class="btn btn-primary">Recherche</button>
+    <img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+  </div>
+
+</form>
+
+
+<!--<span>-->
+      <!--Rechercher de-->
+      <!--<input type="text" [(ngModel)]="villeDepart" placeholder="ex. Montpellier" >-->
+       <!--<span class="arrow-ie">→</span>-->
+      <!--<input type="text" [(ngModel)]="villeArrivee" placeholder="ex. Lyon" >-->
+      <!--<input type="date" [(ngModel)]="dateDepart" >-->
+
+  <!--</span>-->
+
+<!--<a *ngIf="dateDepart != undefined && dateDepart !=  ''" [routerLink]="['/trajets', 'trajets-recherche', villeDepart, villeArrivee, dateDepart]">-->
+  <!--&lt;!&ndash;Recherche du trajet de {{villeDepart}} vers {{villeArrivee}} à partir du {{dateDepart}}&ndash;&gt;-->
+  <!--<button class="trip-search-submit" type="submit">Chercher un trajet</button>-->
+<!--</a>-->
+
+<!--<a *ngIf="dateDepart == undefined || dateDepart == ''" [routerLink]="['/trajets', 'trajets-recherche', villeDepart, villeArrivee]">-->
+  <!--&lt;!&ndash;Recherche du trajet de {{villeDepart}} vers {{villeArrivee}}&ndash;&gt;-->
+  <!--<button class="trip-search-submit" type="submit">Chercher un trajet</button>-->
+<!--</a>-->

@@ -1,7 +1,10 @@
 # Blablavroum
 Computer Science Master degree project consisting in mimicking a famous carpooling website using a MEAN (MongoDB, Express, Angular, NodeJS) stack.
 
-Projet généré avec [Angular CLI](https://github.com/angular/angular-cli) version 1.4.3.
+Project generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.4.3.
+
+## Demo
+Hopefully, if it's maintained, you can find a demo of the app [here](http://theo.kriszt.fr:4200)
 
 ## Development server
 
@@ -11,7 +14,7 @@ You can populate mongoDB with test examples provided in `res/json/inserts`
 
 Select download directory `cd blablavroum`
 
-Launch Node.js server `node server` 
+Launch Node.js server `node server.js` 
 
 Make sure node packets are installed with `npm install`
 

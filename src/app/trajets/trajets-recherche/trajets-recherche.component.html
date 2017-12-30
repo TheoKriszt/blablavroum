@@ -1,0 +1,57 @@
+<div *ngIf="!gotResults()">
+  <p> Aucun trajet ne correspond à votre recherche. <br>
+      Essayez peut-être à une autre date.</p>
+</div>
+
+<div *ngIf="gotResults()">
+  Voici le(s) resulat(s) de votre recherche :
+  <ul class="trips-list">
+    <li *ngFor = "let trajet of trajets" class="trip">
+      <a class="trip-search-oneresult"> <!-- Lien vers le trajet en détail -->
+      De {{trajet.depart.ville}} ({{trajet.depart.adresse}}) à {{trajet.arrivee.ville}} ({{trajet.arrivee.adresse}}) le {{trajet.date}} à {{trajet.heure}}.
+	    Ce trajet coûte {{trajet.prix}}€.
+      </a>
+    </li>
+  </ul>
+</div>
+<!---->
+<!--<a>-->
+  <!--<div class="userPicture condensedPicture"></div>-->
+  <!--<div class="infoBlock">-->
+    <!--<h2 class="ProfileCard-info ProfileCard-info&#45;&#45;name u-truncate"> Morgan B </h2>-->
+    <!--<div class="ProfileCard-info">30 ans</div>-->
+    <!--<div class="ProfileCard-row">-->
+      <!--<p class="ratings-container">-->
+        <!--<i class="bbc-icon2-star u-yellow" aria-hidden="true"></i>-->
+        <!--<span class="u-textBold u-darkGray">5/5</span><span class="u-gray"> - 4 avis</span>-->
+      <!--</p>-->
+    <!--</div>-->
+  <!--</div>-->
+  <!--<div class="description span5">-->
+    <!--<h3 class="time u-darkGray" itemprop="startDate" content="2017-12-27">Aujourd'hui à 22:30</h3>-->
+    <!--<h3 class="fromto" itemprop="name">-->
+      <!--<span class="from trip-roads-stop">Montpellier</span>-->
+      <!--<span class="arrow-ie">→</span>-->
+      <!--<span class="trip-roads-stop">Saint-Priest</span>-->
+    <!--</h3>-->
+    <!--<dl class="geo-from">-->
+      <!--<dt>-->
+        <!--<i class="bbc-icon2-circle first size16 u-green" title="Départ"></i>-->
+      <!--</dt>-->
+      <!--<dd class="js-tip-custom" data-hasqtip="8" oldtitle="Départ" title="" aria-describedby="qtip-8">-->
+        <!--Odysseum, Montpellier-->
+      <!--</dd>-->
+    <!--</dl>-->
+    <!--<div class="availability">-->
+      <!--<strong>2</strong> <span>places restantes</span>-->
+    <!--</div>-->
+  <!--</div>-->
+
+<!--</a>-->
+
+
+
+    <!--</div>-->
+  <!--</article>-->
+<!--</a>-->
+

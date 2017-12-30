@@ -4,17 +4,15 @@
     <option name="serverConfigurations">
       <list>
         <ServerConfiguration>
-          <option name="connectOnIdeStartup" value="true" />
-          <option name="label" value="mongo_local" />
           <option name="serverUrls">
             <list>
-              <option value="localhost:27017" />
+              <option value="theo.kriszt.fr:27017" />
             </list>
           </option>
-          <option name="shellWorkingDir" value="$PROJECT_DIR$/res/json/inserts" />
           <option name="sshTunnelingConfiguration">
             <SshTunnelingConfiguration />
           </option>
+          <option name="userDatabase" value="Covoit" />
         </ServerConfiguration>
       </list>
     </option>

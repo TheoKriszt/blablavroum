@@ -1,0 +1,33 @@
+/*@import '~font-awesome/css/font-awesome.css';*/
+
+body {
+  font-family: Tahoma,Verdana,Segoe,sans-serif;
+  background: #f2f2f2;
+}
+
+.text-header {
+  text-align: center;
+}
+
+.search-header {
+  float: left;
+}
+
+.loginBox {
+  /*width: 20%;*/
+  float: right;
+  margin-right: 2em;
+
+}
+.spacer {
+  display: block;
+  clear: both;
+  width:100%;
+  height: 1em;
+}
+
+.container {
+  background: white;
+}
+
+

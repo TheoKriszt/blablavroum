@@ -1,11 +1,11 @@
-#!/usr/bin/env bash
+#!/bin/sh
+
+#./stop_angular.sh
+
 mongoimport --db Covoit --collection vehicules --file vehicules.json --jsonArray
 mongoimport --db Covoit --collection membres --file membres.json --jsonArray
 mongoimport --db Covoit --collection trajets --file trajets.json --jsonArray
 
-# Dans mongo
-# show dbs
-# use Covoit
-# show collections
-# db.membres.find({'prenom':'Marin'})
-# db.dropDatabase()
+
+#killall ng
+#killall node

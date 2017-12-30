@@ -1,0 +1,29 @@
+.trip-search-submit:focus {
+  text-decoration: none;
+  background-color: #005293;
+}
+
+.trip-search-submit {
+  cursor: pointer;
+  background-color: #0086BF;
+  color: #fff !important;
+  text-align: center;
+  vertical-align: middle;
+}
+
+.form-group{
+  float: left;
+  margin-left: 2em;
+}
+
+.form-group button {
+  margin-top: 25px;
+}
+
+.swap-arrow {
+  float: left;
+  margin-left: 0.5em;
+  /*margin-right: 0.5em;*/
+  margin-top: 0.25em;
+}
+
