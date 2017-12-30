@@ -1,0 +1,11 @@
+
+a {
+  cursor: pointer;
+  color: #0086BF;
+  font-weight:700;
+  text-decoration: none;
+}
+
+a:focus, a:hover, a:active {
+  color: #005293;
+}

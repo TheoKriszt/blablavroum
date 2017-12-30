@@ -1,25 +1,28 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnChanges, OnInit} from '@angular/core';
 import { MembresService } from './membres.service';
+import {AuthService} from './auth/auth.service';
 
 @Component({
   selector: 'app-membres',
   templateUrl: './membres.component.html',
   styleUrls: ['./membres.component.css']
 })
-export class MembresComponent implements OnInit {
+export class MembresComponent implements OnInit{
 
-  private membres: Object[];
+  // private membres: Object[];
+  private model : any;
+  private isLoggedIn: boolean = false;
 
-  constructor(private membresService: MembresService) { }
+  constructor(private authService : AuthService) { }
 
-  ngOnChange() {
-    console.log("Membres a changé");
-    console.log(this.membres);
-  }
 
   ngOnInit() {
     console.log("Chargement du composant membres");
-    this.membresService.getMembres().subscribe(res => this.membres = res);
+    // this.membresService.getMembres().subscribe(res => this.membres = res);
+    // this.authService.login()
+
+
+
   }
 
 }

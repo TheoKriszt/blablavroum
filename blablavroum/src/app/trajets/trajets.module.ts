@@ -21,9 +21,9 @@ const routes: Routes = [
 
 @NgModule({
   imports: [
-    CommonModule, HttpClientModule, RouterModule.forChild(routes), FormsModule
+    CommonModule, HttpClientModule, FormsModule ,RouterModule.forChild(routes)
   ],
-  exports:[TrajetsComponent, RouterModule],
+  exports:[TrajetsComponent, TrajetsRechercheComponent,  RouterModule], // elements que le module altère ou ajoute
   declarations: [TrajetsComponent, TrajetsRechercheComponent],
   providers: [TrajetsService]
 })

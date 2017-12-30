@@ -1,0 +1,15 @@
+<div class="loginBox">
+  <div *ngIf="!isLogged" class="signinButton">
+    <a [routerLink]="['/inscription']">
+      Inscription
+    </a>
+    <a [routerLink]="['/login']">
+      Connexion
+    </a>
+  </div>
+
+  <div *ngIf="isLogged" class="signinButton">
+    {{displayedName}} is logged
+    <button (click)="logout()" >Logout</button>
+  </div>
+</div>

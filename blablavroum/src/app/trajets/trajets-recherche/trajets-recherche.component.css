@@ -1,0 +1,82 @@
+a {
+  text-decoration: none;
+}
+
+
+.trip {
+  list-style: none;
+}
+.trip-search-oneresult {
+  padding:12px 0;
+  display:block;
+  color:#727272;
+  border-right:4px solid transparent
+}
+.trip-search-oneresult:hover {
+  color:#727272;
+  background:#eff8fd
+}
+.trip-search-oneresult .time {
+  font-weight:bold;
+  font-size:19px;
+  line-height:27px
+}
+.trip-search-oneresult .approximate-time {
+  font-family:Arial,Helvetica,sans-serif;
+  color:#727272;
+  font-size:15px
+}
+.trip-search-oneresult .fromto {
+  font-size:16px;
+  margin-bottom:11px;
+  color:#ADAFAF
+}
+.trip-search-oneresult .fromto .trip-roads-stop {
+  color:#413D35
+}
+.trip-search-oneresult .fromto .icon-right-arrow {
+  vertical-align:baseline
+}
+.trip-search-oneresult .price {
+  margin-bottom:1px;
+  min-height:61px
+}
+.trip-search-oneresult .price strong {
+  font-size:34px;
+  line-height:30px;
+  font-family:Arial,Helvetica,sans-serif;
+  font-weight:bold
+}
+.trip-search-oneresult .price .price-flex {
+  border-radius:10px
+}
+.trip-search-oneresult .price .price-flex>span {
+  padding:10px
+}
+.trip-search-oneresult .price .price-original {
+  vertical-align:3px
+}
+.trip-search-oneresult .price .priceUnit {
+  display:block
+}
+.trip-search-oneresult .user {
+  width:190px
+}
+.trip-search-oneresult .description {
+  width:348px;
+  margin:0 0 0 5px
+}
+.trip-search-oneresult .offer {
+  margin:0 12px 0 0;
+  float:left
+}
+.trip-search-oneresult .offer .viaggio-rosa {
+  margin:-5px 0
+}
+.viaggio-rosa {
+  background:transparent url(/images/icons/viaggio-rosa.png) no-repeat;
+  display:inline-block;
+  float:right;
+  height:38px;
+  width:37px
+}

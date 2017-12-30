@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, isDevMode, OnInit} from '@angular/core';
 import {TrajetsService} from './trajets.service';
 
 
@@ -9,25 +9,23 @@ import {TrajetsService} from './trajets.service';
 })
 
 export class TrajetsComponent implements OnInit {
-  private trajets: Object;
+  trajets: Object;
   villeDepart: String;
   villeArrivee: String;
   dateDepart: String;
 
-  constructor(private trajetsService: TrajetsService) {}
+  //correspondTrips : Object[] = [];
 
-  /**
-   * Quand un attribut est changé
-   */
-  ngOnChange() {
-    // console.log("Trajets a changé");
-    // console.log(this.trajets);
-    // console.log("Date : "+ this.date);
+  constructor(private trajetsService: TrajetsService) {
+    this.villeArrivee = "Lyon";
+    this.villeDepart = "Montpellier";
   }
 
   ngOnInit() {
-    console.log("Chargement du composant trajets");
-    this.trajetsService.getTrajets().subscribe(res => this.trajets = res);
+    // Plus besoin de lister tous les trajets dès le debut
+    // this.trajetsService.getTrajets().subscribe(res => {
+    //   return this.trajets = res;
+    // });
   }
 
 }

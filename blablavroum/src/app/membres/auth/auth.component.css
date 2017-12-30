@@ -1,0 +1,12 @@
+.error {
+  color: darkred;
+}
+
+.signinButton {
+  float: left;
+}
+
+#loginForm {
+  display: block;
+  float: right;
+}

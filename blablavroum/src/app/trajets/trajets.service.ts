@@ -1,31 +1,35 @@
-import {Injectable} from '@angular/core';
-import {HttpClient} from "@angular/common/http";
-import {Observable} from "rxjs/Observable";
-import {isNullOrUndefined} from "util";
+import {Injectable, isDevMode} from '@angular/core';
+import {HttpClient} from '@angular/common/http';
+import {Observable} from 'rxjs/Observable';
+import 'rxjs/add/operator/map';
 
 @Injectable()
 export class TrajetsService {
 
-  constructor(private http: HttpClient) {}
+  // headers: Headers;
+
+  nodePort = 8888;
+  baseUrl = (!isDevMode() ? 'http://theo.kriszt.fr:' : 'http://localhost:') + this.nodePort; // si en prod, va chercher sur le serveur, sinon sur le mongoDB local
+
+  constructor(private http: HttpClient) {
+    // this.headers= new Headers();
+    // this.headers.append('Access-Control-Allow-Origin', '*');
+  }
+
 
   getTrajets(): Observable<any>{
-    console.log("getTrajets()");
-	  return this.http.get("http://localhost:8888/trajets");
+    console.log('getTrajets()');
+    var res = this.http.get(this.baseUrl + '/trajets');
+	  return res;
   }
 
   getTrajetsRecherche(villeDepart: String, villeArrivee: String): Observable<any>{
-    console.log("getTrajetsRecherche("+ villeDepart+", " + villeArrivee + ")");
-
-    if(isNullOrUndefined(villeArrivee) || isNullOrUndefined(villeDepart)){
-      villeArrivee = "";
-      villeDepart = "";
-    } else return this.http.get("http://localhost:8888/trajets/" + villeDepart + "/" + villeArrivee);
+    console.log('getTrajetsRecherche('+ villeDepart+', ' + villeArrivee + ')');
+    return this.http.get(this.baseUrl + '/trajets/' + villeDepart + '/' + villeArrivee);//.map((response: Response) => response.json());
   }
 
   getTrajetsRechercheDate(villeDepart: String, villeArrivee: String, dateDepart: String) {
-    console.log("getTrajetsRecherche("+ villeDepart+", " + villeArrivee + ", " + dateDepart + ")");
-
-    return this.http.get("http://localhost:8888/trajets/" + villeDepart + "/" + villeArrivee + "/" + dateDepart);
-
+    console.log('getTrajetsRechercheDate('+ villeDepart+', ' + villeArrivee + ', ' + dateDepart + ')');
+    return this.http.get(this.baseUrl + '/trajets/' + villeDepart + '/' + villeArrivee + '/' + dateDepart);
   }
 }

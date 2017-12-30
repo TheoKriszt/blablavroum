@@ -1,10 +1,22 @@
 [
   {
+    "nom": "tt",
+    "prenom" : "tt",
+    "mail" : "tt",
+    "telephone" : "069858447",
+    "age":"42",
+    "password": "tt",
+    "adresse" : "404, Impasse du test, Montpellier",
+    "role" : ["admin", "membre"],
+    "vehicule_ids":["5a057bab0bb1f227d5cbd8eb"]
+  },
+  {
     "nom": "Dodard",
     "prenom" : "Mathieu",
     "mail" : "mathieu.dodard@covoit.fr",
     "telephone" : "069858447",
     "age":"21",
+    "password": "1234",
     "adresse" : "Montpellier",
     "role" : ["admin", "membre"],
     "vehicule_ids":["5a057bab0bb1f227d5cbd8eb"]
@@ -15,6 +27,7 @@
     "mail" : "theo.kriszt@covoit.fr",
     "telephone" : "45324245",
     "age":"22",
+    "password": "1234",
     "adresse" : "Marseille",
     "role" : ["admin", "membre"],
     "vehicule_ids":["5a057bab0bb1f227d5cbd8ea"]
@@ -25,6 +38,7 @@
     "mail" : "quentin.monod@covoit.fr",
     "telephone" : "45574465",
     "age":"21",
+    "password": "1234",
     "adresse" : "Lyon",
     "role" : ["membre"],
     "vehicule_ids":["5a057bab0bb1f227d5cbd8e7"]
@@ -35,6 +49,7 @@
     "mail" : "theo.kriszt@covoit.fr",
     "telephone" : "0698532447",
     "age":"22",
+    "password": "1234",
     "adresse" : "Lille",
     "role" : ["membre"],
     "vehicule_ids":[""]
@@ -45,6 +60,7 @@
     "mail" : "louis.daviaud@covoit.fr",
     "telephone" : "064858447",
     "age":"54",
+    "password": "1234",
     "adresse" : "Toulouse",
     "role" : ["admin", "membre"],
     "vehicule_ids":["5a057bab0bb1f227d5cbd8e8"]
@@ -55,6 +71,7 @@
     "mail" : "anthony.chaillot@covoit.fr",
     "telephone" : "069898447",
     "age":"65",
+    "password": "1234",
     "adresse" : "Montpellier",
     "role" : ["membre"],
     "vehicule_ids":["5a057bab0bb1f227d5cbd8e9"]
@@ -65,6 +82,7 @@
     "mail" : "louis.bellandras@covoit.fr",
     "telephone" : "469858447",
     "age":"23",
+    "password": "1234",
     "adresse" : "Marseille",
     "role" : ["membre"],
     "vehicule_ids":[]
@@ -75,6 +93,7 @@
     "mail" : "nicolas.teron@covoit.fr",
     "telephone" : "069858457",
     "age":"21",
+    "password": "1234",
     "adresse" : "Amiens",
     "role" : ["admin"],
     "vehicule_ids":[]
@@ -85,6 +104,7 @@
     "mail" : "guy.guy@covoit.fr",
     "telephone" : "060858447",
     "age":"21",
+    "password": "1234",
     "adresse" : "Tourcoing",
     "role" : ["admin"],
     "vehicule_ids":[]

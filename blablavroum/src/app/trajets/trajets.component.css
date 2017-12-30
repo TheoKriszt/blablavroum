@@ -1,0 +1,12 @@
+.trip-search-submit:focus {
+  text-decoration: none;
+  background-color: #005293;
+}
+
+.trip-search-submit {
+  cursor: pointer;
+  background-color: #0086BF;
+  color: #fff !important;
+  text-align: center;
+  vertical-align: middle;
+}
