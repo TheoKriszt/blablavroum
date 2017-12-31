@@ -6,6 +6,10 @@ import {HttpClientModule} from "@angular/common/http";
 import {RouterModule, Routes} from "@angular/router";
 import {TrajetsRechercheComponent} from './trajets-recherche/trajets-recherche.component';
 import {FormsModule} from "@angular/forms";
+import { TripProposalComponent } from './trip-proposal/trip-proposal.component';
+import { ProposedTripsComponent } from './proposed-trips/proposed-trips.component';
+import {AuthGuard} from "../guards/auth-guard";
+import {CalendarModule} from "primeng/primeng";
 
 
 const routes: Routes = [
@@ -17,14 +21,19 @@ const routes: Routes = [
     path: 'trajets-recherche/:villeDepart/:villeArrivee',
     component: TrajetsRechercheComponent
   },
+  {
+    path: 'trip-proposal',
+    component: TripProposalComponent,
+    canActivate: [AuthGuard]
+  }
 ];
 
 @NgModule({
   imports: [
-    CommonModule, HttpClientModule, FormsModule ,RouterModule.forChild(routes)
+    CommonModule, HttpClientModule, FormsModule ,RouterModule.forChild(routes), CalendarModule
   ],
-  exports:[TrajetsComponent, TrajetsRechercheComponent,  RouterModule], // elements que le module altère ou ajoute
-  declarations: [TrajetsComponent, TrajetsRechercheComponent],
-  providers: [TrajetsService]
+  exports:[TrajetsComponent, TrajetsRechercheComponent,  RouterModule, TripProposalComponent, ProposedTripsComponent], // exports pour utilisation dans un autre module (membres dashboard)
+  declarations: [TrajetsComponent, TrajetsRechercheComponent, TripProposalComponent, ProposedTripsComponent],
+  providers: [TrajetsService, AuthGuard]
 })
 export class TrajetsModule { }

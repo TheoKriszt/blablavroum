@@ -17,20 +17,28 @@ export class TrajetsService {
 
   constructor(private http: HttpClient) {}
 
-
-  // getTrajets(): Observable<any>{
-  //   console.log('getTrajets()');
-  //   var res = this.http.get(this.baseUrl + '/trajets');
-	//   return res;
-  // }
-
   getTrajetsRecherche(villeDepart: String, villeArrivee: String): Observable<any>{
     console.log('getTrajetsRecherche('+ villeDepart+', ' + villeArrivee + ')');
-    return this.http.get(this.baseUrl + '/trajets/' + villeDepart + '/' + villeArrivee);//.map((response: Response) => response.json());
+    return this.http.get(this.baseUrl + '/trajets/' + villeDepart + '/' + villeArrivee);
   }
 
-  getTrajetsRechercheDate(villeDepart: String, villeArrivee: String, dateDepart: String) {
-    console.log('getTrajetsRechercheDate('+ villeDepart+', ' + villeArrivee + ', ' + dateDepart + ')');
+  getTrajetsRechercheDate(villeDepart: String, villeArrivee: String, dateDepart: String): Observable <any> {
+    // console.log('getTrajetsRechercheDate('+ villeDepart+', ' + villeArrivee + ', ' + dateDepart + ')');
     return this.http.get(this.baseUrl + '/trajets/' + villeDepart + '/' + villeArrivee + '/' + dateDepart);
+  }
+
+  getMesTrajetsProposes(user_id: string): Observable <any> {
+    return this.http.get(this.baseUrl + '/trajets/' + user_id);
+  }
+
+  create(model: any): Observable <any>{
+    // console.log('Creation d\'un trajet');
+    let body: any = model;
+    console.log(body);
+
+    let url: string = this.baseUrl + '/trajets';
+    let headers = new Headers({'Content-Type': 'application/json'});
+
+    return this.http.post(url, body, headers);
   }
 }

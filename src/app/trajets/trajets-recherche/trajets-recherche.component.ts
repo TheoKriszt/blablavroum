@@ -1,8 +1,7 @@
-import {Component, Input, OnChanges, OnInit, SimpleChanges} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {TrajetsService} from '../trajets.service';
-import {isArray, isNullOrUndefined} from 'util';
-import {isEmpty} from "rxjs/operator/isEmpty";
+import {isNullOrUndefined} from 'util';
 
 @Component({
   selector: 'app-trajets-recherche',

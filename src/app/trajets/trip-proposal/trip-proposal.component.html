@@ -1,0 +1,79 @@
+<div class="col-md-6 col-md-offset-3">
+  <h2>Proposer un nouveau trajet</h2>
+
+  <form name="proposeForm" (ngSubmit)="proposeForm.form.valid && submit()" #proposeForm="ngForm" novalidate>
+
+    <div class="form-group" [ngClass]="{ 'has-error': proposeForm.submitted && !villeDepart.valid }">
+      <label for="villeDepart">Ville de départ</label>
+      <input type="text" class="form-control" name="villeDepart" [(ngModel)]="model.villeDepart" #villeDepart="ngModel" required />
+      <div *ngIf="proposeForm.submitted && !villeDepart.valid" class="help-block">Vous devez indiquer une ville de départ</div>
+    </div>
+
+    <div class="form-group">
+      <label for="adresseDepart">Adresse du départ</label>
+      <input type="text" class="form-control" name="adresseDepart" [(ngModel)]="model.adresseDepart" #adresseDepart="ngModel"/>
+    </div>
+
+    <div class="form-group" [ngClass]="{ 'has-error': proposeForm.submitted && !villeArrivee.valid }">
+      <label for="villeArrivee">Ville d'arrivée</label>
+      <input type="text" class="form-control" name="villeArrivee" [(ngModel)]="model.villeArrivee" #villeArrivee="ngModel" required />
+      <div *ngIf="proposeForm.submitted && !villeArrivee.valid" class="help-block">Vous devez indiquer une ville de destination</div>
+    </div>
+
+    <div class="form-group">
+      <label for="adresseArrivee">Adresse d'arrivée</label>
+      <input type="text" class="form-control" name="adresseArrivee" [(ngModel)]="model.adresseArrivee" #adresseArrivee="ngModel"/>
+    </div>
+
+    <div class="form-group" [ngClass]="{ 'has-error': proposeForm.submitted && !dateDepart.valid }">
+      <label for="dateDepart">Date du départ</label>
+      <input type="date" class="form-control" name="dateDepart" [(ngModel)]="model.dateDepart" #dateDepart="ngModel" required />
+      <div *ngIf="proposeForm.submitted && !dateDepart.valid" class="help-block">Vous devez entrer une date pour le départ</div>
+    </div>
+
+    <!--<div class="form-group" [ngClass]="{ 'has-error': proposeForm.submitted && (!heureDepart.valid)}">-->
+      <!--<label for="heureDepart">Heure du départ</label>-->
+
+      <!--<p-calendar formControlName="value" timeOnly="true"></p-calendar>-->
+    <div class="form-group">
+      <label for="heureDepart">Heure du départ</label>
+      <p-calendar name="heureDepart" [(ngModel)]="heureDepart" timeOnly="true"></p-calendar>
+    </div>
+
+
+
+      <!--<input type="text" class="form-control" name="heureDepart" [(ngModel)]="model.heureDepart" #heureDepart="ngModel" required pattern="[0-9]*"-->
+             <!--minlength="1"-->
+             <!--maxlength="2" /> h-->
+      <!--<input type="text" class="form-control" name="minuteDepart" [(ngModel)]="model.minuteDepart" #minuteDepart="ngModel" required pattern="[0-9]*"-->
+             <!--minlength="1"-->
+             <!--maxlength="2"/> min-->
+      <!--<div *ngIf="proposeForm.submitted && (!heureDepart.valid )" class="help-block">Vous devez préciser l'heure du départ</div>-->
+    <!--</div>-->
+
+
+    <!--<p-calendar [(ngModel)]="value" showDate="false" showTime="true" hourFormat="24"></p-calendar>-->
+
+    <div class="form-group" [ngClass]="{ 'has-error': proposeForm.submitted && !prix.valid }">
+      <label for="prix">Prix par place</label>
+      <input type="text" class="form-control" name="prix" [(ngModel)]="model.prix" #prix="ngModel" required pattern="[0-9]*"
+             minlength="1"
+             maxlength="3"/>
+      <div *ngIf="proposeForm.submitted && !prix.valid" class="help-block">Le prix par place doit être indiqué</div>
+    </div>
+
+    <div class="form-group" [ngClass]="{ 'has-error': proposeForm.submitted && !nbPlaces.valid }">
+      <label for="nbPlaces">Nombre de places proposées</label>
+      <input type="text" class="form-control" name="nbPlaces" [(ngModel)]="model.nbPlaces" #nbPlaces="ngModel" required pattern="[0-9]*"
+             minlength="1"
+             maxlength="2"/>
+      <div *ngIf="proposeForm.submitted && !nbPlaces.valid" class="help-block">Vous devez préciser combien de places sont réservables</div>
+    </div>
+
+    <div class="form-group">
+      <button [disabled]="loading" class="btn btn-primary">Proposer un trajet</button>
+      <img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+      <a [routerLink]="['/dashboard']" class="btn btn-link">Annuler</a>
+    </div>
+  </form>
+</div>

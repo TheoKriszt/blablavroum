@@ -7,6 +7,7 @@ import {MembresModule} from './membres/membres.module';
 import {RouterModule} from '@angular/router';
 import {AppRoutingModule} from './app-routing.module';
 import {AuthGuard} from "./guards/auth-guard";
+import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 
 
 @NgModule({
@@ -14,7 +15,7 @@ import {AuthGuard} from "./guards/auth-guard";
     AppComponent
   ],
   imports: [
-    BrowserModule, TrajetsModule, MembresModule, RouterModule, AppRoutingModule
+    BrowserModule, BrowserAnimationsModule, TrajetsModule, MembresModule, RouterModule, AppRoutingModule
   ],
   providers: [AuthGuard],
   bootstrap: [AppComponent]

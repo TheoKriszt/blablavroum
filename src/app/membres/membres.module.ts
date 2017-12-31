@@ -11,6 +11,8 @@ import {RouterModule, Routes} from '@angular/router';
 import { LoginComponent } from './auth/login/login.component';
 import {AuthService} from './auth/auth.service';
 import {AuthGuard} from "../guards/auth-guard";
+import {TripProposalComponent} from "../trajets/trip-proposal/trip-proposal.component";
+import {TrajetsModule} from "../trajets/trajets.module";
 
 const routes: Routes = [
   {
@@ -30,7 +32,7 @@ const routes: Routes = [
 
 @NgModule({
   imports: [
-    CommonModule, HttpClientModule, BrowserModule, FormsModule, ReactiveFormsModule, RouterModule.forChild(routes)
+    CommonModule, HttpClientModule, BrowserModule, FormsModule, ReactiveFormsModule, RouterModule.forChild(routes), TrajetsModule
   ],
   declarations: [MembresComponent, AuthComponent, InscriptionComponent, LoginComponent],
   exports: [MembresComponent, AuthComponent, InscriptionComponent, LoginComponent],

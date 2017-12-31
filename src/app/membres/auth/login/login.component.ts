@@ -35,6 +35,9 @@ export class LoginComponent implements OnInit, OnChanges {
     this.authService.login(this.model.mail, this.model.password)
       .subscribe(res => {
         this.loading = false;
+        if(this.returnUrl == '/'){
+          this.returnUrl = '/dashboard';
+        }
         console.log('LoginComponent : redirection vers ' + this.returnUrl)
         this.router.navigate([this.returnUrl]);
       });

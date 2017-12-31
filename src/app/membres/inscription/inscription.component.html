@@ -14,7 +14,7 @@
     </div>
     <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !mail.valid }">
       <label for="mail">Email</label>
-      <input type="text" class="form-control" name="mail" [(ngModel)]="model.mail" #mail="ngModel" required />
+      <input type="text" class="form-control" name="mail" [(ngModel)]="model.mail" #mail="ngModel" required pattern="^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$" />
       <div *ngIf="f.submitted && !mail.valid" class="help-block">Un email valide est obligatoire</div>
     </div>
     <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !password.valid }">

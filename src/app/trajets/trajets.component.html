@@ -15,7 +15,7 @@
     <div *ngIf="searchForm.submitted && !villeArrivee.valid" class="help-block">Champ manquant</div>
   </div>
 
-  <div class="form-group" [ngClass]="{ 'has-error': searchForm.submitted && !villeArrivee.valid }">
+  <div class="form-group">
     <label for="dateDepart">Date</label>
     <input type="date" class="form-control" name="dateDepart" [(ngModel)]="formModel.dateDepart" #dateDepart="ngModel"/>
   </div>
@@ -27,23 +27,3 @@
   </div>
 
 </form>
-
-
-<!--<span>-->
-      <!--Rechercher de-->
-      <!--<input type="text" [(ngModel)]="villeDepart" placeholder="ex. Montpellier" >-->
-       <!--<span class="arrow-ie">→</span>-->
-      <!--<input type="text" [(ngModel)]="villeArrivee" placeholder="ex. Lyon" >-->
-      <!--<input type="date" [(ngModel)]="dateDepart" >-->
-
-  <!--</span>-->
-
-<!--<a *ngIf="dateDepart != undefined && dateDepart !=  ''" [routerLink]="['/trajets', 'trajets-recherche', villeDepart, villeArrivee, dateDepart]">-->
-  <!--&lt;!&ndash;Recherche du trajet de {{villeDepart}} vers {{villeArrivee}} à partir du {{dateDepart}}&ndash;&gt;-->
-  <!--<button class="trip-search-submit" type="submit">Chercher un trajet</button>-->
-<!--</a>-->
-
-<!--<a *ngIf="dateDepart == undefined || dateDepart == ''" [routerLink]="['/trajets', 'trajets-recherche', villeDepart, villeArrivee]">-->
-  <!--&lt;!&ndash;Recherche du trajet de {{villeDepart}} vers {{villeArrivee}}&ndash;&gt;-->
-  <!--<button class="trip-search-submit" type="submit">Chercher un trajet</button>-->
-<!--</a>-->

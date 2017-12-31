@@ -5,11 +5,19 @@
 - ~~Bouger le server.js dans un endroit plus logique~~
 - ~~Mettre message quand aucun trajet trouvé~~
 - rendre la recherche de trajet insensible à la casse
-- ajouter verif formulaire avant envoi de recherche
-- retirer le Montpellier -> Lyon par défaut
-- faire qu'un admin puisse rendre un utilisateur admin
+- ~~ajouter verif formulaire avant envoi de recherche~~
+- faire qu'un admin puisse promouvoir / révoquer un utilisateur admin
 - pouvoir lister/supprimer un user depuis l'interface admin
 - mettre l'affichage des dates des trajets au format français
+- 
+
+##Nouveaux composants
+- ~~TripProposal : l'utilisateur loggé peut publier un nouveau trajet~~
+- ~~ProposedTrips : liste les trajets déjà proposés pas l'utilisateur~~
+- TripDetail : page qui permet de consulter les détails / la map du trajet + réserver
+- TripReservations : liste les réservations en cours / passées d'un user
+- UserProfile : Affiche & permet d'editer les infos de l'utilisateur
+
 
 ##FIXME
 - ~~Trouver pourquoi apres login la vue auth (inscription|connexion) ne se met pas a jour~~
@@ -26,7 +34,7 @@
   - Attention à la recherche doit être multifonctions
     - (Ville depart, ville arrivée, prix max, conducteur, avis sur le conducteur, date)
 - Appli Angular
-  - au moins les deux modules
+  - ~~au moins les deux modules~~
     - membres (users)
     - trajets
   - Tri des trajets par prix ou par horaire
@@ -41,6 +49,7 @@
 
 ## Polish / code cleaning
 - essayer de virer les service / providers injectés mais non nécessaires
+- retirer le Montpellier -> Lyon par défaut (recherche & proposal)
 
 
 ## Bonus perso

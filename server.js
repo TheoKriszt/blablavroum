@@ -197,6 +197,21 @@ mongoClient.connect(url,function(err,db){
     });
   });
 
+  // Recherche des trajets proposés par un conducteur
+  app.get("/trajets/:conducteur_id",function(req,res){
+
+    console.log("Recherche des trajets du conducteur  " + req.params.conducteur_id);
+
+    let results = database.collection("trajets").find({'conducteur': req.params.conducteur_id});
+
+    results.toArray(function(err,documents){
+      //récuperation du résultat
+      let json = JSON.stringify(documents);
+      sendRes(res, json)
+    });
+  });
+
+  // propose un nouveau trajet
   app.post('/trajets', function (req, res) {
 
     if(!req.body){
@@ -204,13 +219,15 @@ mongoClient.connect(url,function(err,db){
       return res.sendStatus(400);
     }
 
+    console.log(req.body);
+
     let trajet = {
       "depart" : {"ville" : req.body.villeDepart, "adresse" : req.body.adresseDepart},
       "arrivee" : {"ville" : req.body.villeArrivee, "adresse" : req.body.adresseArrivee},
-      "dateDepart" : "2018-02-23",
-      "heureDepart" : "18:00",
-      "prix" : "24",
-      "nbPlaces" : "3",
+      "dateDepart" : req.body.dateDepart,
+      "heureDepart" : req.body.heureDepart,
+      "prix" : req.body.prix,
+      "nbPlaces" : req.body.nbPlaces,
       "conducteur" : req.body.conducteur,
       "passagers" : []
     };
@@ -227,6 +244,8 @@ mongoClient.connect(url,function(err,db){
 
   });
 
+  //soumet une freservation d'un utilisateur pour un trajet, via PUT
+  // unused ?
   app.put("/reservation/:userID/:tripID",function(req,res){
 
     let reservation = {
@@ -245,6 +264,7 @@ mongoClient.connect(url,function(err,db){
 
   });
 
+  //soumet une freservation d'un utilisateur pour un trajet, via POST
   app.post('/reservation', function (req, res) {
 
     if(!req.body){
@@ -267,12 +287,6 @@ mongoClient.connect(url,function(err,db){
     });
 
   });
-
-
-
-
-
-
 
 });
 
