@@ -24,14 +24,23 @@ export class MembresService {
   // }
 
   create(model: any): Observable <any>{
-    console.log('Creation d\'un membre');
-
-    let body: any = model;
-
-    console.log(body);
 
     let url: string = this.baseUrl + '/membres';
     let headers = new Headers({'Content-Type': 'application/json'});
-    return this.http.post(url, body, headers);
+    return this.http.post(url, model, headers);
+  }
+
+  getByID(id: string): Observable <any> {
+    return this.http.get(this.baseUrl + "/membres/" + id);
+  }
+
+  update(model: Object): Observable<any> {
+
+    console.log('update membre : ');
+    console.log(model);
+
+    let url: string = this.baseUrl + '/membres/update';
+    let headers = new Headers({'Content-Type': 'application/json'});
+    return this.http.post(url, model, headers);
   }
 }

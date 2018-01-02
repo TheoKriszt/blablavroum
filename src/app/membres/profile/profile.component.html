@@ -1,0 +1,83 @@
+<h2>Consulter et editer mon profil</h2>
+
+<img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+
+<div *ngIf="!loading">
+  <label>Nom : </label>
+  <p-inplace closable="closable">
+    <span pInplaceDisplay>
+         {{model.nom}}
+    </span>
+    <span pInplaceContent>
+        <input [(ngModel)]="model.nom" type="text" pInputText>
+    </span>
+  </p-inplace>
+
+  <label>Prenom</label>
+  <p-inplace closable="closable">
+    <span pInplaceDisplay>
+         {{model.prenom}}
+    </span>
+    <span pInplaceContent>
+        <input [(ngModel)]="model.prenom" type="text" pInputText>
+    </span>
+  </p-inplace>
+
+  <label>Adresse</label>
+  <p-inplace closable="closable">
+    <span pInplaceDisplay>
+         {{model.adresse}}
+    </span>
+    <span pInplaceContent>
+        <input [(ngModel)]="model.adresse" type="text" pInputText>
+    </span>
+  </p-inplace>
+
+  <label>Telephone</label>
+  <p-inplace closable="closable">
+    <span pInplaceDisplay>
+         {{model.telephone}}
+    </span>
+    <span pInplaceContent>
+        <input [(ngModel)]="model.telephone" type="text" pInputText>
+    </span>
+  </p-inplace>
+
+  <label>Age</label>
+  <p-inplace closable="closable">
+    <span pInplaceDisplay>
+         {{model.age}}
+    </span>
+    <span pInplaceContent>
+        <input [(ngModel)]="model.age" type="text" pInputText>
+    </span>
+  </p-inplace>
+
+  <label>Adresse mail</label>
+  <p-inplace closable="closable">
+    <span pInplaceDisplay>
+         {{model.mail}}
+    </span>
+    <span pInplaceContent>
+        <input [(ngModel)]="model.mail" type="text" pInputText>
+    </span>
+  </p-inplace>
+
+  <label>Mot de passe</label>
+  <p-inplace closable="closable">
+    <span pInplaceDisplay>
+         {{model.password}}
+    </span>
+    <span pInplaceContent>
+        <input [(ngModel)]="model.password" type="text" pInputText>
+    </span>
+  </p-inplace>
+
+  <label>Vehicules</label>
+  <p>TODO</p>
+
+  <button (click)="submit()" [disabled]="loading" class="btn btn-primary">Enregistrer les modifications</button>
+  <button class="btn btn-secondary">Annuler</button>
+
+</div> <!-- end *ngIf="!loading"-->
+

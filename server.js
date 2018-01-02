@@ -2,6 +2,7 @@ const express = require('express');
 const app=express();
 // const bodyParser = require('body-parser');
 const cors = require("cors");
+const ObjectID = require('mongodb').ObjectID;
 app.use(cors());
 app.use(express.json())
 // app.use(bodyParser.urlencoded({extended: true}));
@@ -57,6 +58,20 @@ mongoClient.connect(url,function(err,db){
       });
   });
 
+  // membre par id
+  app.get("/membres/:id",function(req,res){
+
+    let oid = new ObjectID(req.params.id);
+    console.log('id : ' + req.params.id);
+    database.collection("membres").find( {"_id": oid} )
+    // database.collection("membres").find( {"_id.$oid": req.params.id} )
+      .toArray(function(err,documents){
+        delete documents.password; // ne pas renvoyer le mdp
+        let json = JSON.stringify(documents);
+        sendRes(res, json);
+      });
+  });
+
 
 // membre par mail
   app.get("/membres/mail/:mail",function(req,res){
@@ -72,31 +87,34 @@ mongoClient.connect(url,function(err,db){
   });
 
 //requête prenom // useless ?
-  app.get("/membres/prenom/:prenom",function(req,res){
-    database.collection("membres").find({"prenom":req.params.prenom})
-      .toArray(function(err,documents){
-        //récuperation du résultat
-        let json=JSON.stringify(documents);
-        //renvoi du resultat
-        sendRes(res, json);
-      });
-  });
+//   app.get("/membres/prenom/:prenom",function(req,res){
+//     database.collection("membres").find({"prenom":req.params.prenom})
+//       .toArray(function(err,documents){
+//         //récuperation du résultat
+//         let json=JSON.stringify(documents);
+//         //renvoi du resultat
+//         sendRes(res, json);
+//       });
+//   });
 
 //requête nom // useless ?
-  app.get("/membres/nom/:nom",function(req,res){
-    database.collection("membres").find({"nom":req.params.prenom})
-      .toArray(function(err,documents){
-        //récuperation du résultat
-        let json=JSON.stringify(documents);
-        sendRes(res, json)
-      });
-  });
+//   app.get("/membres/nom/:nom",function(req,res){
+//     database.collection("membres").find({"nom":req.params.prenom})
+//       .toArray(function(err,documents){
+//         //récuperation du résultat
+//         let json=JSON.stringify(documents);
+//         sendRes(res, json)
+//       });
+//   });
 
 //requête authentification
   app.get('/membres/authenticate/:mail/:password',function(req,res){
     console.log('authentification par mail/mdp : ' + req.params.mail + " / " + req.params.password);
     let membre = database.collection('membres').find({'mail':req.params.mail, 'password':req.params.password});
     membre.toArray(function(err,documents){
+      console.log("Renvoi par authentification : ");
+      delete documents.password; // ne pas renvoyer le mdp
+      console.log(documents);
       //récuperation du résultat
       let json=JSON.stringify(documents);
       sendRes(res, json)
@@ -129,7 +147,37 @@ mongoClient.connect(url,function(err,db){
   });
 
 
+  // ajoute un nouveau membre
   app.post('/membres', function (req, res) {
+
+    if (!req.body) {
+      console.log('bad request : ' + req.body)
+      return res.sendStatus(400);
+    }
+
+    let user = {
+      "nom": req.body.nom,
+      "prenom": req.body.prenom,
+      "mail": req.body.mail,
+      "password": req.body.password,
+      "role": ["membre"]
+    };
+
+
+    console.log("Ajout d'un membre");
+    console.log(user);
+
+    database.collection("membres").insertOne(user, function (err, documents) {
+      if (err) {
+        console.log('ERROR : \n' + err);
+      }
+
+      sendRes(res, JSON.stringify(documents));
+    });
+  });
+
+  // met à jour un membre
+  app.post('/membres/update', function (req, res) {
 
     if(!req.body){
       console.log('bad request : ' + req.body)
@@ -144,22 +192,28 @@ mongoClient.connect(url,function(err,db){
       "role" : ["membre"]
     };
 
-    console.log("Ajout d'un membre");
-    console.log(user);
+    console.log("modif d'un membre");
+    console.log(req.body);
 
-    database.collection("membres").insertOne(user, function (err, documents) {
-      if (err) {
-        console.log('ERROR : \n' + err);
-      }
 
-      sendRes(res, JSON.stringify(documents));
-    });
+    // database.collection("membres").update(query, data);
+    database.collection("membres").save(
+      req.body,
+      {w:1}
+      );
 
-  });
+});
 
   /**
    * Trajets
    */
+
+  // var options = {
+  //   "limit": 20,
+  //   "skip": 10,
+  //   "sort": "title"
+  // }
+  // collection.find({}, options).toArray(...);
 
   //requête tous les trajets
   app.get("/trajets",function(req,res){
@@ -171,27 +225,36 @@ mongoClient.connect(url,function(err,db){
       });
   });
 
+  // trouve les trajets de villed à villea
   app.get("/trajets/:villed/:villea",function(req,res){
     console.log("Recherche des trajets de " + req.params.villed + " à " + req.params.villea);
-    database.collection("trajets").find({'depart.ville': req.params.villed, 'arrivee.ville': req.params.villea})
-      .toArray(function(err,documents){
-        //récuperation du résultat
-        let json=JSON.stringify(documents);
+    if(req.query.orderBy){
+      console.log('tri par ' + req.query.orderBy);
+    }
 
+    database.collection("trajets").find(
+      {'depart.ville': req.params.villed, 'arrivee.ville': req.params.villea},
+      {"sort": [[req.query.orderBy,'asc'], ['heure','asc']]}
+
+      // {"sort": req.query.orderBy}
+      ).toArray(function(err,documents){
+        let json=JSON.stringify(documents);
         sendRes(res, json)
       });
   });
 
+  // trouve les trajets de villed à villea à partir du dateDepart
   app.get("/trajets/:villed/:villea/:dateDepart",function(req,res){
 
     let dateOut = req.params.dateDepart; // ex : 2018-01-24
 
     console.log("Recherche des trajets de " + req.params.villed + " à " + req.params.villea + " à partir du " + req.params.dateDepart);
 
-    let results = database.collection("trajets").find({'depart.ville': req.params.villed, 'arrivee.ville': req.params.villea, 'date': {$gte: dateOut}});
+    database.collection("trajets").find(
+      {'depart.ville': req.params.villed, 'arrivee.ville': req.params.villea, 'date': {$gte: dateOut}},
+      {"sort": [[req.query.orderBy,'asc'], ['heure','asc']]}
+      ).toArray(function(err,documents){
 
-    results.toArray(function(err,documents){
-      //récuperation du résultat
       let json = JSON.stringify(documents);
       sendRes(res, json)
     });
@@ -244,7 +307,7 @@ mongoClient.connect(url,function(err,db){
 
   });
 
-  //soumet une freservation d'un utilisateur pour un trajet, via PUT
+  //soumet une reservation d'un utilisateur pour un trajet, via PUT (unused / to remove ?)
   // unused ?
   app.put("/reservation/:userID/:tripID",function(req,res){
 
@@ -264,7 +327,7 @@ mongoClient.connect(url,function(err,db){
 
   });
 
-  //soumet une freservation d'un utilisateur pour un trajet, via POST
+  //soumet une reservation d'un utilisateur pour un trajet, via POST
   app.post('/reservation', function (req, res) {
 
     if(!req.body){

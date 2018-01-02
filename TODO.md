@@ -1,7 +1,7 @@
 # TODO
 
 ## Général
-- Bouger la creation de tables dans assets
+- ~~Bouger la creation de tables dans assets~~
 - ~~Bouger le server.js dans un endroit plus logique~~
 - ~~Mettre message quand aucun trajet trouvé~~
 - rendre la recherche de trajet insensible à la casse
@@ -9,7 +9,8 @@
 - faire qu'un admin puisse promouvoir / révoquer un utilisateur admin
 - pouvoir lister/supprimer un user depuis l'interface admin
 - mettre l'affichage des dates des trajets au format français
-- 
+- crypter le MDP
+- En page d'accueil, afficher les derniers trajets publiés ?
 
 ##Nouveaux composants
 - ~~TripProposal : l'utilisateur loggé peut publier un nouveau trajet~~
@@ -37,7 +38,7 @@
   - ~~au moins les deux modules~~
     - membres (users)
     - trajets
-  - Tri des trajets par prix ou par horaire
+  - ~~Tri des trajets par prix ou par horaire~~
   - ~~Inscription~~
 
 ## Bonus

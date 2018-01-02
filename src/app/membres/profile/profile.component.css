@@ -1,0 +1,8 @@
+p-inplace {
+  font-size: large;
+}
+
+.ui-inplace-display {
+  border-radius: 0.5em;
+  border: solid thin lightgray;
+}

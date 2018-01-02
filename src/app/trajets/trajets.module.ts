@@ -9,7 +9,7 @@ import {FormsModule} from "@angular/forms";
 import { TripProposalComponent } from './trip-proposal/trip-proposal.component';
 import { ProposedTripsComponent } from './proposed-trips/proposed-trips.component';
 import {AuthGuard} from "../guards/auth-guard";
-import {CalendarModule} from "primeng/primeng";
+import {CalendarModule, DropdownModule} from "primeng/primeng";
 
 
 const routes: Routes = [
@@ -30,7 +30,7 @@ const routes: Routes = [
 
 @NgModule({
   imports: [
-    CommonModule, HttpClientModule, FormsModule ,RouterModule.forChild(routes), CalendarModule
+    CommonModule, HttpClientModule, FormsModule ,RouterModule.forChild(routes), CalendarModule, DropdownModule
   ],
   exports:[TrajetsComponent, TrajetsRechercheComponent,  RouterModule, TripProposalComponent, ProposedTripsComponent], // exports pour utilisation dans un autre module (membres dashboard)
   declarations: [TrajetsComponent, TrajetsRechercheComponent, TripProposalComponent, ProposedTripsComponent],

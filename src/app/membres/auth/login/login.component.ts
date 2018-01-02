@@ -38,7 +38,7 @@ export class LoginComponent implements OnInit, OnChanges {
         if(this.returnUrl == '/'){
           this.returnUrl = '/dashboard';
         }
-        console.log('LoginComponent : redirection vers ' + this.returnUrl)
+        // console.log('LoginComponent : redirection vers ' + this.returnUrl)
         this.router.navigate([this.returnUrl]);
       });
   }

@@ -11,8 +11,9 @@ import {RouterModule, Routes} from '@angular/router';
 import { LoginComponent } from './auth/login/login.component';
 import {AuthService} from './auth/auth.service';
 import {AuthGuard} from "../guards/auth-guard";
-import {TripProposalComponent} from "../trajets/trip-proposal/trip-proposal.component";
 import {TrajetsModule} from "../trajets/trajets.module";
+import { ProfileComponent } from './profile/profile.component';
+import {InplaceModule} from "primeng/primeng";
 
 const routes: Routes = [
   {
@@ -32,10 +33,10 @@ const routes: Routes = [
 
 @NgModule({
   imports: [
-    CommonModule, HttpClientModule, BrowserModule, FormsModule, ReactiveFormsModule, RouterModule.forChild(routes), TrajetsModule
+    CommonModule, HttpClientModule, BrowserModule, FormsModule, ReactiveFormsModule, RouterModule.forChild(routes), TrajetsModule, InplaceModule
   ],
-  declarations: [MembresComponent, AuthComponent, InscriptionComponent, LoginComponent],
-  exports: [MembresComponent, AuthComponent, InscriptionComponent, LoginComponent],
+  declarations: [MembresComponent, AuthComponent, InscriptionComponent, LoginComponent, ProfileComponent],
+  exports: [MembresComponent, AuthComponent, InscriptionComponent, LoginComponent, ProfileComponent],
   providers: [MembresService, AuthService, LoginComponent, AuthGuard]
 })
 export class MembresModule { }

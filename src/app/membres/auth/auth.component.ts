@@ -60,7 +60,7 @@ export class AuthComponent implements OnInit{
   }
 
   logout(){
-    console.log('Logging out -->[]');
+    // console.log('Logging out -->[]');
     Cookie.deleteAll();
     this.isLogged = false;
     this.router.navigate(['/']);
@@ -72,7 +72,7 @@ export class AuthComponent implements OnInit{
 
 
   /**
-   * Depuis les cookies de session, met à jour les infos de base (nottamment pour les guards)
+   * Depuis les cookies de session, met à jour les infos de base (notamment pour les guards)
    */
   private loadUser() {
     this.firstName = Cookie.get('firstName');
@@ -82,6 +82,4 @@ export class AuthComponent implements OnInit{
 
     this.isLogged = true;
   }
-
-
 }

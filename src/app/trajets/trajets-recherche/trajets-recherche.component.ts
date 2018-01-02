@@ -11,6 +11,7 @@ import {isNullOrUndefined} from 'util';
 export class TrajetsRechercheComponent implements OnInit {
 
   trajets: any = {};
+  orderByParam: string = '';
 
   constructor(private route: ActivatedRoute, private trajetsService: TrajetsService) {}
 
@@ -18,24 +19,21 @@ export class TrajetsRechercheComponent implements OnInit {
 
     this.route.params.subscribe(routeParams => {
 
-      //todo : essayer avec if(routeParams.villeDepart && routeParams.villeArrivee)
-      if (isNullOrUndefined(routeParams.villeDepart) || isNullOrUndefined(routeParams.villeDepart)){
-        console.log("Depart ou arrivée manquants");
-        return null;
-      }
+      this.route.queryParams
+        .subscribe(params => {
+          this.orderByParam = params.orderBy;
+          let searchOptions = {
+            'orderBy': this.orderByParam,
+            'villeDepart' : routeParams.villeDepart,
+            'villeArrivee' : routeParams.villeArrivee,
+            'dateDepart' : routeParams.dateDepart
+          };
 
+          this.trajetsService.getTrajetsRecherche(searchOptions).subscribe(mongoRes => {
+            return this.trajets = mongoRes;
+          });
 
-      if (isNullOrUndefined(routeParams.dateDepart)) {
-        this.trajetsService.getTrajetsRecherche(routeParams.villeDepart, routeParams.villeArrivee).subscribe(mongoRes => {
-          return this.trajets = mongoRes;
         });
-      }
-      else
-        this.trajetsService.getTrajetsRechercheDate(routeParams.villeDepart, routeParams.villeArrivee, routeParams.dateDepart).subscribe(mongoRes => {
-
-          return this.trajets = mongoRes;
-        });
-
     });
   }
 

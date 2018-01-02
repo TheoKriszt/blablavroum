@@ -1,5 +1,5 @@
 # Blablavroum
-Computer Science Master degree project consisting in mimicking a famous carpooling website using a MEAN (MongoDB, Express, Angular, NodeJS) stack.
+Master's Degree in Computer Science project consisting in mimicking a famous carpooling website using a MEAN (MongoDB, Express, Angular, NodeJS) stack.
 
 Project generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.4.3.
 
@@ -23,3 +23,5 @@ Run `ng serve -o` for a dev server. Navigate to `http://localhost:4200/`. The ap
 ## Build
 
 Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `-prod` flag for a production build.
+
+NB : check your environment settings, as in production mode, the API URL will be overwritten with your prod server's URL.

@@ -20,6 +20,15 @@
   margin-top: 25px;
 }
 
+p-dropdown {
+  display: block;
+}
+
+.ui-dropdown {
+  height: 34px;
+}
+
+
 .swap-arrow {
   float: left;
   margin-left: 0.5em;
