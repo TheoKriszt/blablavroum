@@ -16,6 +16,8 @@ export class ProfileComponent implements OnInit {
 
   ngOnInit() {
 
+    console.log("Composant profil chargé");
+
     this.membreService.getByID(Cookie.get('_id')).subscribe(res => {
       if(res && res[0] != undefined){
         res = res[0];
@@ -35,6 +37,8 @@ export class ProfileComponent implements OnInit {
 
       console.log('retour de update : ' );
       console.log(res);
+      this.loading = false;
+
     });
 
   }

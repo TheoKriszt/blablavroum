@@ -10,6 +10,7 @@ import { TripProposalComponent } from './trip-proposal/trip-proposal.component';
 import { ProposedTripsComponent } from './proposed-trips/proposed-trips.component';
 import {AuthGuard} from "../guards/auth-guard";
 import {CalendarModule, DropdownModule} from "primeng/primeng";
+import { ReservationsComponent } from './reservations/reservations.component';
 
 
 const routes: Routes = [
@@ -25,6 +26,11 @@ const routes: Routes = [
     path: 'trip-proposal',
     component: TripProposalComponent,
     canActivate: [AuthGuard]
+  },
+  {
+    path: 'reservations',
+    component: ReservationsComponent,
+    canActivate: [AuthGuard]
   }
 ];
 
@@ -33,7 +39,7 @@ const routes: Routes = [
     CommonModule, HttpClientModule, FormsModule ,RouterModule.forChild(routes), CalendarModule, DropdownModule
   ],
   exports:[TrajetsComponent, TrajetsRechercheComponent,  RouterModule, TripProposalComponent, ProposedTripsComponent], // exports pour utilisation dans un autre module (membres dashboard)
-  declarations: [TrajetsComponent, TrajetsRechercheComponent, TripProposalComponent, ProposedTripsComponent],
+  declarations: [TrajetsComponent, TrajetsRechercheComponent, TripProposalComponent, ProposedTripsComponent, ReservationsComponent],
   providers: [TrajetsService, AuthGuard]
 })
 export class TrajetsModule { }

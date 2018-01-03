@@ -27,8 +27,9 @@ export class AuthService {
 
   public login(mail: string, password: string): Observable <any> {
     // this.change.emit();
+    console.log("AuthService : Login avec " + mail + ' / ' + password);
     var obs: Observable<any> = this.http.get<any>(this.baseUrl + '/membres/authenticate/' + mail + '/' + password);
-    this.subject.next(obs);
+    this.subject.next(obs); // transmettre l'évènement aux observers (membreComponent)
     return  obs;
   }
 }

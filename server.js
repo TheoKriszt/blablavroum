@@ -66,7 +66,9 @@ mongoClient.connect(url,function(err,db){
     database.collection("membres").find( {"_id": oid} )
     // database.collection("membres").find( {"_id.$oid": req.params.id} )
       .toArray(function(err,documents){
-        delete documents.password; // ne pas renvoyer le mdp
+        console.log("Recherche de membre par id : " + req.params.id);
+        delete documents[0].password; // ne pas renvoyer le mdp
+        console.log(documents);
         let json = JSON.stringify(documents);
         sendRes(res, json);
       });
@@ -113,7 +115,12 @@ mongoClient.connect(url,function(err,db){
     let membre = database.collection('membres').find({'mail':req.params.mail, 'password':req.params.password});
     membre.toArray(function(err,documents){
       console.log("Renvoi par authentification : ");
-      delete documents.password; // ne pas renvoyer le mdp
+      // console.log(documents);
+
+      if(documents && documents[0] && documents[0].password){
+        delete documents[0].password; // ne pas renvoyer le mdp
+      }
+
       console.log(documents);
       //récuperation du résultat
       let json=JSON.stringify(documents);
@@ -184,24 +191,27 @@ mongoClient.connect(url,function(err,db){
       return res.sendStatus(400);
     }
 
-    let user = {
-      "nom": req.body.nom,
-      "prenom": req.body.prenom,
-      "mail": req.body.mail,
-      "password": req.body.password,
-      "role" : ["membre"]
-    };
-
     console.log("modif d'un membre");
-    console.log(req.body);
 
+    let oid = new ObjectID(req.body._id);
 
-    // database.collection("membres").update(query, data);
-    database.collection("membres").save(
-      req.body,
-      {w:1}
-      );
+    req.body._id = oid;
 
+    database.collection("membres").update(
+      {"_id": oid},
+      {$set : req.body},
+      function (err, documents) {
+        if(err) {
+          console.log("Erreur : ");
+          console.log(err);
+        }else {
+          console.log("MAJ OK : ");
+          let response = {'updateStatus' : 'OK'};
+          sendRes(res, JSON.stringify(response));
+
+        }
+
+    });
 });
 
   /**

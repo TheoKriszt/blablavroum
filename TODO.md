@@ -17,7 +17,7 @@
 - ~~ProposedTrips : liste les trajets déjà proposés pas l'utilisateur~~
 - TripDetail : page qui permet de consulter les détails / la map du trajet + réserver
 - TripReservations : liste les réservations en cours / passées d'un user
-- UserProfile : Affiche & permet d'editer les infos de l'utilisateur
+- ~~UserProfile : Affiche & permet d'editer les infos de l'utilisateur~~
 
 
 ##FIXME

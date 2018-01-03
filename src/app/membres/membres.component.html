@@ -1,8 +1,15 @@
 <h2>Mon tableau de bord</h2>
 
-<!--<app-trip-proposal></app-trip-proposal>-->
+<!--<div *ngIf="isAdmin()">-->
+  <!--<p>Is admin</p>-->
+<!--</div>-->
+
+<!--<div *ngIf="!isAdmin()">-->
+  <!--<p>Is not admin</p>-->
+<!--</div>-->
+
 <app-proposed-trips></app-proposed-trips>
-<p>proposer un trajet</p>
 <p>mes reservations</p>
-<p>mon profil</p>
-<app-profile></app-profile>
+<!--<p>mon profil</p>-->
+<p><a [routerLink]="['/profile']">Mon profil</a></p>
+<!--<app-profile></app-profile>-->

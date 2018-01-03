@@ -1,5 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {AuthGuard} from "../guards/auth-guard";
+import {AuthComponent} from "./auth/auth.component";
+import {AuthService} from "./auth/auth.service";
 
 @Component({
   selector: 'app-membres',
@@ -8,10 +10,16 @@ import {AuthGuard} from "../guards/auth-guard";
 })
 export class MembresComponent implements OnInit{
 
-  constructor(authGuard: AuthGuard) { }
+  constructor(
+    // private authComponent: AuthComponent
+  ) { }
 
 
   ngOnInit() {
   }
+
+  // isAdmin(){
+  //   return this.authComponent.isAdmin();
+  // }
 
 }

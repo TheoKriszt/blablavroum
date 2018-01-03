@@ -30,6 +30,7 @@ export class AuthComponent implements OnInit{
     // se mettre à jour quand le service partagé lance un login
     this.authService.subject.subscribe(obs => {
       obs.subscribe(res => {
+        console.log('Requête D\'auth recue');
         this.checkLogin(res);
       });
     });

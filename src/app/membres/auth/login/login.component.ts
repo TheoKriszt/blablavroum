@@ -32,9 +32,15 @@ export class LoginComponent implements OnInit, OnChanges {
   login(){
     this.loading = true;
 
+    console.log("LoginComponent : authentification par " + this.model.mail + ' / ' + this.model.password);
+
     this.authService.login(this.model.mail, this.model.password)
       .subscribe(res => {
         this.loading = false;
+
+        console.log("LoginComponent : retour de requete d'auth : ");
+        console.log(res);
+
         if(this.returnUrl == '/'){
           this.returnUrl = '/dashboard';
         }

@@ -66,10 +66,10 @@
   <label>Mot de passe</label>
   <p-inplace closable="closable">
     <span pInplaceDisplay>
-         {{model.password}}
+      &#9899;&#9899;&#9899;&#9899;&#9899;&#9899;<!-- Placeholder  "⚫⚫⚫⚫⚫⚫" -->
     </span>
     <span pInplaceContent>
-        <input [(ngModel)]="model.password" type="text" pInputText>
+        <input [(ngModel)]="model.password" type="password" pInputText>
     </span>
   </p-inplace>
 
@@ -77,7 +77,7 @@
   <p>TODO</p>
 
   <button (click)="submit()" [disabled]="loading" class="btn btn-primary">Enregistrer les modifications</button>
-  <button class="btn btn-secondary">Annuler</button>
+  <button [routerLink]="['/dashboard']"  class="btn btn-secondary">Annuler</button>
 
 </div> <!-- end *ngIf="!loading"-->
 

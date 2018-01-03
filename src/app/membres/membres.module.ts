@@ -28,12 +28,18 @@ const routes: Routes = [
     path: 'dashboard',
     component: MembresComponent,
     canActivate: [AuthGuard]
+  },
+  {
+    path: 'profile',
+    component: ProfileComponent,
+    canActivate: [AuthGuard]
   }
 ];
 
 @NgModule({
   imports: [
-    CommonModule, HttpClientModule, BrowserModule, FormsModule, ReactiveFormsModule, RouterModule.forChild(routes), TrajetsModule, InplaceModule
+    CommonModule, HttpClientModule, BrowserModule, FormsModule, RouterModule.forChild(routes),
+    TrajetsModule, InplaceModule, ReactiveFormsModule //NGPrime
   ],
   declarations: [MembresComponent, AuthComponent, InscriptionComponent, LoginComponent, ProfileComponent],
   exports: [MembresComponent, AuthComponent, InscriptionComponent, LoginComponent, ProfileComponent],

@@ -1,12 +1,18 @@
 
-Mes trajets :
+<h3>Mes trajets :</h3>
+
 
 <div *ngIf="anyTrajet">
-  <a [routerLink]="['/trip-proposal']">Proposer un nouveau trajet</a>
+    <h4>
+      <a [routerLink]="['/trip-proposal']">Proposer un nouveau trajet</a>
+    </h4>
 </div>
 
 <div *ngIf="!anyTrajet">
-  Vous n'avez pas encore proposé de trajets. Pourquoi ne pas <a [routerLink]="['/trip-proposal']">proposer un nouveau trajet</a> ?
+  <p>
+    Vous n'avez pas encore proposé de trajets. Pourquoi ne pas <a [routerLink]="['/trip-proposal']">proposer un nouveau trajet</a> ?
+  </p>
+
 </div>
 
 <div *ngIf="anyTrajet">
