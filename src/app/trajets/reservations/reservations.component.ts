@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {TrajetsService} from "../trajets.service";
+import {Cookie} from "ng2-cookies/src/cookie";
 
 @Component({
   selector: 'app-reservations',
@@ -7,9 +9,20 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ReservationsComponent implements OnInit {
 
-  constructor() { }
+  myReservations: Object = [];
+
+  constructor(private trajetsService: TrajetsService) { }
 
   ngOnInit() {
+    this.trajetsService.getMesreservations(Cookie.get('_id')).subscribe(res => {
+      console.log("Mes reservations : ");
+      console.log(res);
+      this.myReservations = res;
+    });
+  }
+
+  hasreservations(){
+    return this.myReservations && this.myReservations[0];
   }
 
 }

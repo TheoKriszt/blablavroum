@@ -31,6 +31,10 @@ export class TrajetsService {
     return this.http.get(this.baseUrl + '/trajets/' + user_id);
   }
 
+  getMesreservations(user_id: string): Observable <any> {
+    return this.http.get(this.baseUrl + '/reservations/' + user_id);
+  }
+
   create(model: any): Observable <any>{
     // console.log('Creation d\'un trajet');
     let body: any = model;

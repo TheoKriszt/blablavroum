@@ -1,3 +1,16 @@
-<p>
-  reservations works!
-</p>
+<div *ngIf="hasreservations()">
+
+  <ul>
+    <li *ngFor = "let trajet of myReservations" class="trip">
+      <a class="trip-search-oneresult"> <!-- Lien vers le trajet en détail -->
+        De {{trajet.depart.ville}} ({{trajet.depart.adresse}}) à {{trajet.arrivee.ville}} ({{trajet.arrivee.adresse}}) le {{trajet.dateDepart}} à {{trajet.heureDepart}}.
+        Ce trajet coûte {{trajet.prix}}€.
+      </a>
+    </li>
+  </ul>
+
+</div>
+
+<div *ngIf="!hasreservations()">
+  <p>Vous n'avez pas encore de réservations</p>
+</div>
