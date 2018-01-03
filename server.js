@@ -4,7 +4,7 @@ const app=express();
 const cors = require("cors");
 const ObjectID = require('mongodb').ObjectID;
 app.use(cors());
-app.use(express.json())
+app.use(express.json());
 // app.use(bodyParser.urlencoded({extended: true}));
 // app.use(express.json);
 // app.use(express.urlencoded({extended : true}))
@@ -158,7 +158,7 @@ mongoClient.connect(url,function(err,db){
   app.post('/membres', function (req, res) {
 
     if (!req.body) {
-      console.log('bad request : ' + req.body)
+      console.log('bad request : ' + req.body);
       return res.sendStatus(400);
     }
 
@@ -187,7 +187,7 @@ mongoClient.connect(url,function(err,db){
   app.post('/membres/update', function (req, res) {
 
     if(!req.body){
-      console.log('bad request : ' + req.body)
+      console.log('bad request : ' + req.body);
       return res.sendStatus(400);
     }
 
@@ -359,6 +359,18 @@ mongoClient.connect(url,function(err,db){
       sendRes(res, JSON.stringify(documents));
     });
 
+  });
+
+  // trajets reserves par l'user :userID
+  app.get("/reservations/:userID",function(req,res){
+
+    console.log('Recherche des trajets reserves par userID : ' + req.params.userID);
+    database.collection("trajets").find( {"passager": [ req.params.userID ]} )
+    // database.collection("membres").find( {"_id.$oid": req.params.id} )
+      .toArray(function(err,documents){
+        var json = JSON.stringify(documents);
+        sendRes(res, json);
+      });
   });
 
 });
