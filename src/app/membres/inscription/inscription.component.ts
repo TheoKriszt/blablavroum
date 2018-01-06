@@ -21,7 +21,8 @@ export class InscriptionComponent implements OnInit {
       .subscribe(
         data => {
           this.loading = false;
-          this.router.navigate(['/login']);
+          // this.router.navigate(['/login']);
+          this.router.navigate(['/login'], { queryParams: { origin: 'register', mail: this.model.mail }});
         },
         error => {
           // this.alertService.error(error);

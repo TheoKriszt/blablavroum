@@ -5,6 +5,8 @@ const cors = require("cors");
 const ObjectID = require('mongodb').ObjectID;
 app.use(cors());
 app.use(express.json());
+// const asyncHandler = require('express-async-handler');
+const async = require('async');
 // app.use(bodyParser.urlencoded({extended: true}));
 // app.use(express.json);
 // app.use(express.urlencoded({extended : true}))
@@ -28,6 +30,8 @@ app.all("/*", function(req, res, next){
   console.log("Requete recue");
   next();
 });
+
+
 
 //connection db
 mongoClient.connect(url,function(err,db){
@@ -114,7 +118,6 @@ mongoClient.connect(url,function(err,db){
     console.log('authentification par mail/mdp : ' + req.params.mail + " / " + req.params.password);
     var membre = database.collection('membres').find({'mail':req.params.mail, 'password':req.params.password});
     membre.toArray(function(err,documents){
-      console.log("Renvoi par authentification : ");
       // console.log(documents);
 
       if(documents && documents[0] && documents[0].password){
@@ -166,9 +169,25 @@ mongoClient.connect(url,function(err,db){
       "nom": req.body.nom,
       "prenom": req.body.prenom,
       "mail": req.body.mail,
+      "telephone" : req.body.telephone,
+      "age" : req.body.age,
+      "adresse" : req.body.adresse,
       "password": req.body.password,
-      "role": ["membre"]
+      "role": ["membre"],
+      "evaluations" : [],
+      "vehicule_ids" : []
     };
+
+    // "nom": "tt",
+    //   "prenom" : "tt",
+    //   "mail" : "tt",
+    //   "telephone" : "069858447",
+    //   "age":"42",
+    //   "password": "tt",
+    //   "adresse" : "404, Impasse du test, Montpellier",
+    //   "role" : ["admin", "membre"],
+    //   "evaluations": [], // {"from" : xxx, "value": 0..5}
+    //   "vehicule_ids":["5a057bab0bb1f227d5cbd8eb"]
 
 
     console.log("Ajout d'un membre");
@@ -218,14 +237,7 @@ mongoClient.connect(url,function(err,db){
    * Trajets
    */
 
-  // var options = {
-  //   "limit": 20,
-  //   "skip": 10,
-  //   "sort": "title"
-  // }
-  // collection.find({}, options).toArray(...);
-
-  //requête tous les trajets
+  //retourne tous les trajets
   app.get("/trajets",function(req,res){
     database.collection("trajets").find()
       .toArray(function(err,documents){
@@ -235,43 +247,129 @@ mongoClient.connect(url,function(err,db){
       });
   });
 
-  // trouve les trajets de villed à villea
-  app.get("/trajets/:villed/:villea",function(req,res){
-    console.log("Recherche des trajets de " + req.params.villed + " à " + req.params.villea);
-    if(req.query.orderBy){
-      console.log('tri par ' + req.query.orderBy);
+  /**
+   * Complete le tableau de trajets pour ajouter les infos sur les conducteurs
+   * Se fait côté Node pour limiter les échanges client/API
+   */
+  const completeDriverData = function (trajets, callback) {
+
+    let drivers = []; // tableau d'OID des membres conducteurs
+
+    for (let trajet of trajets) { // recenser les conducteurs
+      let oid = new ObjectID(trajet.conducteur);
+      drivers.push(oid);
     }
 
-    database.collection("trajets").find(
-      {'depart.ville': req.params.villed, 'arrivee.ville': req.params.villea},
-      {"sort": [[req.query.orderBy,'asc'], ['heure','asc']]}
+    // insérer les infos du conducteur dans le trajet correspondant
+    database.collection("membres").find({"_id": {$in: drivers}})
+      .toArray(function (err, data) {
 
-      // {"sort": req.query.orderBy}
-      ).toArray(function(err,documents){
-        var json=JSON.stringify(documents);
-        sendRes(res, json)
+        for (let driver of data )  {
+
+          driver.nbEvaluations = driver.evaluations.length;
+
+          if(driver.evaluations.length === 0) {
+            driver.evaluationMoyenne = '?';
+          }
+          else {
+            let avg = 0;
+            for (let eval of driver.evaluations){
+              avg += eval.value;
+            }
+            driver.evaluationMoyenne =(avg / driver.evaluations.length).toFixed(1);
+          }
+
+          for (let trajet of trajets){
+
+            if(trajet.conducteur == driver._id) {
+              delete driver.password;
+              delete driver.role;
+              trajet.driverData = driver;
+
+              trajet.placesRestantes = trajet.nbPlace - trajet.passager.length;
+              trajet.complet = trajet.placesRestantes == 0 ? 'true' : 'false';
+            }
+          }
+        }
+        callback(null, trajets); // envoyer la réponse JSON
       });
+
+  };
+
+  // trouve les trajets de villed à villea
+  app.get("/trajets/search/:villed/:villea",function(req,res){
+    console.log("Recherche des trajets de " + req.params.villed + " à " + req.params.villea);
+
+    async.waterfall([
+      function (callback) {
+        //primo : extraire les trajets de villed à villea
+        database.collection("trajets").find(
+          {'depart.ville': req.params.villed, 'arrivee.ville': req.params.villea, 'prix': {$lte: req.query.prixMax}},
+          // {'depart.ville': req.params.villed, 'arrivee.ville': req.params.villea, 'date': {$gte: req.params.dateDepart}, 'prix': {$lte: req.query.prixMax}},
+          {"sort": [[req.query.orderBy,'asc'], ['heure','asc']]}
+        ).toArray(function (err, trajets) {
+          callback(null, trajets);
+        });
+      },
+        completeDriverData, // complete les trajets avec les données sur leurs conducteurs
+      function (trajets, callback) { // filtrer les conducteurs trop bas
+        let trajetsCleaned = [];
+
+        for(let trajet of trajets){
+          if (req.query.evalMin == 0) {
+            trajetsCleaned.push(trajet);
+          } else if (trajet.driverData.evaluationMoyenne != '?' && trajet.driverData.evaluationMoyenne >= req.query.evalMin) {
+            trajetsCleaned.push(trajet);
+          }
+        }
+        callback(null, trajetsCleaned);
+      },
+      function (trajets, callback) {
+        sendRes(res, JSON.stringify(trajets));
+        callback(true); // fin du waterfall
+      }
+    ]);
+
   });
 
   // trouve les trajets de villed à villea à partir du dateDepart
-  app.get("/trajets/:villed/:villea/:dateDepart",function(req,res){
+  app.get("/trajets/search/:villed/:villea/:dateDepart",function(req,res){
 
-    var dateOut = req.params.dateDepart; // ex : 2018-01-24
-
+    // var dateOut = req.params.dateDepart; // ex : 2018-01-24
     console.log("Recherche des trajets de " + req.params.villed + " à " + req.params.villea + " à partir du " + req.params.dateDepart);
 
-    database.collection("trajets").find(
-      {'depart.ville': req.params.villed, 'arrivee.ville': req.params.villea, 'date': {$gte: dateOut}},
-      {"sort": [[req.query.orderBy,'asc'], ['heure','asc']]}
-      ).toArray(function(err,documents){
+    async.waterfall([
+      function (callback) {
+        //primo : extraire les trajets de villed à villea
+        database.collection("trajets").find(
+          {'depart.ville': req.params.villed, 'arrivee.ville': req.params.villea, 'date': {$gte: req.params.dateDepart}, 'prix': {$lte: req.query.prixMax}},
+          {"sort": [[req.query.orderBy,'asc'], ['heure','asc']]}
+        ).toArray(function (err, trajets) {
+          callback(null, trajets);
+        });
+      },
+      completeDriverData, // complete les trajets avec les données sur leurs conducteurs
+      function (trajets, callback) { // filtrer les conducteurs trop bas
+        let trajetsCleaned = [];
 
-      var json = JSON.stringify(documents);
-      sendRes(res, json)
-    });
+        for(let trajet of trajets){
+          if (req.query.evalMin == 0) {
+            trajetsCleaned.push(trajet);
+          } else if (trajet.driverData.evaluationMoyenne != '?' && trajet.driverData.evaluationMoyenne >= req.query.evalMin) {
+            trajetsCleaned.push(trajet);
+          }
+        }
+        callback(null, trajetsCleaned);
+      },
+      function (trajets, callback) { // complete les trajets avec les données sur leurs conducteurs
+        sendRes(res, JSON.stringify(trajets));
+        callback(true); // fin du waterfall
+      }
+    ]);
   });
 
   // Recherche des trajets proposés par un conducteur
-  app.get("/trajets/:conducteur_id",function(req,res){
+  app.get("/trajets/driver/:conducteur_id",function(req,res){
 
     console.log("Recherche des trajets du conducteur  " + req.params.conducteur_id);
 
@@ -371,6 +469,37 @@ mongoClient.connect(url,function(err,db){
         var json = JSON.stringify(documents);
         sendRes(res, json);
       });
+  });
+
+  // trajet par id (trip-details)
+  app.get("/trajets/id/:id",function(req,res){
+
+    console.log("Recherche du trajet id: " + req.params.id);
+
+    var oid = new ObjectID(req.params.id);
+
+    // database.collection("trajets").find( {"_id": oid} )
+    //   .toArray(function(err,documents){
+    //     console.log(documents);
+    //     var json = JSON.stringify(documents);
+    //     sendRes(res, json);
+    //   });
+
+    /////////////////////////////////////
+    async.waterfall([
+      function (callback) {
+        //primo : extraire les trajets de villed à villea
+        database.collection("trajets").find( {"_id": oid} )
+          .toArray(function(err,trajets){
+            callback(null, trajets);
+          });
+      },
+      completeDriverData, // complete les trajets avec les données sur leurs conducteurs
+      function (trajets, callback) {
+        sendRes(res, JSON.stringify(trajets));
+        callback(true); // fin du waterfall
+      }
+    ]);
   });
 
 });

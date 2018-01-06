@@ -24,7 +24,11 @@ p-dropdown {
   display: block;
 }
 
-.ui-dropdown {
+/*.ui-dropdown {*/
+  /*height: 34px;*/
+/*}*/
+
+.ui-dropdown-label, .ui-dropdown, .ui-widget {
   height: 34px;
 }
 
@@ -36,3 +40,22 @@ p-dropdown {
   margin-top: 0.25em;
 }
 
+.u-green {
+  color: #00A87E !important;
+}
+
+.u-red {
+  color: #F53F5B !important;
+}
+
+.u-yellow {
+  color: #FED141 !important;
+}
+
+.fa-map-marker, .fa-star {
+  margin-right: 0.5em;
+}
+
+.clear-left {
+  clear: left;
+}

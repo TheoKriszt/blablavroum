@@ -9,8 +9,9 @@ import {FormsModule} from "@angular/forms";
 import { TripProposalComponent } from './trip-proposal/trip-proposal.component';
 import { ProposedTripsComponent } from './proposed-trips/proposed-trips.component';
 import {AuthGuard} from "../guards/auth-guard";
-import {CalendarModule, DropdownModule} from "primeng/primeng";
+import {CalendarModule, DropdownModule, SliderModule} from "primeng/primeng";
 import { ReservationsComponent } from './reservations/reservations.component';
+import { TripDetailsComponent } from './trip-details/trip-details.component';
 
 
 const routes: Routes = [
@@ -31,15 +32,19 @@ const routes: Routes = [
     path: 'reservations',
     component: ReservationsComponent,
     canActivate: [AuthGuard]
+  },
+  {
+    path: 'trip-details/:tripID',
+    component: TripDetailsComponent
   }
 ];
 
 @NgModule({
   imports: [
-    CommonModule, HttpClientModule, FormsModule ,RouterModule.forChild(routes), CalendarModule, DropdownModule
+    CommonModule, HttpClientModule, FormsModule ,RouterModule.forChild(routes), CalendarModule, DropdownModule, SliderModule
   ],
   exports:[TrajetsComponent, TrajetsRechercheComponent,  RouterModule, TripProposalComponent, ProposedTripsComponent], // exports pour utilisation dans un autre module (membres dashboard)
-  declarations: [TrajetsComponent, TrajetsRechercheComponent, TripProposalComponent, ProposedTripsComponent, ReservationsComponent],
+  declarations: [TrajetsComponent, TrajetsRechercheComponent, TripProposalComponent, ProposedTripsComponent, ReservationsComponent, TripDetailsComponent],
   providers: [TrajetsService, AuthGuard]
 })
 export class TrajetsModule { }

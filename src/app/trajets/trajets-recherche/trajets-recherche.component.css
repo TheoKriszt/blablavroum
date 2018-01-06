@@ -2,81 +2,79 @@ a {
   text-decoration: none;
 }
 
+/**
+ * Résumé Trajet en liste
+ */
+/* Infos conducteur */
+.trip-short-driver {
+  float: left;
+  margin-right:4em;
+}
+
+.trip-short-driver h2 {
+  max-width: 90px;
+  font-weight: bold;
+  font-size: 1.14em;
+  color: #413D35;
+  margin: 0;
+  display: inline;
+}
+
+.trip-short-price h2, .trip-short-price-remaining-seats {
+  color: #413d35;
+}
+
+.trip-short-price h2 {
+  margin-bottom: 0;
+}
+
+/* Infos trajet */
+.trip-short-info {
+  float: left;
+  margin-right: 4em;
+  color: #413d35;
+  border-left: 2px solid #727272;
+  padding: 0 4em;
+}
+
+/* Infos prix */
+.trip-short-price {
+  float: left;
+}
+
+.driver-rating {
+  font-weight: 700 !important;
+  color: #413D35 !important;
+}
+
+.u-green {
+  color: #00A87E !important;
+}
+
+.u-red {
+  color: #F53F5B !important;
+}
+
+.u-yellow {
+  color: #FED141 !important;
+}
+
+.fa-map-marker, .fa-star {
+  margin-right: 0.5em;
+}
 
 .trip {
   list-style: none;
+  cursor: pointer;
 }
+
 .trip-search-oneresult {
-  padding:12px 0;
-  display:block;
+  padding: 1em 0;
+  display:inline-block;
   color:#727272;
-  border-right:4px solid transparent
+  border-bottom:2px solid #727272;
 }
 .trip-search-oneresult:hover {
   color:#727272;
   background:#eff8fd
-}
-.trip-search-oneresult .time {
-  font-weight:bold;
-  font-size:19px;
-  line-height:27px
-}
-.trip-search-oneresult .approximate-time {
-  font-family:Arial,Helvetica,sans-serif;
-  color:#727272;
-  font-size:15px
-}
-.trip-search-oneresult .fromto {
-  font-size:16px;
-  margin-bottom:11px;
-  color:#ADAFAF
-}
-.trip-search-oneresult .fromto .trip-roads-stop {
-  color:#413D35
-}
-.trip-search-oneresult .fromto .icon-right-arrow {
-  vertical-align:baseline
-}
-.trip-search-oneresult .price {
-  margin-bottom:1px;
-  min-height:61px
-}
-.trip-search-oneresult .price strong {
-  font-size:34px;
-  line-height:30px;
-  font-family:Arial,Helvetica,sans-serif;
-  font-weight:bold
-}
-.trip-search-oneresult .price .price-flex {
-  border-radius:10px
-}
-.trip-search-oneresult .price .price-flex>span {
-  padding:10px
-}
-.trip-search-oneresult .price .price-original {
-  vertical-align:3px
-}
-.trip-search-oneresult .price .priceUnit {
-  display:block
-}
-.trip-search-oneresult .user {
-  width:190px
-}
-.trip-search-oneresult .description {
-  width:348px;
-  margin:0 0 0 5px
-}
-.trip-search-oneresult .offer {
-  margin:0 12px 0 0;
-  float:left
-}
-.trip-search-oneresult .offer .viaggio-rosa {
-  margin:-5px 0
-}
-.viaggio-rosa {
-  background:transparent url(/images/icons/viaggio-rosa.png) no-repeat;
-  display:inline-block;
-  float:right;
-  height:38px;
-  width:37px
 }

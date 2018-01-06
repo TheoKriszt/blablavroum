@@ -7,9 +7,33 @@
   Voici le(s) resulat(s) de votre recherche :
   <ul class="trips-list">
     <li *ngFor = "let trajet of trajets" class="trip">
-      <a class="trip-search-oneresult"> <!-- Lien vers le trajet en détail -->
-      De {{trajet.depart.ville}} ({{trajet.depart.adresse}}) à {{trajet.arrivee.ville}} ({{trajet.arrivee.adresse}}) le {{trajet.date}} à {{trajet.heure}}.
-	    Ce trajet coûte {{trajet.prix}}€.
+      <a class="trip-search-oneresult" [routerLink]="['/trip-details/', trajet._id]"> <!-- Lien vers le trajet en détail -->
+        <div class="trip-short-driver">
+          <!-- Infos conducteur -->
+          <h2>{{trajet.driverData.prenom}} {{trajet.driverData.nom | slice:0:1}}</h2>
+          <div class="driver-age">
+            {{trajet.driverData.age}} ans
+          </div>
+          <i class="fa fa-star u-yellow"></i>
+          <span class="driver-rating">{{trajet.driverData.evaluationMoyenne}}/5</span> - {{trajet.driverData.nbEvaluations}} Avis
+        </div>
+        <div class="trip-short-info">
+          <!-- Infos trajet -->
+          <h3>Le {{trajet.date | date: 'dd/MM/yyyy'}} à {{trajet.heure}} </h3> <br/>
+          {{trajet.depart.ville}} → {{trajet.arrivee.ville}} <br/>
+
+          <i class="fa fa-map-marker u-green"></i>{{trajet.depart.ville}} : ({{trajet.depart.adresse}}) <br/>
+          <i class="fa fa-map-marker u-red"></i>{{trajet.arrivee.ville}} : ({{trajet.arrivee.adresse}})
+        </div>
+        <div class="trip-short-price">
+          <!-- Infos prix -->
+          <h2>{{trajet.prix}} €</h2>
+          par place
+          <div class="trip-short-price-remaining-seats">
+            {{trajet.placesRestantes}} places restantes
+          </div>
+
+        </div>
       </a>
     </li>
   </ul>

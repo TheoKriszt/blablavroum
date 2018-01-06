@@ -18,19 +18,20 @@ export class TrajetsRechercheComponent implements OnInit {
   ngOnInit() {
 
     this.route.params.subscribe(routeParams => {
-
       this.route.queryParams
         .subscribe(params => {
           this.orderByParam = params.orderBy;
           let searchOptions = {
-            'orderBy': this.orderByParam,
+            'orderBy': params.orderBy,
+            'evalMin': params.evalMin,
+            'prixMax': params.prixMax,
             'villeDepart' : routeParams.villeDepart,
             'villeArrivee' : routeParams.villeArrivee,
             'dateDepart' : routeParams.dateDepart
           };
 
           this.trajetsService.getTrajetsRecherche(searchOptions).subscribe(mongoRes => {
-            return this.trajets = mongoRes;
+            this.trajets = mongoRes;
           });
 
         });

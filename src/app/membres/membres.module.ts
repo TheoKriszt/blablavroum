@@ -13,16 +13,19 @@ import {AuthService} from './auth/auth.service';
 import {AuthGuard} from "../guards/auth-guard";
 import {TrajetsModule} from "../trajets/trajets.module";
 import { ProfileComponent } from './profile/profile.component';
-import {InplaceModule} from "primeng/primeng";
+import {InplaceModule, Message, MessagesModule} from "primeng/primeng";
+import {AlreadyAuthGuard} from "../guards/already-auth-guard";
 
 const routes: Routes = [
   {
     path: 'inscription',
-    component: InscriptionComponent
+    component: InscriptionComponent,
+    canActivate: [AlreadyAuthGuard]
   },
   {
     path: 'login',
-    component: LoginComponent
+    component: LoginComponent,
+    canActivate: [AlreadyAuthGuard]
   },
   {
     path: 'dashboard',
@@ -39,10 +42,10 @@ const routes: Routes = [
 @NgModule({
   imports: [
     CommonModule, HttpClientModule, BrowserModule, FormsModule, RouterModule.forChild(routes),
-    TrajetsModule, InplaceModule, ReactiveFormsModule //NGPrime
+    TrajetsModule, InplaceModule, ReactiveFormsModule, MessagesModule //NGPrime
   ],
   declarations: [MembresComponent, AuthComponent, InscriptionComponent, LoginComponent, ProfileComponent],
   exports: [MembresComponent, AuthComponent, InscriptionComponent, LoginComponent, ProfileComponent],
-  providers: [MembresService, AuthService, LoginComponent, AuthGuard]
+  providers: [MembresService, AuthService, LoginComponent, AuthGuard, AlreadyAuthGuard]
 })
 export class MembresModule { }

@@ -30,6 +30,8 @@ export class TrajetsComponent implements OnInit {
     this.formModel.villeDepart = 'Montpellier'; // todo: remove
     this.formModel.villeArrivee = 'Lyon';
 
+    this.formModel.evalMin = 0;
+
     this.orderByOptions = [
       {name: 'Prix', code: 'prix'},
       {name: 'Date', code: 'date'}
@@ -43,13 +45,20 @@ export class TrajetsComponent implements OnInit {
       this.selectedOrderByOption = {'code' : ''};
     }
 
+    this.formModel.evalMin /= 10; // 0..50 => 0..5 (permet les decimaux)
+
+    console.log("evalMin : ", this.formModel.evalMin);
+    console.log("pMax : ", this.formModel.prixMax);
+
     if (this.formModel.dateDepart){
       this.router.navigate(['/trajets', 'trajets-recherche', this.formModel.villeDepart, this.formModel.villeArrivee, this.formModel.dateDepart],
-        { queryParams: { orderBy: this.selectedOrderByOption.code} });
+        { queryParams: { orderBy: this.selectedOrderByOption.code, evalMin: this.formModel.evalMin, prixMax: this.formModel.prixMax} });
     }else {
       this.router.navigate(['/trajets', 'trajets-recherche', this.formModel.villeDepart, this.formModel.villeArrivee],
-        { queryParams: { orderBy: this.selectedOrderByOption.code} });
+        { queryParams: { orderBy: this.selectedOrderByOption.code, evalMin: this.formModel.evalMin, prixMax: this.formModel.prixMax} });
     }
+
+    this.formModel.evalMin *= 10;
 
     this.loading = false;
   }

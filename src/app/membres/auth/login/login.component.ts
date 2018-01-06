@@ -1,6 +1,7 @@
 import {Component, OnChanges, OnInit, SimpleChanges} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {AuthService} from '../auth.service';
+import {Message, MessagesModule} from 'primeng/primeng';
 
 @Component({
   selector: 'app-login',
@@ -18,6 +19,7 @@ export class LoginComponent implements OnInit, OnChanges {
   model: any = {}; // champs du formulaire
   loading = false;
   returnUrl: string; // si forcé de se logger pour une action, permet de revenir à la  bonne page
+  msgs: Message[] =  [];
 
   constructor(
     private route: ActivatedRoute,
@@ -27,6 +29,14 @@ export class LoginComponent implements OnInit, OnChanges {
 
   ngOnInit() {
     this.returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/';
+    this.msgs = [];
+    if(this.route.snapshot.queryParams['origin'] &&
+      this.route.snapshot.queryParams['origin'] == 'register'){
+      this.msgs.push({severity:'success', summary:'Compte créé', detail:'Vous pouvez maintenant vous connecter'});
+      this.model.mail = this.route.snapshot.queryParams['mail'] || '';
+
+    }
+
   }
 
   login(){
@@ -41,11 +51,17 @@ export class LoginComponent implements OnInit, OnChanges {
         console.log("LoginComponent : retour de requete d'auth : ");
         console.log(res);
 
-        if(this.returnUrl == '/'){
-          this.returnUrl = '/dashboard';
+        if (res[0]) {
+          if(this.returnUrl == '/'){
+            this.returnUrl = '/dashboard';
+          }
+          this.router.navigate([this.returnUrl]);
+        }else {
+          console.log("pb d'auth !!");
+          this.msgs.push({severity:'error', summary:'Erreur d\'authentification', detail:'Vérifiez que votre adresse mail et votre mot de passe sont valides'});
         }
-        // console.log('LoginComponent : redirection vers ' + this.returnUrl)
-        this.router.navigate([this.returnUrl]);
+
+
       });
   }
 }

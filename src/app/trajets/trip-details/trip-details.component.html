@@ -1,0 +1,37 @@
+
+<img *ngIf="loading" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+
+<div *ngIf="!loading">
+  <div class="trip-short-driver">
+    <!-- Infos conducteur -->
+    <h2>{{trajet.driverData.prenom}} {{trajet.driverData.nom | slice:0:1}}</h2>
+    <div class="driver-age">
+      {{trajet.driverData.age}} ans
+    </div>
+    <i class="fa fa-star u-yellow"></i>
+    <span class="driver-rating">{{trajet.driverData.evaluationMoyenne}}/5</span> - {{trajet.driverData.nbEvaluations}} Avis
+  </div>
+  <div class="trip-short-info">
+    <!-- Infos trajet -->
+    <h3>Le {{trajet.date | date: 'dd/MM/yyyy'}} à {{trajet.heure}} </h3> <br/>
+    {{trajet.depart.ville}} → {{trajet.arrivee.ville}} <br/>
+
+    <i class="fa fa-map-marker u-green"></i>{{trajet.depart.ville}} : ({{trajet.depart.adresse}}) <br/>
+    <i class="fa fa-map-marker u-red"></i>{{trajet.arrivee.ville}} : ({{trajet.arrivee.adresse}})
+  </div>
+  <div class="trip-short-price">
+    <!-- Infos prix -->
+    <h2>{{trajet.prix}} €</h2>
+    par place
+    <div class="trip-short-price-remaining-seats">
+      {{trajet.placesRestantes}} places restantes
+    </div>
+
+  </div>
+
+  <div *ngIf="trajet.status == 'archived'">
+    TODO : trajet archivé
+    // si avait réservé, laisser commentaire OK
+  </div>
+
+</div><!-- end if !loading -->
