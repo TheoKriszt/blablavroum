@@ -103,7 +103,7 @@
     "age":"21",
     "password": "1234",
     "adresse" : "Amiens",
-    "role" : ["admin"],
+    "role" : ["admin", "membre"],
     "evaluations": [],
     "vehicule_ids":[]
   },
@@ -115,7 +115,7 @@
     "age":"21",
     "password": "1234",
     "adresse" : "Tourcoing",
-    "role" : ["admin"],
+    "role" : ["admin", "membre"],
     "evaluations": [],
     "vehicule_ids":[]
   }
