@@ -78,6 +78,18 @@ mongoClient.connect(url,function(err,db){
       });
   });
 
+ // membre par role
+  app.get("/membres/role/:role",function(req,res){
+
+    console.log('role : ' + req.params.id);
+    database.collection("membres").find({"role": req.params.role})
+      .toArray(function(err,documents){
+        console.log("Recherche de membre par role :");
+        var json = JSON.stringify(documents);
+        sendRes(res, json);
+     });
+  });
+
 
 // membre par mail
   app.get("/membres/mail/:mail",function(req,res){
@@ -91,6 +103,7 @@ mongoClient.connect(url,function(err,db){
 
       });
   });
+	
 
 //requête prenom // useless ?
 //   app.get("/membres/prenom/:prenom",function(req,res){
