@@ -10,8 +10,8 @@ Hopefully, if it's maintained, you can find a demo of the app [here](http://theo
 
 Clone this repo via `git clone`
 
-You can populate mongoDB with test examples provided in `res/json/inserts`
-
+You can populate mongoDB with test examples provided in `res/mongo`. `restore_mongo.sh` will do it for you 
+ 
 Select download directory `cd blablavroum`
 
 Launch Node.js server `node server.js` 

@@ -4,7 +4,7 @@
 - ~~Bouger la creation de tables dans assets~~
 - ~~Bouger le server.js dans un endroit plus logique~~
 - ~~Mettre message quand aucun trajet trouvé~~
-- rendre la recherche de trajet insensible à la casse (Lyon == lyon == LYON)
+- ~~rendre la recherche de trajet insensible à la casse (Lyon == lyon == LYON)~~
 - ~~ajouter verif formulaire avant envoi de recherche~~
 - faire qu'un admin puisse promouvoir / révoquer un utilisateur admin
 - pouvoir lister/supprimer un user depuis l'interface admin
@@ -13,15 +13,17 @@
 - En page d'accueil, afficher les derniers trajets publiés ?
 - ~~verifier ce qu'il se pass quand login incorrect~~
 - ne pouvoir proposer un trajet que si on a enregistré un véhicule
-  - ajouter vehicule à crétion de trajet
+  - ajouter vehicule à création de trajet
 - faire le truc pour donner des evaluations
 - modifier le modèle de vehicule pour {id_proprio, marque, modele, couleur}
 - la suppression d'un user entraine la suppression de ses trajets et vehicules
-- Archiver les trajets (tag état => passé) après date et heure de trajet
+- Archiver les trajets (tag état => passé) après date et heure de trajet // status: {published | archived}
 - Ajouter option pour afficher trajets archivés
 - Rendre impossible la réservation/liberation d'un trajet archivé
 - Rendre possible l'évaluation du conducteur quand trajet archivé
   - Evaluation : trajet_id, from_id, content, value
+- ~~Changer dans le readme la procedure d'import en base mongoDB~~
+
 
 ##Nouveaux composants
 - ~~TripProposal : l'utilisateur loggé peut publier un nouveau trajet~~

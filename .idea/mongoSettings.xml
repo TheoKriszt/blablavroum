@@ -4,6 +4,7 @@
     <option name="serverConfigurations">
       <list>
         <ServerConfiguration>
+          <option name="label" value="Mongo Blablavroum VPS" />
           <option name="serverUrls">
             <list>
               <option value="theo.kriszt.fr:27017" />

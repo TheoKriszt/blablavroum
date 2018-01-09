@@ -103,7 +103,7 @@ mongoClient.connect(url,function(err,db){
 
       });
   });
-	
+
 
 //requête prenom // useless ?
 //   app.get("/membres/prenom/:prenom",function(req,res){
@@ -276,7 +276,6 @@ mongoClient.connect(url,function(err,db){
     // insérer les infos du conducteur dans le trajet correspondant
     database.collection("membres").find({"_id": {$in: drivers}})
       .toArray(function (err, data) {
-
         for (let driver of data )  {
 
           driver.nbEvaluations = driver.evaluations.length;
@@ -317,10 +316,14 @@ mongoClient.connect(url,function(err,db){
       function (callback) {
         //primo : extraire les trajets de villed à villea
         database.collection("trajets").find(
-          {'depart.ville': req.params.villed, 'arrivee.ville': req.params.villea, 'prix': {$lte: req.query.prixMax}},
-          // {'depart.ville': req.params.villed, 'arrivee.ville': req.params.villea, 'date': {$gte: req.params.dateDepart}, 'prix': {$lte: req.query.prixMax}},
+          {'depart.ville': {$regex : new RegExp("^" + req.params.villed.toLowerCase(), "i")},
+            'arrivee.ville': new RegExp("^" + req.params.villea.toLowerCase(), "i"),
+            //'prix': {$lte: req.query.prixMax}// FIXME
+            },
+          // {'depart.ville': req.params.villed, 'arrivee.ville': req.params.villea, 'prix': {$lte: req.query.prixMax}},
           {"sort": [[req.query.orderBy,'asc'], ['heure','asc']]}
         ).toArray(function (err, trajets) {
+          console.log(trajets.length + " trajets correspondants trouvés");
           callback(null, trajets);
         });
       },
@@ -328,7 +331,7 @@ mongoClient.connect(url,function(err,db){
       function (trajets, callback) { // filtrer les conducteurs trop bas
         let trajetsCleaned = [];
 
-        for(let trajet of trajets){
+        for(let trajet of trajets){ // filtrer les conducteurs avec de trop mauvaises evaluations
           if (req.query.evalMin == 0) {
             trajetsCleaned.push(trajet);
           } else if (trajet.driverData.evaluationMoyenne != '?' && trajet.driverData.evaluationMoyenne >= req.query.evalMin) {
@@ -355,7 +358,10 @@ mongoClient.connect(url,function(err,db){
       function (callback) {
         //primo : extraire les trajets de villed à villea
         database.collection("trajets").find(
-          {'depart.ville': req.params.villed, 'arrivee.ville': req.params.villea, 'date': {$gte: req.params.dateDepart}, 'prix': {$lte: req.query.prixMax}},
+          {'depart.ville': {$regex : new RegExp("^" + req.params.villed.toLowerCase(), "i")},
+            'arrivee.ville': new RegExp("^" + req.params.villea.toLowerCase(), "i"),
+            'date': {$gte: req.params.dateDepart},
+            'prix': {$lte: req.query.prixMax}},
           {"sort": [[req.query.orderBy,'asc'], ['heure','asc']]}
         ).toArray(function (err, trajets) {
           callback(null, trajets);
