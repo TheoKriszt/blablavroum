@@ -15,7 +15,16 @@ export class TripDetailsComponent implements OnInit {
   // driver: Object = {};
   loading: boolean = true;
 
+  mapOptions: any = {};
+  google: any;
+
   ngOnInit() {
+
+    this.mapOptions = {
+      center: {lat: 36.890257, lng: 30.707417},
+      zoom: 12
+    };
+
     this.route.params.subscribe(routeParams => {
       let tripID = routeParams.tripID;
 

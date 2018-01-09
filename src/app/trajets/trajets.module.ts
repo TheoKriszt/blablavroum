@@ -9,7 +9,7 @@ import {FormsModule} from "@angular/forms";
 import { TripProposalComponent } from './trip-proposal/trip-proposal.component';
 import { ProposedTripsComponent } from './proposed-trips/proposed-trips.component';
 import {AuthGuard} from "../guards/auth-guard";
-import {CalendarModule, DropdownModule, SliderModule} from "primeng/primeng";
+import {CalendarModule, DropdownModule, GMapModule, SliderModule} from "primeng/primeng";
 import { ReservationsComponent } from './reservations/reservations.component';
 import { TripDetailsComponent } from './trip-details/trip-details.component';
 
@@ -41,7 +41,8 @@ const routes: Routes = [
 
 @NgModule({
   imports: [
-    CommonModule, HttpClientModule, FormsModule ,RouterModule.forChild(routes), CalendarModule, DropdownModule, SliderModule
+    CommonModule, HttpClientModule, FormsModule ,RouterModule.forChild(routes),
+    CalendarModule, DropdownModule, SliderModule, GMapModule
   ],
   exports:[TrajetsComponent, TrajetsRechercheComponent,  RouterModule, TripProposalComponent, ProposedTripsComponent], // exports pour utilisation dans un autre module (membres dashboard)
   declarations: [TrajetsComponent, TrajetsRechercheComponent, TripProposalComponent, ProposedTripsComponent, ReservationsComponent, TripDetailsComponent],
