@@ -24,7 +24,7 @@ export class TrajetsRechercheComponent implements OnInit {
           let searchOptions = {
             'orderBy': params.orderBy,
             'evalMin': params.evalMin,
-            'prixMax': params.prixMax,
+            'prixMax': params.prixMax || 0,
             'villeDepart' : routeParams.villeDepart,
             'villeArrivee' : routeParams.villeArrivee,
             'dateDepart' : routeParams.dateDepart

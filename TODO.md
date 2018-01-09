@@ -37,6 +37,7 @@
 ##FIXME
 - ~~Trouver pourquoi apres login la vue auth (inscription|connexion) ne se met pas a jour~~
 - ~~Regler les appels async foireux sur Node/Mongo~~
+- prixMax de recherche trajet
 
 
 ## Fonctionnalités minimales attendues

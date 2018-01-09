@@ -311,6 +311,9 @@ mongoClient.connect(url,function(err,db){
   // trouve les trajets de villed à villea
   app.get("/trajets/search/:villed/:villea",function(req,res){
     console.log("Recherche des trajets de " + req.params.villed + " à " + req.params.villea);
+    req.query.prixMax  = req.query.prixMax || '0';
+    console.log("prix max ! "  + req.query.prixMax);
+
 
     async.waterfall([
       function (callback) {
