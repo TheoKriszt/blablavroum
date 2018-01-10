@@ -16,13 +16,14 @@
   - ajouter vehicule à création de trajet
 - faire le truc pour donner des evaluations
 - modifier le modèle de vehicule pour {id_proprio, marque, modele, couleur}
-- la suppression d'un user entraine la suppression de ses trajets et vehicules
+- la suppression d'un user entraine la suppression de ses trajets ?
 - Archiver les trajets (tag état => passé) après date et heure de trajet // status: {published | archived}
 - Ajouter option pour afficher trajets archivés
 - Rendre impossible la réservation/liberation d'un trajet archivé
 - Rendre possible l'évaluation du conducteur quand trajet archivé
   - Evaluation : trajet_id, from_id, content, value
 - ~~Changer dans le readme la procedure d'import en base mongoDB~~
+- Faire les reservations
 
 
 ##Nouveaux composants

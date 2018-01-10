@@ -298,7 +298,7 @@ mongoClient.connect(url,function(err,db){
               delete driver.role;
               trajet.driverData = driver;
 
-              trajet.placesRestantes = trajet.nbPlace - trajet.passager.length;
+              trajet.placesRestantes = trajet.nbPlace - (trajet.passagers !== undefined ? trajet.passagers.length : 0);
               trajet.complet = trajet.placesRestantes == 0 ? 'true' : 'false';
             }
           }
@@ -329,6 +329,7 @@ mongoClient.connect(url,function(err,db){
             console.log("ERR : ");
             console.log(err);
           }else {
+            console.log("resultats OK : " + trajets.length);
             callback(null, trajets);
           }
           // console.log(trajets.length + " trajets correspondants trouvés");
@@ -479,6 +480,8 @@ mongoClient.connect(url,function(err,db){
 
     console.log("Ajout d'une reservation");
 
+    console.log("ALERT ! not implemented"); // fixme
+
     database.collection("trajets").insertOne(reservation, function (err, documents) {
       if (err) {
         console.log('ERROR : \n' + err);
@@ -492,7 +495,7 @@ mongoClient.connect(url,function(err,db){
   app.get("/reservations/:userID",function(req,res){
 
     console.log('Recherche des trajets reserves par userID : ' + req.params.userID);
-    database.collection("trajets").find( {"passager": [ req.params.userID ]} )
+    database.collection("trajets").find( {"passagers": [ req.params.userID ]} )
     // database.collection("membres").find( {"_id.$oid": req.params.id} )
       .toArray(function(err,documents){
         var json = JSON.stringify(documents);
@@ -531,18 +534,54 @@ mongoClient.connect(url,function(err,db){
     ]);
   });
 
-  // app.get("/castUpdate", function (req, res) {
-  //   console.log("casting...");
-  //   database.collection("trajets").find().forEach(function(theCollection) {
-  //     theCollection.prix = parseInt(theCollection.prix);
-  //     database.collection("trajets").save(theCollection);
-  //   });
-  //
-  //   res.sendStatus(200);
-  //
-  // });
+  /**
+   * Vehicules
+   */
+
+  // trouve les vehicules du membre :ownerId
+  app.get("/vehicules/:ownerId", function (req, res) {
+    console.log("Recherche des vehicules du membre d'id: " + req.params.ownerId);
+
+    async.waterfall([
+      // Primo : recherche du proprietaire par ID
+      function (callback) {
+        var oid = new ObjectID(req.params.ownerId);
+        database.collection("membres").find( {"_id": oid} )
+          .toArray(function(err,membres){
+            callback(null, membres[0]);
+          });
+      },
+      // Deuxio : renvoie les infos des vehicules
+      function (membre, callback) {
+
+        for (let vid of membre.vehicule_ids) {
+          vid = ObjectID(vid);
+        }
+
+        database.collection("vehicules").find( {"_id": {$in : membre.vehicule_ids}} )
+          .toArray(function(err,vehicules){
+
+            sendRes(res, JSON.stringify(vehicules));
+            callback(true);// fin du waterfall
+          });
+      }
+    ]);
+
+  });
+
+  // Auto completion des marques
+  app.get("/vehicules/brands/:startsWith", function (req, res) {
+
+    const answer = "reponse non implementee";
+
+    sendRes(res, JSON.stringify(answer));
+  });
+
+
 
 });
+
+
 
 
 

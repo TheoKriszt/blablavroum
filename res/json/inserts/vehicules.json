@@ -1,9 +1,0 @@
-[
-  {"marque":"Renault", "modele":"megane", "couleur":"bleu"},
-  {"marque":"Audi", "modele":"A5", "couleur":"noir"},
-  {"marque":"Peugeot", "modele":"206", "couleur":"gris"},
-  {"marque":"Peugeot", "modele":"206", "couleur":"blanc"},
-  {"marque":"Lada", "modele":"niva", "couleur":"vert"},
-  {"marque":"Ferrari", "modele":"california", "couleur":"rouge"},
-  {"marque":"Aston Martin", "modele":"db11", "couleur":"noir"}
-]

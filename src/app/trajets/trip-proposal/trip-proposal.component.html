@@ -14,6 +14,25 @@
       <input type="text" class="form-control" name="adresseDepart" [(ngModel)]="model.adresseDepart" #adresseDepart="ngModel"/>
     </div>
 
+    <div class="container">
+      <h1>Angular 2 + Google Maps Places Autocomplete</h1>
+      <div class="form-group">
+        <input placeholder="search for location" autocorrect="off" autocapitalize="off" spellcheck="off" type="text" class="form-control" #search [formControl]="searchControl">
+      </div>
+      <agm-map [latitude]="latitude" [longitude]="longitude" [scrollwheel]="true" [zoom]="zoom">
+        <!--<agm-marker [latitude]="latitude" [longitude]="longitude"></agm-marker>-->
+        <agm-direction *ngIf="dir" [origin]="dir.origin" [destination]="dir.destination"></agm-direction>
+
+      </agm-map>
+
+
+      <div #map id="map"></div> // carte Google Maps Directions API
+    </div>
+
+
+
+
+
     <div class="form-group" [ngClass]="{ 'has-error': proposeForm.submitted && !villeArrivee.valid }">
       <label for="villeArrivee">Ville d'arrivée</label>
       <input type="text" class="form-control" name="villeArrivee" [(ngModel)]="model.villeArrivee" #villeArrivee="ngModel" required />
@@ -40,19 +59,6 @@
       <p-calendar name="heureDepart" [(ngModel)]="heureDepart" timeOnly="true"></p-calendar>
     </div>
 
-
-
-      <!--<input type="text" class="form-control" name="heureDepart" [(ngModel)]="model.heureDepart" #heureDepart="ngModel" required pattern="[0-9]*"-->
-             <!--minlength="1"-->
-             <!--maxlength="2" /> h-->
-      <!--<input type="text" class="form-control" name="minuteDepart" [(ngModel)]="model.minuteDepart" #minuteDepart="ngModel" required pattern="[0-9]*"-->
-             <!--minlength="1"-->
-             <!--maxlength="2"/> min-->
-      <!--<div *ngIf="proposeForm.submitted && (!heureDepart.valid )" class="help-block">Vous devez préciser l'heure du départ</div>-->
-    <!--</div>-->
-
-
-    <!--<p-calendar [(ngModel)]="value" showDate="false" showTime="true" hourFormat="24"></p-calendar>-->
 
     <div class="form-group" [ngClass]="{ 'has-error': proposeForm.submitted && !prix.valid }">
       <label for="prix">Prix par place</label>

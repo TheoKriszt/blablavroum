@@ -26,4 +26,4 @@ The app will automatically reload if you change any of the source files.
 Run `ng build` to build the project. The built artifacts will be stored in the `dist/` directory. 
 Use the `--prod` flag for a production build.
 
-NB : check your environment settings, as in production mode, the API URL will be overwritten with your production server's URL.
+**NB :** check your environment settings, as in production mode, the API URL will be overwritten with your production server's URL.
