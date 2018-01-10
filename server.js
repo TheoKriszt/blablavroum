@@ -183,7 +183,7 @@ mongoClient.connect(url,function(err,db){
       "prenom": req.body.prenom,
       "mail": req.body.mail,
       "telephone" : req.body.telephone,
-      "age" : req.body.age,
+      "age" : parseInt(req.body.age),
       "adresse" : req.body.adresse,
       "password": req.body.password,
       "role": ["membre"],
@@ -311,23 +311,29 @@ mongoClient.connect(url,function(err,db){
   // trouve les trajets de villed à villea
   app.get("/trajets/search/:villed/:villea",function(req,res){
     console.log("Recherche des trajets de " + req.params.villed + " à " + req.params.villea);
-    req.query.prixMax  = req.query.prixMax || '0';
-    console.log("prix max ! "  + req.query.prixMax);
-
+    console.log("prix max : "  + req.query.prixMax);
+    console.log("orderBy : "  + req.query.orderBy);
 
     async.waterfall([
       function (callback) {
         //primo : extraire les trajets de villed à villea
         database.collection("trajets").find(
-          {'depart.ville': {$regex : new RegExp("^" + req.params.villed.toLowerCase(), "i")},
-            'arrivee.ville': new RegExp("^" + req.params.villea.toLowerCase(), "i"),
-            //'prix': {$lte: req.query.prixMax}// FIXME
+          {
+            'prix': {$lte: parseInt(req.query.prixMax)},
+            'depart.ville':  {$regex : new RegExp("^" + req.params.villed.toLowerCase(), "i")},
+            'arrivee.ville': {$regex : new RegExp("^" + req.params.villea.toLowerCase(), "i")},
             },
-          // {'depart.ville': req.params.villed, 'arrivee.ville': req.params.villea, 'prix': {$lte: req.query.prixMax}},
-          {"sort": [[req.query.orderBy,'asc'], ['heure','asc']]}
+          {"sort": [ [req.query.orderBy,'asc'], ['heure','asc']]}
         ).toArray(function (err, trajets) {
-          console.log(trajets.length + " trajets correspondants trouvés");
-          callback(null, trajets);
+          if (err){
+            console.log("ERR : ");
+            console.log(err);
+          }else {
+            callback(null, trajets);
+          }
+          // console.log(trajets.length + " trajets correspondants trouvés");
+          // console.log(trajets[0]);
+
         });
       },
         completeDriverData, // complete les trajets avec les données sur leurs conducteurs
@@ -364,7 +370,8 @@ mongoClient.connect(url,function(err,db){
           {'depart.ville': {$regex : new RegExp("^" + req.params.villed.toLowerCase(), "i")},
             'arrivee.ville': new RegExp("^" + req.params.villea.toLowerCase(), "i"),
             'date': {$gte: req.params.dateDepart},
-            'prix': {$lte: req.query.prixMax}},
+            'prix': {$lte: parseInt(req.query.prixMax)}
+            },
           {"sort": [[req.query.orderBy,'asc'], ['heure','asc']]}
         ).toArray(function (err, trajets) {
           callback(null, trajets);
@@ -419,7 +426,7 @@ mongoClient.connect(url,function(err,db){
       "arrivee" : {"ville" : req.body.villeArrivee, "adresse" : req.body.adresseArrivee},
       "dateDepart" : req.body.dateDepart,
       "heureDepart" : req.body.heureDepart,
-      "prix" : req.body.prix,
+      "prix" : parseFloat(req.body.prix),
       "nbPlaces" : req.body.nbPlaces,
       "conducteur" : req.body.conducteur,
       "passagers" : []
@@ -524,6 +531,19 @@ mongoClient.connect(url,function(err,db){
     ]);
   });
 
+  // app.get("/castUpdate", function (req, res) {
+  //   console.log("casting...");
+  //   database.collection("trajets").find().forEach(function(theCollection) {
+  //     theCollection.prix = parseInt(theCollection.prix);
+  //     database.collection("trajets").save(theCollection);
+  //   });
+  //
+  //   res.sendStatus(200);
+  //
+  // });
+
 });
+
+
 
 app.listen(8888);

@@ -16,7 +16,7 @@ export class TrajetsService {
 
     let tripUrl: string = this.baseUrl + '/trajets/search/' + searchParams.villeDepart + '/' + searchParams.villeArrivee;
 
-    if(searchParams.dateDepart) {
+    if (searchParams.dateDepart) {
       tripUrl += '/' + searchParams.dateDepart;
     }
 
@@ -25,17 +25,24 @@ export class TrajetsService {
 
     tripUrl += '?';
 
-    if(searchParams.orderBy){
-      tripUrl += '&orderBy=' + searchParams.orderBy;
-    }
+    // if (searchParams.orderBy){
+    //   tripUrl += '&orderBy=' + searchParams.orderBy;
+    // if (searchParams.prixMax){
+    //   console.log('Prix max demandé : ' + searchParams.prixMax);
+    //   tripUrl += '&prixMax=' + searchParams.prixMax;
+    // if (searchParams.evalMin){
+    //   tripUrl += '&evalMin=' + searchParams.evalMin;
+    // }
 
-    if(searchParams.prixMax){
-      tripUrl += '&prixMax=' + searchParams.prixMax;
-    }
+    // }
 
-    if(searchParams.evalMin){
-      tripUrl += '&evalMin=' + searchParams.evalMin;
-    }
+
+    // }
+    tripUrl += '&orderBy=' + (searchParams.orderBy || 'heure');
+    tripUrl += '&prixMax=' + (searchParams.prixMax || 9999) ;
+    tripUrl += '&evalMin=' + (searchParams.evalMin || 0);
+
+    console.log('Appel via  : ' + tripUrl);
 
     return this.http.get(tripUrl);
   }
@@ -50,11 +57,11 @@ export class TrajetsService {
 
   create(model: any): Observable <any>{
     // console.log('Creation d\'un trajet');
-    let body: any = model;
+    const body: any = model;
     console.log(body);
 
-    let url: string = this.baseUrl + '/trajets';
-    let headers = new Headers({'Content-Type': 'application/json'});
+    const url: string = this.baseUrl + '/trajets';
+    const headers = new Headers({'Content-Type': 'application/json'});
 
     return this.http.post(url, body, headers);
   }

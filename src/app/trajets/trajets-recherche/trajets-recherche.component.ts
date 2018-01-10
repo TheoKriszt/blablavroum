@@ -1,7 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute} from '@angular/router';
 import {TrajetsService} from '../trajets.service';
-import {isNullOrUndefined} from 'util';
 
 @Component({
   selector: 'app-trajets-recherche',
@@ -11,7 +10,7 @@ import {isNullOrUndefined} from 'util';
 export class TrajetsRechercheComponent implements OnInit {
 
   trajets: any = {};
-  orderByParam: string = '';
+  orderByParam = '';
 
   constructor(private route: ActivatedRoute, private trajetsService: TrajetsService) {}
 
@@ -21,10 +20,10 @@ export class TrajetsRechercheComponent implements OnInit {
       this.route.queryParams
         .subscribe(params => {
           this.orderByParam = params.orderBy;
-          let searchOptions = {
+          const searchOptions = {
             'orderBy': params.orderBy,
             'evalMin': params.evalMin,
-            'prixMax': params.prixMax || 0,
+            'prixMax': params.prixMax,
             'villeDepart' : routeParams.villeDepart,
             'villeArrivee' : routeParams.villeArrivee,
             'dateDepart' : routeParams.dateDepart
@@ -38,8 +37,8 @@ export class TrajetsRechercheComponent implements OnInit {
     });
   }
 
-  gotResults(): boolean{
-    return (this.trajets[0] != undefined);
+  gotResults(): boolean {
+    return (this.trajets[0] !== undefined);
   }
 
 }

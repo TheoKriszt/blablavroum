@@ -1,6 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {Router} from "@angular/router";
-import {getQueryValue} from "@angular/core/src/view/query";
+import {Router} from '@angular/router';
 
 
 @Component({
@@ -11,20 +10,20 @@ import {getQueryValue} from "@angular/core/src/view/query";
 
 export class TrajetsComponent implements OnInit {
   formModel: any =  {};
-  loading: boolean = false;
+  loading = false;
 
   orderByOptions: any[];
   selectedOrderByOption: any;
 
 
-  //todo : remove ?
+  // todo : remove ?
   trajets: Object = {};
   villeDepart: String = '';
   villeArrivee: String = '';
   dateDepart: String = '';
   // todo : fin
 
-  constructor(private router: Router,) {}
+  constructor(private router: Router, ) {}
 
   ngOnInit() {
     this.formModel.villeDepart = 'Montpellier'; // todo: remove
@@ -41,21 +40,25 @@ export class TrajetsComponent implements OnInit {
   submitTripSearch(){
     this.loading = true;
 
-    if(!this.selectedOrderByOption){
+    if (!this.selectedOrderByOption) {
       this.selectedOrderByOption = {'code' : ''};
     }
 
     this.formModel.evalMin /= 10; // 0..50 => 0..5 (permet les decimaux)
 
-    console.log("evalMin : ", this.formModel.evalMin);
-    console.log("pMax : ", this.formModel.prixMax);
+    console.log('evalMin : ', this.formModel.evalMin);
+    console.log('pMax : ', this.formModel.prixMax);
 
-    if (this.formModel.dateDepart){
-      this.router.navigate(['/trajets', 'trajets-recherche', this.formModel.villeDepart, this.formModel.villeArrivee, this.formModel.dateDepart],
-        { queryParams: { orderBy: this.selectedOrderByOption.code, evalMin: this.formModel.evalMin, prixMax: this.formModel.prixMax} });
+    if (this.formModel.dateDepart) {
+      this.router.navigate(
+        ['/trajets', 'trajets-recherche', this.formModel.villeDepart, this.formModel.villeArrivee, this.formModel.dateDepart],
+        { queryParams: { orderBy: this.selectedOrderByOption.code, evalMin: this.formModel.evalMin, prixMax: this.formModel.prixMax} }
+        );
     }else {
-      this.router.navigate(['/trajets', 'trajets-recherche', this.formModel.villeDepart, this.formModel.villeArrivee],
-        { queryParams: { orderBy: this.selectedOrderByOption.code, evalMin: this.formModel.evalMin, prixMax: this.formModel.prixMax} });
+      this.router.navigate(
+        ['/trajets', 'trajets-recherche', this.formModel.villeDepart, this.formModel.villeArrivee],
+        { queryParams: { orderBy: this.selectedOrderByOption.code, evalMin: this.formModel.evalMin, prixMax: this.formModel.prixMax} }
+        );
     }
 
     this.formModel.evalMin *= 10;
@@ -64,7 +67,7 @@ export class TrajetsComponent implements OnInit {
   }
 
   swap() {
-    let temp = this.formModel.villeDepart;
+    const temp = this.formModel.villeDepart;
     this.formModel.villeDepart = this.formModel.villeArrivee;
     this.formModel.villeArrivee = temp;
   }
