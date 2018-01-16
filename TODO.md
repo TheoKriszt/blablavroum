@@ -6,19 +6,19 @@
 - ~~Mettre message quand aucun trajet trouvé~~
 - ~~rendre la recherche de trajet insensible à la casse (Lyon == lyon == LYON)~~
 - ~~ajouter verif formulaire avant envoi de recherche~~
-- faire qu'un admin puisse promouvoir / révoquer un utilisateur admin
-- pouvoir lister/supprimer un user depuis l'interface admin
-- mettre l'affichage des dates des trajets au format français
-- crypter le MDP
-- En page d'accueil, afficher les derniers trajets publiés ?
+- ~~faire qu'un admin puisse promouvoir / révoquer un utilisateur admin~~ **MEH / OUTATIME**
+- pouvoir lister/supprimer un user depuis l'interface admin **PAS DE SUPPRESSION**
+- mettre l'affichage des dates des trajets au format français **pipe ?**
+- ~~crypter le MDP~~ **OUTATIME**
+- ~~En page d'accueil, afficher les derniers trajets publiés ?~~ **OUTATIME**
 - ~~verifier ce qu'il se pass quand login incorrect~~
 - ne pouvoir proposer un trajet que si on a enregistré un véhicule
   - ajouter vehicule à création de trajet
 - faire le truc pour donner des evaluations
 - modifier le modèle de vehicule pour {id_proprio, marque, modele, couleur}
-- la suppression d'un user entraine la suppression de ses trajets ?
+- ~~la suppression d'un user entraine la suppression de ses trajets ?~~ **Pas de suppression d'user**
 - Archiver les trajets (tag état => passé) après date et heure de trajet // status: {published | archived}
-- Ajouter option pour afficher trajets archivés
+- Ajouter option pour afficher trajets archivés **=> seulement les trajets que j'avais reservés**
 - Rendre impossible la réservation/liberation d'un trajet archivé
 - Rendre possible l'évaluation du conducteur quand trajet archivé
   - Evaluation : trajet_id, from_id, content, value
@@ -38,13 +38,13 @@
 ##FIXME
 - ~~Trouver pourquoi apres login la vue auth (inscription|connexion) ne se met pas a jour~~
 - ~~Regler les appels async foireux sur Node/Mongo~~
-- prixMax de recherche trajet
+- ~~prixMax de recherche trajet~~
 
 
 ## Fonctionnalités minimales attendues
 - Base MongoDB avec au moins les collections
   - ~~membres (rôle admin/non admin) (users)~~
-  - trajets
+  - ~~trajets~~
   - trajetsTypes (si la distance entre deux villes ne peut  être récupérée automatiquement) (à moins qu'on ne pase par l'API google maps)
   - vehicules
   - (Avis) (les infos peuvent être intégrées à membres)
@@ -60,9 +60,9 @@
   - ~~Inscription~~
 
 ## Bonus
-- Visualisation trajet sur une carte (G Maps)
-- Contrôleur (fortement conseillé)
-- Gestion de rôles via des guards
+- ~~Visualisation trajet sur une carte (G Maps)~~
+- ~~Contrôleur (fortement conseillé)~~
+- ~~Gestion de rôles via des guards~~
 - Statistiques
 - (Etapes) (hard !)
 

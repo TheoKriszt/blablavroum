@@ -442,7 +442,7 @@ mongoClient.connect(url,function(err,db){
       "nbPlaces" : req.body.nbPlaces,
       "conducteur" : req.body.conducteur,
       "passagers" : [],
-      "status" : "active"
+      "status" : "published"
     };
 
     console.log("Ajout d'un trajet " + trajet.depart.ville + ' ->' + trajet.arrivee.ville);
