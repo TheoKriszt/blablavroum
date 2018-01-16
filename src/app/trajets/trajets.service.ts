@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpParams} from '@angular/common/http';
+import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs/Observable';
-import 'rxjs/add/operator/map';
+// import 'rxjs/add/operator/map';
 import { environment } from '../../environments/environment';
 
 @Injectable()
@@ -11,6 +11,10 @@ export class TrajetsService {
 
 
   constructor(private http: HttpClient) {}
+
+  // getDerniersTrajets(limit: number): Observable <any> {
+  //   return this.http.get(this.baseUrl + '/trajets/limit/' + limit);
+  // }
 
   getTrajetsRecherche(searchParams): Observable <any> {
 
@@ -25,24 +29,9 @@ export class TrajetsService {
 
     tripUrl += '?';
 
-    // if (searchParams.orderBy){
-    //   tripUrl += '&orderBy=' + searchParams.orderBy;
-    // if (searchParams.prixMax){
-    //   console.log('Prix max demandé : ' + searchParams.prixMax);
-    //   tripUrl += '&prixMax=' + searchParams.prixMax;
-    // if (searchParams.evalMin){
-    //   tripUrl += '&evalMin=' + searchParams.evalMin;
-    // }
-
-    // }
-
-
-    // }
-    tripUrl += '&orderBy=' + (searchParams.orderBy || 'heure');
+    tripUrl += '&orderBy=' + (searchParams.orderBy || 'heure'); // paramètres de recherche et leur valeurs par défaut
     tripUrl += '&prixMax=' + (searchParams.prixMax || 9999) ;
     tripUrl += '&evalMin=' + (searchParams.evalMin || 0);
-
-    console.log('Appel via  : ' + tripUrl);
 
     return this.http.get(tripUrl);
   }
@@ -51,12 +40,12 @@ export class TrajetsService {
     return this.http.get(this.baseUrl + '/trajets/driver/' + user_id);
   }
 
-  getMesreservations(user_id: string): Observable <any> {
+  getMesReservations(user_id: string): Observable <any> {
     return this.http.get(this.baseUrl + '/reservations/' + user_id);
   }
 
   create(model: any): Observable <any>{
-    // console.log('Creation d\'un trajet');
+    console.log('Creation d\'un trajet');
     const body: any = model;
     console.log(body);
 

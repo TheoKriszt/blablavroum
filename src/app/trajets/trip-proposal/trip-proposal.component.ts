@@ -5,112 +5,89 @@ import {Cookie} from 'ng2-cookies';
 import {FormControl} from '@angular/forms';
 import {MapsAPILoader} from '@agm/core';
 import {} from '@types/googlemaps';
-// import DirectionsService = google.maps.DirectionsService;
-// import DirectionsRenderer = google.maps.DirectionsRenderer;
-
-// declare var google: any;
 
 @Component({
   selector: 'app-trip-proposal',
   templateUrl: './trip-proposal.component.html',
   styleUrls: ['./trip-proposal.component.css']
 })
+
 export class TripProposalComponent implements OnInit {
 
-  @ViewChild('search')
-  public searchElementRef: ElementRef;
+  // Elements du DOM à observer / manipuler
+  @ViewChild('searchFrom')
+  public searchFromRef: ElementRef; // text input : départ
 
-  @ViewChild('map')
-  public mapElement: ElementRef;
+  @ViewChild('searchTo')
+  public searchToRef: ElementRef; // text input : arrivée
 
-  map: any;
-  dir = undefined; // Map directions
+  // @ViewChild('map')
+  // public mapElement: ElementRef; // division : affichage GMap
+
+  // Elements du model de Google (Maps, Directions)
+  public latitude: number;  // coordonnées du centre de la carte par défaut
+  public longitude: number;
+  public zoom: number;      // niveau de zoom de la carte
+
+  public searchFromControl: FormControl; // Google Places  checker : depart
+  public searchToControl: FormControl;   // Google Places  checker : arrivee
+
+  autocompleteFrom: any;  // Google Places autocomplete  : depart
+  autocompleteTo: any;    // Google Places autocomplete  : arrivee
+
+  directions = undefined; // Map directions (itineraire)
 
 
-
-  start = 'chicago, il';
-  end = 'chicago, il';
-  // directionsService = google.maps.DirectionsService;
-  // directionsDisplay = google.maps.DirectionsRenderer;
-
-
-
-
-  model: any = {};
+  // Elements du formulaire
+  model: any = {}; // modèle champs du formulaire
   loading = false;
   heureDepart: Date = new Date(); // géré hors formulaire
 
-  // elements du gmap
-
-  public latitude: number;
-  public longitude: number;
-  public searchControl: FormControl;
-  public zoom: number;
 
   constructor(private router: Router,
               private trajetService: TrajetsService,
               private mapsAPILoader: MapsAPILoader,
-              private ngZone: NgZone,
-              // private directionService: DirectionsService,
-              // private directionDisplay: DirectionsRenderer
-  ) { }
+              private ngZone: NgZone
+  ) {}
 
   ngOnInit() {
-
     // TODO : remove
-    this.model.villeDepart = 'Montpellier';
-    this.model.adresseDepart = 'Place Eugene Bataillon';
-    this.model.villeArrivee = 'Lyon';
-    this.model.adresseArrivee = 'Gare Lyon Perrache';
-    this.model.dateDepart = '2017-12-31';
-    // this.model.heureDepart = '54';
-    // this.model.minuteDepart = '69';
+    // this.model.villeDepart = 'Montpellier';
+    // this.model.adresseDepart = 'Place Eugene Bataillon';
+    // this.model.villeArrivee = 'Lyon';
+    // this.model.adresseArrivee = 'Gare Lyon Perrache';
+    this.model.dateDepart = '2018-02-24';
     this.model.prix = '8';
     this.model.nbPlaces = '2';
+    // fin todo remove
 
     // set google maps defaults
-    this.zoom = 10;
+    this.zoom = 9;
     this.latitude = 43.610769; // coordonnées de Montpellier par défaut
     this.longitude = 3.876716;
+
     // create search FormControl
-    this.searchControl = new FormControl();
+    this.searchFromControl = new FormControl();
+    this.searchToControl = new FormControl();
+
     this.loadMapsAPILoader();
-    // set current position
-    this.setCurrentPosition();
-
-    this.getDirection();
-
-    // this.initDirectionsMap();
-
-
   }
 
-  // private initDirectionsMap() {
-  //   this.directionsService.route({
-  //     origin: this.start,
-  //     destination: this.end,
-  //     travelMode: google.maps.TravelMode.DRIVING
-  //   }, (response, status) => {
-  //     if (status === google.maps.DirectionsStatus.OK) {
-  //       this.directionsDisplay.setDirections(response);
-  //     } else {
-  //       window.alert('Directions request failed due to ' + status);
-  //     }
-  //   });
-  // }
 
+  // soumission du formulaire
+  onSubmit() {
 
-  submit() {
-    // console.log("Submitting new trip");
+    if (! this.checkPlaces()) {
+      return;
+    }
+
     this.loading = true;
 
-    // transformer au format ii:ss
-    const hour: string = (this.heureDepart.getHours() < 10 ? '0' : '') + this.heureDepart.getHours();
-    const minutes: string = (this.heureDepart.getMinutes() < 10 ? '0' : '') + this.heureDepart.getMinutes();
-    const time: string = hour + ':' + minutes;
-    this.model.heureDepart = time;
+    this.model.heureDepart = this.heureDepart.getHours() + ':' + this.heureDepart.getMinutes();
     this.model.conducteur = Cookie.get('_id'); // id_conducteur
 
+    // console.log('Envoi du formulaire : ');
+    // console.log(this.model);
 
     this.trajetService.create(this.model).subscribe(res => {
       this.loading = false;
@@ -120,45 +97,75 @@ export class TripProposalComponent implements OnInit {
 
   private loadMapsAPILoader() {
     this.mapsAPILoader.load().then(() => {
-      const autocomplete = new google.maps.places.Autocomplete(this.searchElementRef.nativeElement, {
-        types: //['cities']
-         ['address']
+
+      this.autocompleteFrom = new google.maps.places.Autocomplete(this.searchFromRef.nativeElement, {
+        types: ['address'],
+        componentRestrictions: {country: 'fr'}
       });
-      autocomplete.addListener('place_changed', () => {
-        this.ngZone.run(() => {
-          // get the place result
-          const place: google.maps.places.PlaceResult = autocomplete.getPlace();
+      this.autocompleteTo = new google.maps.places.Autocomplete(this.searchToRef.nativeElement, {
+        types: ['address'],
+        componentRestrictions: {country: 'fr'}
+      });
 
-          // verify result
-          if (place.geometry === undefined || place.geometry === null) {
-            return;
-          }
+      // this.autocompleteFrom.setComp
+      // autocomplete.setComponentRestrictions(
+      //   {'country': ['us', 'pr', 'vi', 'gu', 'mp']});
 
-          // set latitude, longitude and zoom
-          this.latitude = place.geometry.location.lat();
-          this.longitude = place.geometry.location.lng();
-          this.zoom = 12;
-        });
-      }); // end event listener on place_changed
 
+      // Quand la destination est entrée
+      this.autocompleteTo.addListener('place_changed', () => this.onGooglePlaceSelected());
+      this.autocompleteFrom.addListener('place_changed', () => this.onGooglePlaceSelected());
 
     });
   }
 
-  private setCurrentPosition() {
-    if ('geolocation' in navigator) {
-      navigator.geolocation.getCurrentPosition((position) => {
-        this.latitude = position.coords.latitude;
-        this.longitude = position.coords.longitude;
-        this.zoom = 12;
-      });
+  checkPlaces(): boolean {
+    const originPlace: google.maps.places.PlaceResult = this.autocompleteFrom.getPlace();
+    const destinationPlace: google.maps.places.PlaceResult = this.autocompleteTo.getPlace();
+
+    // verify result
+    if (destinationPlace.geometry === undefined || destinationPlace.geometry === null ||
+      originPlace.geometry === undefined || originPlace.geometry === null) {
+      return false;
     }
+
+    return true;
   }
 
-  public getDirection() {
-    this.dir = {
-      origin: { lat: 24.799448, lng: 120.979021 },
-      destination: { lat: 24.799524, lng: 120.975017 }
+  /**
+   * Event handler quand un champ autocomplete de Google Places est validé
+   */
+  private onGooglePlaceSelected(): void {
+    this.ngZone.run(() => {
+      // get the place result
+      const originPlace: google.maps.places.PlaceResult = this.autocompleteFrom.getPlace();
+      const destinationPlace: google.maps.places.PlaceResult = this.autocompleteTo.getPlace();
+
+      // verify result
+      if (! this.checkPlaces()) {
+        return;
+      }
+
+      this.getDirection(originPlace, destinationPlace);
+      // console.log(originPlace, destinationPlace);
+
+      this.model.adresseDepart = originPlace.formatted_address;
+      this.model.villeDepart = originPlace.address_components[1].short_name;
+
+      this.model.adresseArrivee = destinationPlace.formatted_address;
+      this.model.villeArrivee = destinationPlace.address_components[1].short_name;
+
+    });
+  }
+
+  public getDirection(originPlace: google.maps.places.PlaceResult, destinationPlace: google.maps.places.PlaceResult) {
+    this.directions = {
+      origin: {
+        lat: originPlace.geometry.location.lat(),
+        lng: originPlace.geometry.location.lng() },
+      destination: {
+        lat: destinationPlace.geometry.location.lat(),
+        lng: destinationPlace.geometry.location.lng() }
     };
   }
 

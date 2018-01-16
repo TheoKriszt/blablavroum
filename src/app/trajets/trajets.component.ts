@@ -66,6 +66,9 @@ export class TrajetsComponent implements OnInit {
     this.loading = false;
   }
 
+  /**
+   * Inverse ville de depart et d'arrivee
+   */
   swap() {
     const temp = this.formModel.villeDepart;
     this.formModel.villeDepart = this.formModel.villeArrivee;

@@ -260,6 +260,16 @@ mongoClient.connect(url,function(err,db){
       });
   });
 
+  //retourne les :limit derniers trajets
+  app.get("/trajets/limit/:limit",function(req,res){
+    database.collection("trajets").find().limit(parseInt(req.params.limit))
+      .toArray(function(err,documents){
+        //récuperation du résultat
+        var json=JSON.stringify(documents);
+        sendRes(res, json)
+      });
+  });
+
   /**
    * Complete le tableau de trajets pour ajouter les infos sur les conducteurs
    * Se fait côté Node pour limiter les échanges client/API
@@ -420,17 +430,19 @@ mongoClient.connect(url,function(err,db){
       return res.sendStatus(400);
     }
 
+    console.log("Ajout d'un trajet : ");
     console.log(req.body);
 
     var trajet = {
       "depart" : {"ville" : req.body.villeDepart, "adresse" : req.body.adresseDepart},
       "arrivee" : {"ville" : req.body.villeArrivee, "adresse" : req.body.adresseArrivee},
-      "dateDepart" : req.body.dateDepart,
-      "heureDepart" : req.body.heureDepart,
+      "date" : req.body.dateDepart,
+      "heure" : req.body.heureDepart,
       "prix" : parseFloat(req.body.prix),
       "nbPlaces" : req.body.nbPlaces,
       "conducteur" : req.body.conducteur,
-      "passagers" : []
+      "passagers" : [],
+      "status" : "active"
     };
 
     console.log("Ajout d'un trajet " + trajet.depart.ville + ' ->' + trajet.arrivee.ville);

@@ -14,7 +14,7 @@ export class ReservationsComponent implements OnInit {
   constructor(private trajetsService: TrajetsService) { }
 
   ngOnInit() {
-    this.trajetsService.getMesreservations(Cookie.get('_id')).subscribe(res => {
+    this.trajetsService.getMesReservations(Cookie.get('_id')).subscribe(res => {
       console.log("Mes reservations : ");
       console.log(res);
       this.myReservations = res;

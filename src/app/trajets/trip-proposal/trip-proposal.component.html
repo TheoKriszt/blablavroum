@@ -1,48 +1,46 @@
-<div class="col-md-6 col-md-offset-3">
+<div>
   <h2>Proposer un nouveau trajet</h2>
 
-  <form name="proposeForm" (ngSubmit)="proposeForm.form.valid && submit()" #proposeForm="ngForm" novalidate>
+  <form name="proposeForm" (ngSubmit)="proposeForm.form.valid && onSubmit()" #proposeForm="ngForm" > <!-- novalidate -->
 
-    <div class="form-group" [ngClass]="{ 'has-error': proposeForm.submitted && !villeDepart.valid }">
-      <label for="villeDepart">Ville de départ</label>
-      <input type="text" class="form-control" name="villeDepart" [(ngModel)]="model.villeDepart" #villeDepart="ngModel" required />
-      <div *ngIf="proposeForm.submitted && !villeDepart.valid" class="help-block">Vous devez indiquer une ville de départ</div>
-    </div>
+    <!--<div class="form-group" [ngClass]="{ 'has-error': proposeForm.submitted && !villeDepart.valid }">-->
+      <!--<label for="villeDepart">Ville de départ</label>-->
+      <!--<input type="text" class="form-control" name="villeDepart" [(ngModel)]="model.villeDepart" #villeDepart="ngModel" required />-->
+      <!--<div *ngIf="proposeForm.submitted && !villeDepart.valid" class="help-block">Vous devez indiquer une ville de départ</div>-->
+    <!--</div>-->
 
-    <div class="form-group">
-      <label for="adresseDepart">Adresse du départ</label>
-      <input type="text" class="form-control" name="adresseDepart" [(ngModel)]="model.adresseDepart" #adresseDepart="ngModel"/>
-    </div>
+    <!--<div class="form-group">-->
+      <!--<label for="adresseDepart">Adresse du départ</label>-->
+      <!--<input type="text" class="form-control" name="adresseDepart" [(ngModel)]="model.adresseDepart" #adresseDepart="ngModel"/>-->
+    <!--</div>-->
 
     <div class="container">
-      <h1>Angular 2 + Google Maps Places Autocomplete</h1>
       <div class="form-group">
-        <input placeholder="search for location" autocorrect="off" autocapitalize="off" spellcheck="off" type="text" class="form-control" #search [formControl]="searchControl">
+        <input placeholder="Lieu de départ" autocorrect="off" autocapitalize="off" spellcheck="off" type="text" class="form-control" #searchFrom [formControl]="searchFromControl" required> <br/>
+        <input placeholder="Lieu d'arrivée" autocorrect="off" autocapitalize="off" spellcheck="off" type="text" class="form-control" #searchTo [formControl]="searchToControl" required> <br/>
       </div>
-      <agm-map [latitude]="latitude" [longitude]="longitude" [scrollwheel]="true" [zoom]="zoom">
+      <agm-map [latitude]="latitude" [longitude]="longitude" [scrollwheel]="true" [zoom]="zoom"> <!-- Google Map centrée sur Montpellier -->
         <!--<agm-marker [latitude]="latitude" [longitude]="longitude"></agm-marker>-->
-        <agm-direction *ngIf="dir" [origin]="dir.origin" [destination]="dir.destination"></agm-direction>
-
+        <agm-direction *ngIf="directions" [origin]="directions.origin" [destination]="directions.destination"></agm-direction>
       </agm-map>
 
-
-      <div #map id="map"></div> // carte Google Maps Directions API
+      <!--<div #map id="map"></div>-->
     </div>
 
 
 
 
 
-    <div class="form-group" [ngClass]="{ 'has-error': proposeForm.submitted && !villeArrivee.valid }">
-      <label for="villeArrivee">Ville d'arrivée</label>
-      <input type="text" class="form-control" name="villeArrivee" [(ngModel)]="model.villeArrivee" #villeArrivee="ngModel" required />
-      <div *ngIf="proposeForm.submitted && !villeArrivee.valid" class="help-block">Vous devez indiquer une ville de destination</div>
-    </div>
+    <!--<div class="form-group" [ngClass]="{ 'has-error': proposeForm.submitted && !villeArrivee.valid }">-->
+      <!--<label for="villeArrivee">Ville d'arrivée</label>-->
+      <!--<input type="text" class="form-control" name="villeArrivee" [(ngModel)]="model.villeArrivee" #villeArrivee="ngModel" required />-->
+      <!--<div *ngIf="proposeForm.submitted && !villeArrivee.valid" class="help-block">Vous devez indiquer une ville de destination</div>-->
+    <!--</div>-->
 
-    <div class="form-group">
-      <label for="adresseArrivee">Adresse d'arrivée</label>
-      <input type="text" class="form-control" name="adresseArrivee" [(ngModel)]="model.adresseArrivee" #adresseArrivee="ngModel"/>
-    </div>
+    <!--<div class="form-group">-->
+      <!--<label for="adresseArrivee">Adresse d'arrivée</label>-->
+      <!--<input type="text" class="form-control" name="adresseArrivee" [(ngModel)]="model.adresseArrivee" #adresseArrivee="ngModel"/>-->
+    <!--</div>-->
 
     <div class="form-group" [ngClass]="{ 'has-error': proposeForm.submitted && !dateDepart.valid }">
       <label for="dateDepart">Date du départ</label>
@@ -56,13 +54,13 @@
       <!--<p-calendar formControlName="value" timeOnly="true"></p-calendar>-->
     <div class="form-group">
       <label for="heureDepart">Heure du départ</label>
-      <p-calendar name="heureDepart" [(ngModel)]="heureDepart" timeOnly="true"></p-calendar>
+      <p-calendar name="heureDepart" [(ngModel)]="heureDepart" timeOnly="true" required></p-calendar>
     </div>
 
 
     <div class="form-group" [ngClass]="{ 'has-error': proposeForm.submitted && !prix.valid }">
       <label for="prix">Prix par place</label>
-      <input type="text" class="form-control" name="prix" [(ngModel)]="model.prix" #prix="ngModel" required pattern="[0-9]*"
+      <input type="text" class="form-control" name="prix" [(ngModel)]="model.prix" #prix="ngModel" required pattern="[0-9]+"
              minlength="1"
              maxlength="3"/>
       <div *ngIf="proposeForm.submitted && !prix.valid" class="help-block">Le prix par place doit être indiqué</div>
@@ -70,7 +68,7 @@
 
     <div class="form-group" [ngClass]="{ 'has-error': proposeForm.submitted && !nbPlaces.valid }">
       <label for="nbPlaces">Nombre de places proposées</label>
-      <input type="text" class="form-control" name="nbPlaces" [(ngModel)]="model.nbPlaces" #nbPlaces="ngModel" required pattern="[0-9]*"
+      <input type="text" class="form-control" name="nbPlaces" [(ngModel)]="model.nbPlaces" #nbPlaces="ngModel" required pattern="[0-9]+"
              minlength="1"
              maxlength="2"/>
       <div *ngIf="proposeForm.submitted && !nbPlaces.valid" class="help-block">Vous devez préciser combien de places sont réservables</div>

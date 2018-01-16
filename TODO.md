@@ -49,9 +49,9 @@
   - vehicules
   - (Avis) (les infos peuvent être intégrées à membres)
 - Serveur Node avec autant de services web que nécessaires
-  - Attention à la recherche doit être multifonctions
+  - ~~Attention à la recherche doit être multifonctions~~
     - ~~(Ville depart, ville arrivée, date)~~ 
-    - (prix max, conducteur, avis sur le conducteur)
+    - ~~(prix max, conducteur, avis sur le conducteur)~~
 - Appli Angular
   - ~~au moins les deux modules~~
     - ~~membres (users)~~
