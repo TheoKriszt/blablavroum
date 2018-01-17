@@ -77,6 +77,9 @@ export class TripDetailsComponent implements OnInit {
    * Fonction de debug admin only : force le changement de date
    */
   updateDate() {
+    if (this.newDate === '')  {
+      return;
+    }
     this.trajetsService.updateDate(this.tripID, this.newDate).subscribe(res => {
       /// rien a faire
     });
