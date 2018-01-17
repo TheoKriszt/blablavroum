@@ -28,18 +28,18 @@ export class StatistiquesComponent implements OnInit {
 	   "#0b6817",
 	   "#270d99"
 	],
-	    hoverBackgroundColor: [
-		"#84095b",
-		"#962410",
-		"#0b6817",
-		"#270d99"
-                    ]
-                }]    
-            };
-      }
+	hoverBackgroundColor: [
+	   "#84095b",
+	   "#962410",
+	   "#0b6817",
+	   "#270d99"
+        ]
+      }]    
+     };
+   }
 
 
-});
+);
 
         
 
