@@ -83,7 +83,7 @@ export class TripDetailsComponent implements OnInit {
   }
 
   addResa() {
-    this.trajetsService.addResa(this.tripID, Cookie.get('_id').subscribe(res => {
+    this.trajetsService.addResa(this.tripID, Cookie.get('_id')).subscribe(res => {
       this.hadReserved = true;
     });
   }

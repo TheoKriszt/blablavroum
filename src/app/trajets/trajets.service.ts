@@ -79,4 +79,14 @@ export class TrajetsService {
     const headers = new Headers({'Content-Type': 'application/json'});
     return this.http.post(this.baseUrl + '/trajets/update/updateDate', model, headers);
   }
+
+  addResa(tripID: string, userID: string): Observable <any> {
+    const reservation = {
+      'userID' : userID,
+      'tripID' : tripID
+    };
+
+    const headers = new Headers({'Content-Type': 'application/json'});
+    return this.http.post(this.baseUrl + '/trajets/update/updateDate', reservation, headers);
+  }
 }

@@ -521,21 +521,17 @@ mongoClient.connect(url,function(err,db){
       return res.sendStatus(400);
     }
 
-    var reservation = {
-      'userID' : req.body.userID,
-      'tripID' : req.body.tripID
-    };
 
     console.log("Ajout d'une reservation");
 
-    console.log("ALERT ! not implemented"); // fixme
+    var oid = new ObjectID(req.body.tripID);
 
-    database.collection("trajets").insertOne(reservation, function (err, documents) {
-      if (err) {
-        console.log('ERROR : \n' + err);
-      }
-      sendRes(res, JSON.stringify(documents));
-    });
+    database.collection('trajets').update(
+      { _id: oid },
+      { $push: { 'passager': req.body.userID } }
+    );
+
+    sendRes(res, JSON.stringify({'status'  :'OK'}));
 
   });
 
