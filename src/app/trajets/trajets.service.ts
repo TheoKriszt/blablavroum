@@ -55,7 +55,19 @@ export class TrajetsService {
     return this.http.post(url, body, headers);
   }
 
+  getMoyennePrix(): Observable <any> {
+    return this.http.get(this.baseUrl + '/trajets/moyenneprix');
+  }
+
   getTripDetails(tripID: any): Observable <any> {
     return this.http.get(this.baseUrl + '/trajets/id/' + tripID);
+  }
+
+   getNbrTrajet(): Observable <any> {
+    return this.http.get(this.baseUrl + '/trajets/count');
+  }
+  
+  getAllTrajet(): Observable <any> {
+    return this.http.get(this.baseUrl + '/trajets');
   }
 }

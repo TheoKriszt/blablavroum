@@ -27,7 +27,13 @@ export class MembresService {
     return this.http.get(this.baseUrl + '/membres/agerepartition');
   }
 
+  getMoyenneAge(): Observable <any> {
+    return this.http.get(this.baseUrl + '/membres/moyenneage');
+  }
 
+  getNbrUtilisateurs(): Observable <any> {
+    return this.http.get(this.baseUrl + '/membres/count');
+  }
 
   update(model: Object): Observable<any> {
 

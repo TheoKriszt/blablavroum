@@ -10,6 +10,10 @@ import {TrajetsService} from '../../trajets/trajets.service';
 export class StatistiquesComponent implements OnInit {
 
   public data: any;
+  moyenneage : string = '';
+  moyenneprix : string = '';
+  nbrUser : string = '';
+  nbrTrajet : string = '';
 
   constructor(private mservice: MembresService, private tservice: TrajetsService) {
   }
@@ -19,7 +23,7 @@ export class StatistiquesComponent implements OnInit {
     this.mservice.getTranchesAges().subscribe(mongoRes => {
 
       this.data = {
-        labels: ['12-25', '26-35', '36-50', '50+'],
+        labels: ['18-25', '26-35', '36-50', '51+'],
         datasets: [
           {
             data: [mongoRes.age1825, mongoRes.age2635, mongoRes.age3650, mongoRes.age50],
@@ -40,7 +44,12 @@ export class StatistiquesComponent implements OnInit {
 
     });
 
-    console.log('init getTranchesAge done');
+    this.mservice.getMoyenneAge().subscribe(mongoRes => {this.moyenneage = mongoRes.avg});    
+    this.mservice.getNbrUtilisateurs().subscribe(mongoRes => {this.nbrUser = mongoRes.count});
+    this.tservice.getMoyennePrix().subscribe(mongoRes => {this.moyenneprix = mongoRes.avg});
+    this.tservice.getNbrTrajet().subscribe(mongoRes => {this.nbrTrajet = mongoRes.count});
+	
+    console.log('init getMoyenneAge done');
   }
 
 
