@@ -33,17 +33,15 @@
   </div>
 
   <div>
-    GMAP
     <p-gmap [options]="mapOptions" [style]="{'width':'100%','height':'320px'}" ></p-gmap>
   </div>
 
-  <div>
-    Réserver / Desister HERE
+  <div *ngIf= "!archived">
+     <button class="btn btn-secondary">Reserver maintenant !</button>
   </div>
 
-  <div *ngIf="trajet.status == 'archived'">
-    TODO : trajet archivé
-    // si avait réservé, laisser commentaire OK
+  <div *ngIf="archived">
+    <button class="btn btn-secondary">Annuler maintenant !</button>
   </div>
 
 </div><!-- end if !loading -->

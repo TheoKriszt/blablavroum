@@ -16,8 +16,8 @@ export class TripDetailsComponent implements OnInit {
   loading: boolean = true;
 
   mapOptions: any = {};
-  google: any;
-
+  google: any = {};
+  archived = false;
   ngOnInit() {
 
     this.mapOptions = {
@@ -30,15 +30,19 @@ export class TripDetailsComponent implements OnInit {
 
       this.trajetsService.getTripDetails(tripID).subscribe(trip => {
         if(trip && trip[0] && trip[0].driverData){
+	  var dat = new Date();
           this.trajet = trip[0];
-        }else
-        console.log("Retour du trajet : ");
-        console.log(this.trajet);
+	  var trajetDate = new Date(this.trajet['date']);
+	  console.log('comparaison : ');
+	  this.archived = (dat > trajetDate);
+	  
+        }
+	else{
+           console.log("Retour du trajet : ");
+           console.log(this.trajet);
+	}
         this.loading = false;
       });
-
-
-
     });
   }
 
