@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {TrajetsService} from '../trajets.service';
 import {ActivatedRoute} from '@angular/router';
-import {Cookie} from "ng2-cookies";
+import {Cookie} from 'ng2-cookies';
 
 @Component({
   selector: 'app-trip-details',
