@@ -53,6 +53,6 @@ const routes: Routes = [
   ],
   declarations: [MembresComponent, AuthComponent, InscriptionComponent, LoginComponent, ProfileComponent, StatistiquesComponent],
   exports: [MembresComponent, AuthComponent, InscriptionComponent, LoginComponent, ProfileComponent],
-  providers: [MembresService, AuthService, LoginComponent, AuthGuard, AlreadyAuthGuard]
+  providers: [MembresService, AuthService, LoginComponent, AuthGuard, AlreadyAuthGuard, AdminGuard]
 })
 export class MembresModule { }

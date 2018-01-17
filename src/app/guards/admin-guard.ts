@@ -14,13 +14,16 @@ export class AdminGuard implements CanActivate {
      * @returns {boolean}
      */
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-      if (Cookie.get('isAdmin') == 'true'){
+      if (Cookie.get('isAdmin') === 'true') {
+        console.log('AdminGuard : is admin');
         return true;
       }
 
-      if (!Cookie.get('mail')){
+      if (!Cookie.get('mail')) {
+        console.log('AdminGuard : is not admin, is not logged');
         this.router.navigate(['/login'], { queryParams: { returnUrl: state.url }});
       }else {
+        console.log('AdminGuard : is not admin, is regular user');
         this.router.navigate(['/dashboard'], { queryParams: { returnUrl: state.url }});
       }
 
