@@ -62,8 +62,64 @@ mongoClient.connect(url,function(err,db){
       });
   });
 
+//requête nombre de membres
+  app.get("/membres/count",function(req,res){
+    console.log("Comptage des membres");
+    database.collection("membres").find()
+      .toArray(function(err,documents){
+	var retour = { 'count' : documents.length };
+        var json=JSON.stringify(retour);
+        sendRes(res, json);
+
+      });
+  });
+
+ //retourne moyenne d'age des membres
+  app.get("/membres/moyenneage",function(req,res){
+    database.collection("membres").find()
+      .toArray(function(err,documents){
+	var somme = 0;
+	for (doc of documents){ somme += parseInt(doc.age); }
+	var moyenne = somme / documents.length;
+
+	moyenne = moyenne.toFixed(0);
+	var retour = { 'avg' : moyenne};
+
+        var json=JSON.stringify(retour);
+        sendRes(res, json)
+      });
+  });
+
+//requête repartition age
+  app.get("/membres/agerepartition",function(req,res){
+    console.log("Recupération des membres");
+    database.collection("membres").find()
+      .toArray(function(err,documents){
+	var somme1825 = 0;
+	var somme2635 = 0;
+	var somme3650 = 0;
+	var somme50   = 0;
+
+	for (doc of documents){ 
+	  if(parseInt(doc.age) < 26) somme1825 += 1;
+	     else if ((parseInt(doc.age) > 25) && (parseInt(doc.age) < 36)) somme2635 += 1;
+	        else if ((parseInt(doc.age) > 35) && (parseInt(doc.age) < 51)) somme3650 += 1;
+	           else somme50 += 1;
+	}
+	var retour = { 
+		'18-25' : somme1825,
+		'26-35' : somme2635,
+		'36-50' : somme3650,
+		'50+'   : somme50
+	};
+        var json=JSON.stringify(retour);
+        sendRes(res, json);
+
+      });
+  });
+
   // membre par id
-  app.get("/membres/:id",function(req,res){
+  app.get("/membres/id/:id",function(req,res){
 
     var oid = new ObjectID(req.params.id);
     console.log('id : ' + req.params.id);
@@ -105,27 +161,6 @@ mongoClient.connect(url,function(err,db){
   });
 
 
-//requête prenom // useless ?
-//   app.get("/membres/prenom/:prenom",function(req,res){
-//     database.collection("membres").find({"prenom":req.params.prenom})
-//       .toArray(function(err,documents){
-//         //récuperation du résultat
-//         var json=JSON.stringify(documents);
-//         //renvoi du resultat
-//         sendRes(res, json);
-//       });
-//   });
-
-//requête nom // useless ?
-//   app.get("/membres/nom/:nom",function(req,res){
-//     database.collection("membres").find({"nom":req.params.prenom})
-//       .toArray(function(err,documents){
-//         //récuperation du résultat
-//         var json=JSON.stringify(documents);
-//         sendRes(res, json)
-//       });
-//   });
-
 //requête authentification
   app.get('/membres/authenticate/:mail/:password',function(req,res){
     console.log('authentification par mail/mdp : ' + req.params.mail + " / " + req.params.password);
@@ -146,23 +181,6 @@ mongoClient.connect(url,function(err,db){
 
   });
 
-//Ajoute un membre (devrait se faire en post)
-//   app.put("/membres/add/:nom/:prenom/:mail",function(req,res){
-//     var user = {
-//       "nom": req.params.nom,
-//       "prenom": req.params.prenom,
-//       "mail": req.params.mail
-//     };
-//
-//     database.collection("membres").insertOne(user, function (err, res) {
-//       if (err) {
-//         console.log('ERROR : \n' + err);
-//       }
-//       console.log('1 user inserted');
-//       console.log(res);
-//     });
-//     res.sendStatus(200);
-//   });
 
 //Retire un membre
   app.delete("/membres/:mail/",function(req,res){
@@ -190,17 +208,6 @@ mongoClient.connect(url,function(err,db){
       "evaluations" : [],
       "vehicule_ids" : []
     };
-
-    // "nom": "tt",
-    //   "prenom" : "tt",
-    //   "mail" : "tt",
-    //   "telephone" : "069858447",
-    //   "age":"42",
-    //   "password": "tt",
-    //   "adresse" : "404, Impasse du test, Montpellier",
-    //   "role" : ["admin", "membre"],
-    //   "evaluations": [], // {"from" : xxx, "value": 0..5}
-    //   "vehicule_ids":["5a057bab0bb1f227d5cbd8eb"]
 
 
     console.log("Ajout d'un membre");
@@ -257,6 +264,34 @@ mongoClient.connect(url,function(err,db){
         //récuperation du résultat
         var json=JSON.stringify(documents);
         sendRes(res, json)
+      });
+  });
+
+ //retourne moyenne des prix
+  app.get("/trajets/moyenneprix",function(req,res){
+    database.collection("trajets").find()
+      .toArray(function(err,documents){
+	var somme = 0;
+	for (doc of documents){ somme += parseInt(doc.prix); }
+	var moyenne = somme / documents.length;
+
+	moyenne = moyenne.toFixed(2);
+	var retour = { 'avg' : moyenne};
+
+        var json=JSON.stringify(retour);
+        sendRes(res, json)
+      });
+  });
+
+//requête nombre de trajets
+  app.get("/trajets/count",function(req,res){
+    console.log("Comptage des trajets");
+    database.collection("trajets").find()
+      .toArray(function(err,documents){
+	var retour = { 'count' : documents.length };
+        var json=JSON.stringify(retour);
+        sendRes(res, json);
+
       });
   });
 
@@ -522,14 +557,6 @@ mongoClient.connect(url,function(err,db){
 
     var oid = new ObjectID(req.params.id);
 
-    // database.collection("trajets").find( {"_id": oid} )
-    //   .toArray(function(err,documents){
-    //     console.log(documents);
-    //     var json = JSON.stringify(documents);
-    //     sendRes(res, json);
-    //   });
-
-    /////////////////////////////////////
     async.waterfall([
       function (callback) {
         //primo : extraire les trajets de villed à villea
