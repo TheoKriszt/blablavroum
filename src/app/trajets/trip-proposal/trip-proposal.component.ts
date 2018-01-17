@@ -161,10 +161,12 @@ export class TripProposalComponent implements OnInit {
       // console.log(originPlace, destinationPlace);
 
       this.model.adresseDepart = originPlace.formatted_address;
-      this.model.villeDepart = originPlace.address_components[1].long_name;
+      this.model.villeDepart = originPlace.vicinity;
+      // this.model.villeDepart = originPlace.address_components[1].long_name;
 
       this.model.adresseArrivee = destinationPlace.formatted_address;
-      this.model.villeArrivee = destinationPlace.address_components[1].long_name;
+      this.model.villeArrivee = destinationPlace.vicinity;
+      // this.model.villeArrivee = destinationPlace.address_components[1].long_name;
       console.log(destinationPlace);
 
     });

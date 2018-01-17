@@ -1,18 +1,19 @@
-<!--The content below is only a placeholder and can be replaced.-->
 <div class="text-header">
+  <a [routerLink]="['/']">
   <h1>
-    Bienvenue sur {{title}}
+    Bienvenue sur
+    <img class="img-title" src="assets/images/BlaBlaVroum_Logo.png"/>
   </h1>
+  </a>
+
+  <div class="spacer"></div>
+  <a [routerLink]="['/']">
+  <img class="img-logo" src="assets/images/ouioui_vectorized.png"/>
+  </a>
 
 
 
 </div>
-
-<div class="spacer"></div>
-
-<!--<div class="search-header">-->
-
-<!--</div>-->
 
 <div class="spacer"></div>
 
@@ -22,8 +23,11 @@
     <app-auth></app-auth>
   </div>
   <div class="spacer"></div>
+
   <app-trajets></app-trajets>
+
   <div class="spacer"></div>
+
   <div class="row">
     <!--<alert></alert>-->
     <router-outlet></router-outlet>

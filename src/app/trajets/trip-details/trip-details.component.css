@@ -78,3 +78,14 @@ a {
   color:#727272;
   background:#eff8fd
 }
+
+.container {
+  clear: right;
+}
+
+.spacer {
+  display: block;
+  clear: both;
+  width:100%;
+  height: 2.5em;
+}

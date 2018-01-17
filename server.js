@@ -536,7 +536,7 @@ mongoClient.connect(url,function(err,db){
   });
 
   //annule une reservation
-  app.post('/reservation', function (req, res) {
+  app.post('/reservation/remove', function (req, res) {
 
     if(!req.body){
       console.log('bad request : POST sans body');

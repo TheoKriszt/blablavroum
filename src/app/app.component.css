@@ -30,4 +30,22 @@ body {
   background: white;
 }
 
+.img-title {
+  height: 1em;
+}
 
+.img-logo {
+  height: 15em;
+  display: block;
+  position: fixed;
+  top: 2.5em;
+  left: 2.5em;
+}
+
+a:hover {
+  text-decoration: none;
+}
+
+a {
+  color: initial;
+}
