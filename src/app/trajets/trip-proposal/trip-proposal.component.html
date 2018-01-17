@@ -3,16 +3,6 @@
 
   <form name="proposeForm" (ngSubmit)="proposeForm.form.valid && onSubmit()" #proposeForm="ngForm" > <!-- novalidate -->
 
-    <!--<div class="form-group" [ngClass]="{ 'has-error': proposeForm.submitted && !villeDepart.valid }">-->
-      <!--<label for="villeDepart">Ville de départ</label>-->
-      <!--<input type="text" class="form-control" name="villeDepart" [(ngModel)]="model.villeDepart" #villeDepart="ngModel" required />-->
-      <!--<div *ngIf="proposeForm.submitted && !villeDepart.valid" class="help-block">Vous devez indiquer une ville de départ</div>-->
-    <!--</div>-->
-
-    <!--<div class="form-group">-->
-      <!--<label for="adresseDepart">Adresse du départ</label>-->
-      <!--<input type="text" class="form-control" name="adresseDepart" [(ngModel)]="model.adresseDepart" #adresseDepart="ngModel"/>-->
-    <!--</div>-->
 
     <div class="container">
       <div class="form-group">
@@ -24,23 +14,8 @@
         <agm-direction *ngIf="directions" [origin]="directions.origin" [destination]="directions.destination"></agm-direction>
       </agm-map>
 
-      <!--<div #map id="map"></div>-->
+
     </div>
-
-
-
-
-
-    <!--<div class="form-group" [ngClass]="{ 'has-error': proposeForm.submitted && !villeArrivee.valid }">-->
-      <!--<label for="villeArrivee">Ville d'arrivée</label>-->
-      <!--<input type="text" class="form-control" name="villeArrivee" [(ngModel)]="model.villeArrivee" #villeArrivee="ngModel" required />-->
-      <!--<div *ngIf="proposeForm.submitted && !villeArrivee.valid" class="help-block">Vous devez indiquer une ville de destination</div>-->
-    <!--</div>-->
-
-    <!--<div class="form-group">-->
-      <!--<label for="adresseArrivee">Adresse d'arrivée</label>-->
-      <!--<input type="text" class="form-control" name="adresseArrivee" [(ngModel)]="model.adresseArrivee" #adresseArrivee="ngModel"/>-->
-    <!--</div>-->
 
     <div class="form-group" [ngClass]="{ 'has-error': proposeForm.submitted && !dateDepart.valid }">
       <label for="dateDepart">Date du départ</label>
@@ -48,8 +23,6 @@
       <div *ngIf="proposeForm.submitted && !dateDepart.valid" class="help-block">Vous devez entrer une date pour le départ</div>
     </div>
 
-    <!--<div class="form-group" [ngClass]="{ 'has-error': proposeForm.submitted && (!heureDepart.valid)}">-->
-      <!--<label for="heureDepart">Heure du départ</label>-->
 
       <!--<p-calendar formControlName="value" timeOnly="true"></p-calendar>-->
     <div class="form-group">

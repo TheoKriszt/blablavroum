@@ -21,8 +21,6 @@ export class TripProposalComponent implements OnInit {
   @ViewChild('searchTo')
   public searchToRef: ElementRef; // text input : arrivée
 
-  // @ViewChild('map')
-  // public mapElement: ElementRef; // division : affichage GMap
 
   // Elements du model de Google (Maps, Directions)
   public latitude: number;  // coordonnées du centre de la carte par défaut
@@ -83,7 +81,10 @@ export class TripProposalComponent implements OnInit {
 
     this.loading = true;
 
-    this.model.heureDepart = this.heureDepart.getHours() + ':' + this.heureDepart.getMinutes();
+    const hours = this.heureDepart.getHours() + ''.padEnd(2, '0');
+    const minutes = this.heureDepart.getMinutes() + ''.padEnd(2, '0');
+
+    this.model.heureDepart = hours + ':' + minutes;
     this.model.conducteur = Cookie.get('_id'); // id_conducteur
 
     // console.log('Envoi du formulaire : ');
@@ -150,10 +151,11 @@ export class TripProposalComponent implements OnInit {
       // console.log(originPlace, destinationPlace);
 
       this.model.adresseDepart = originPlace.formatted_address;
-      this.model.villeDepart = originPlace.address_components[1].short_name;
+      this.model.villeDepart = originPlace.address_components[1].long_name;
 
       this.model.adresseArrivee = destinationPlace.formatted_address;
-      this.model.villeArrivee = destinationPlace.address_components[1].short_name;
+      this.model.villeArrivee = destinationPlace.address_components[1].long_name;
+      console.log(destinationPlace);
 
     });
   }

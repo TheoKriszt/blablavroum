@@ -25,7 +25,6 @@ export class InscriptionComponent implements OnInit {
           this.router.navigate(['/login'], { queryParams: { origin: 'register', mail: this.model.mail }});
         },
         error => {
-          // this.alertService.error(error);
           this.loading = false;
         });
   }
