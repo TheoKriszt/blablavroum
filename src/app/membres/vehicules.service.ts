@@ -18,18 +18,8 @@ export class VehiculesService {
   }
 
   getByUserID(id: string): Observable <any> {
-    console.log('ALERTE : service non implémenté');
-    return this.http.get(this.baseUrl + '/vehicules/' + id);
+    return this.http.get(this.baseUrl + '/vehicules/driverId/' + id);
   }
 
-  getBrands(startsWith: string): Observable <any> {
-    console.log('ALERTE : service non implémenté');
-    return this.http.get(this.baseUrl + '/vehicules/brands/' + startsWith);
-  }
-
-  getColors(): Observable <any> {
-    console.log('ALERTE : service non implémenté');
-    return this.http.get(this.baseUrl + '/vehicules/colors');
-  }
 
 }

@@ -24,6 +24,7 @@
   - Evaluation : trajet_id, from_id, content, value
 - ~~Changer dans le readme la procedure d'import en base mongoDB~~
 - Faire les reservations
+- Google map : points de depart/ arrives de tous les trajets
 
 
 ##Nouveaux composants

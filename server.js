@@ -578,8 +578,20 @@ mongoClient.connect(url,function(err,db){
    * Vehicules
    */
 
+
+  //requête tous les membres
+  app.get("/vehicules",function(req,res){
+    console.log("Recupération des vehicules");
+    database.collection("vehicules").find()
+      .toArray(function(err,documents){
+        var json=JSON.stringify(documents);
+        sendRes(res, json);
+      });
+  });
+
+
   // trouve les vehicules du membre :ownerId
-  app.get("/vehicules/:ownerId", function (req, res) {
+  app.get("/vehicules/driverId/:ownerId", function (req, res) {
     console.log("Recherche des vehicules du membre d'id: " + req.params.ownerId);
 
     async.waterfall([
@@ -609,20 +621,56 @@ mongoClient.connect(url,function(err,db){
 
   });
 
-  // Auto completion des marques
-  app.get("/vehicules/brands/:startsWith", function (req, res) {
+  // ajoute une nouvelle voiture
+  app.post('/vehicules', function (req, res) {
 
-    const answer = "reponse non implementee";
+    if (!req.body) {
+      console.log('bad request : ' + req.body);
+      return res.sendStatus(400);
+    }
 
-    sendRes(res, JSON.stringify(answer));
+    var vehicule = {
+      "marque": req.body.marque,
+      "modele": req.body.modele,
+      "couleur": req.body.couleur
+    };
+
+
+    console.log("Ajout d'un vehicule");
+    console.log(vehicule);
+
+    database.collection("vehicules").insertOne(vehicule, function (err, documents) {
+      if (err) {
+        console.log('ERROR : \n' + err);
+      }else {
+        console.log('vehicule ajouté :');
+        console.log(vehicule);
+
+        console.log('association avec le conducteur ' + req.body.ownerID);
+
+        var oid = new ObjectID(req.body.ownerID);
+
+        database.collection('membres').update(
+          { _id: oid },
+          { $push: { 'vehicule_ids': vehicule._id } }
+        )
+
+      }
+
+      sendRes(res, JSON.stringify(documents));
+    });
   });
 
+
+  /**
+   * Mises a jour exceptionnelles de la base : DEBUG ONLY
+   */
   app.get("/trajets/maj/parsepricestoint", function (req, res) {
 
     var convert = function(document){
       var intValue = parseInt(document.prix, 2);
       database.collection('trajets').update(
-        {_id:document._id},
+        {_id : document._id},
         {$set: {'prix': intValue}}
       );
     };
@@ -632,7 +680,25 @@ mongoClient.connect(url,function(err,db){
     res.sendStatus(200);
   });
 
+  app.get("/membres/maj/removeVehicules", function (req, res) {
+
+    var resetvehicules = function(document){
+      database.collection('membres').update(
+        {_id : document._id},
+        {$set: {'vehicule_ids': []}}
+      );
+    };
+
+    database.collection('membres').find().forEach(resetvehicules);
+
+    res.sendStatus(200);
+  });
+
 });
+
+
+
+
 
 
 

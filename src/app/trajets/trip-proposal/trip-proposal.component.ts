@@ -5,6 +5,7 @@ import {Cookie} from 'ng2-cookies';
 import {FormControl} from '@angular/forms';
 import {MapsAPILoader} from '@agm/core';
 import {} from '@types/googlemaps';
+import {noUndefined} from "@angular/compiler/src/util";
 
 @Component({
   selector: 'app-trip-proposal',
@@ -74,17 +75,26 @@ export class TripProposalComponent implements OnInit {
 
   // soumission du formulaire
   onSubmit() {
+    console.log('modele', this.model);
 
     if (! this.checkPlaces()) {
       return;
     }
 
+    if ( this.model.dateDepart || this.model.prix === undefined || this.model.nbPlaces === undefined) {
+      return;
+    }
+
     this.loading = true;
 
-    const hours = this.heureDepart.getHours() + ''.padEnd(2, '0');
-    const minutes = this.heureDepart.getMinutes() + ''.padEnd(2, '0');
+    // const hours = this.heureDepart.getHours() + ''.padEnd(2, '0');
+    // const minutes = this.heureDepart.getMinutes() + ''.padEnd(2, '0');
 
+
+    const hours = this.heureDepart.getHours();
+    const minutes = this.heureDepart.getMinutes();
     this.model.heureDepart = hours + ':' + minutes;
+
     this.model.conducteur = Cookie.get('_id'); // id_conducteur
 
     // console.log('Envoi du formulaire : ');

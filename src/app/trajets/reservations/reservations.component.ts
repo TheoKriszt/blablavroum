@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import {TrajetsService} from "../trajets.service";
-import {Cookie} from "ng2-cookies/src/cookie";
+import {TrajetsService} from '../trajets.service';
+import {Cookie} from 'ng2-cookies/src/cookie';
 
 @Component({
   selector: 'app-reservations',
@@ -15,13 +15,13 @@ export class ReservationsComponent implements OnInit {
 
   ngOnInit() {
     this.trajetsService.getMesReservations(Cookie.get('_id')).subscribe(res => {
-      console.log("Mes reservations : ");
+      console.log('Mes reservations : ');
       console.log(res);
       this.myReservations = res;
     });
   }
 
-  hasreservations(){
+  hasreservations() {
     return this.myReservations && this.myReservations[0];
   }
 

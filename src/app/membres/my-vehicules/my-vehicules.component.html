@@ -1,3 +1,38 @@
-<p>
-  my-vehicules works!
-</p>
+<label>Vehicules</label>
+
+<div *ngIf="hasVehicules()">
+  <ul>
+    <li *ngFor="let vehicule of vehicules">
+
+      {{vehicule.marque}} {{vehicule.modele}}, couleur {{vehicule.couleur}} <button type="button" class="btn btn-warning">Supprimer</button>
+    </li>
+  </ul>
+</div>
+
+<div *ngIf="!hasVehicules()">
+  n'a pas de vehicule
+</div>
+
+<div>
+  <button (click)="toggleVehiculeForm()" class="btn btn-secondary">Ajouter un vehicule</button>
+  <form *ngIf="formEnabled">
+
+
+    <span class="ui-float-label">
+        <input name="marque" id="marque-input" type="text" [(ngModel)]="model.marque" size="30" pInputText>
+        <label for="marque-input">Marque</label>
+    </span>
+
+    <span class="ui-float-label">
+        <input name="modele" id="modele-input" type="text" size="30" [(ngModel)]="model.modele" pInputText>
+        <label for="modele-input">Modele</label>
+    </span>
+
+    <span class="ui-float-label">
+        <input name="couleur" id="couleur-input" type="text" size="30" [(ngModel)]="model.couleur" pInputText>
+        <label for="couleur-input">Couleur</label>
+    </span>
+
+    <button (click)="onAddVehicule()" [disabled]="!formEnabled">Ajouter un vehicule</button>
+  </form>
+</div>
