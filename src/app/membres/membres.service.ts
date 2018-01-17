@@ -23,6 +23,12 @@ export class MembresService {
     return this.http.get(this.baseUrl + '/membres/id/' + id);
   }
 
+  getTranchesAges(): Observable <any> {
+    return this.http.get(this.baseUrl + '/membres/agerepartition');
+  }
+
+
+
   update(model: Object): Observable<any> {
 
     console.log('update membre : ');
