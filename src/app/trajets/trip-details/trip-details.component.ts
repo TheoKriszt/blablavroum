@@ -1,6 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import {TrajetsService} from "../trajets.service";
-import {ActivatedRoute} from "@angular/router";
+import {Component, OnInit} from '@angular/core';
+import {TrajetsService} from '../trajets.service';
+import {ActivatedRoute} from '@angular/router';
+import {Cookie} from "ng2-cookies";
 
 @Component({
   selector: 'app-trip-details',
@@ -9,16 +10,25 @@ import {ActivatedRoute} from "@angular/router";
 })
 export class TripDetailsComponent implements OnInit {
 
-  constructor(private route: ActivatedRoute, private trajetsService: TrajetsService) { }
+  constructor(private route: ActivatedRoute, private trajetsService: TrajetsService) {
+  }
 
-  trajet: Object = {};
+  trajet: any = {};
   // driver: Object = {};
-  loading: boolean = true;
+  loading = true;
 
   mapOptions: any = {};
   google: any = {};
   archived = false;
+  hasProposed = false;
+  hadReserved = false;
+  complet  = false;
+  newDate = '';
+  tripID = '';
+
   ngOnInit() {
+
+
 
     this.mapOptions = {
       center: {lat: 36.890257, lng: 30.707417},
@@ -26,23 +36,49 @@ export class TripDetailsComponent implements OnInit {
     };
 
     this.route.params.subscribe(routeParams => {
-      let tripID = routeParams.tripID;
+      this.tripID = routeParams.tripID;
 
-      this.trajetsService.getTripDetails(tripID).subscribe(trip => {
-        if(trip && trip[0] && trip[0].driverData){
-	  var dat = new Date();
+      this.trajetsService.getTripDetails(this.tripID).subscribe(trip => {
+        if (trip && trip[0] && trip[0].driverData) {
+          const dat = new Date();
           this.trajet = trip[0];
-	  var trajetDate = new Date(this.trajet['date']);
-	  console.log('comparaison : ');
-	  this.archived = (dat > trajetDate);
-	  
+          const trajetDate = new Date(this.trajet.date);
+          this.archived = (dat > trajetDate);
+          this.hasProposed = Cookie.get('_id') === this.trajet.conducteur;
+          this.complet = this.trajet.complet === 'true';
+
         }
-	else{
-           console.log("Retour du trajet : ");
-           console.log(this.trajet);
-	}
+        console.log('Retour du trajet : ');
+        console.log(this.trajet);
+
         this.loading = false;
       });
+
+      this.trajetsService.getMesReservations(Cookie.get('_id')).subscribe(res => {
+        for (const resa of res) {
+          if (resa._id === this.tripID) {
+            this.hadReserved = true;
+            break;
+          }
+        }
+      });
+    });
+  }
+
+  /**
+   *
+   * todo : refactor dans service auth
+   */
+  isAdmin(): boolean {
+    return Cookie.get('isAdmin') === 'true';
+  }
+
+  /**
+   * Fonction de debug admin only : force le changement de date
+   */
+  updateDate() {
+    this.trajetsService.updateDate(this.tripID, this.newDate).subscribe(res => {
+      /// rien a faire
     });
   }
 

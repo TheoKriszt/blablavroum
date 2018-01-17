@@ -66,8 +66,17 @@ export class TrajetsService {
    getNbrTrajet(): Observable <any> {
     return this.http.get(this.baseUrl + '/trajets/count');
   }
-  
+
   getAllTrajet(): Observable <any> {
     return this.http.get(this.baseUrl + '/trajets');
+  }
+
+  updateDate(tripID: string, newDate: string): Observable <any> {
+    const model = {
+      '_id' : tripID,
+      'date' : newDate
+    };
+    const headers = new Headers({'Content-Type': 'application/json'});
+    return this.http.post(this.baseUrl + '/trajets/update/updateDate', model, headers);
   }
 }

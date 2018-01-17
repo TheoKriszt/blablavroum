@@ -539,6 +539,35 @@ mongoClient.connect(url,function(err,db){
 
   });
 
+
+  //un admin force la maj de la date d'un trajet
+  app.post('/trajets/update/updateDate', function (req, res) {
+
+    if(!req.body){
+      console.log('bad request : POST sans body');
+      return res.sendStatus(400);
+    }
+
+    const tripID = req.body._id;
+    var oid = new ObjectID(tripID);
+
+    const date = req.body.date;
+    console.log("Mise a jour de la date du trajet " + tripID);
+
+    database.collection('trajets').find().forEach(function (document) {
+
+      database.collection('trajets').update(
+        {_id : oid},
+        {$set: {'date': date}}
+      );
+    });
+
+    var ret = {'status': 'OK'};
+
+    sendRes(res, JSON.stringify(ret));
+
+  });
+
   // trajets reserves par l'user :userID
   app.get("/reservations/:userID",function(req,res){
 

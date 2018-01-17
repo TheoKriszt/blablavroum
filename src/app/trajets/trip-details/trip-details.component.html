@@ -32,16 +32,33 @@
 
   </div>
 
-  <div>
-    <p-gmap [options]="mapOptions" [style]="{'width':'100%','height':'320px'}" ></p-gmap>
+  <!--<div>-->
+    <!--<p-gmap [options]="mapOptions" [style]="{'width':'100%','height':'320px'}" ></p-gmap>-->
+  <!--</div>-->
+
+
+  <div *ngIf="isAdmin()">
+
+    <input type="text" name="date" [(ngModel)]="newDate">
+    <button class="btn btn-warning" (click)="updateDate()"> Forcer une nouvelle date</button>
+
   </div>
 
-  <div *ngIf= "!archived">
-     <button class="btn btn-secondary">Reserver maintenant !</button>
+
+  <div *ngIf= "!complet && !archived && !hasProposed && !hadReserved">
+    <button class="btn btn-secondary">Reserver maintenant !</button>
   </div>
 
-  <div *ngIf="archived">
+  <div *ngIf= "complet">
+    <p> Le trajet est complet </p>
+  </div>
+
+  <div *ngIf="hadReserved && !archived">
     <button class="btn btn-secondary">Annuler maintenant !</button>
+  </div>
+
+  <div *ngIf="hadReserved && archived">
+    // Noter le conducteur ici
   </div>
 
 </div><!-- end if !loading -->
