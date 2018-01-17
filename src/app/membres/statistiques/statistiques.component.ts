@@ -38,8 +38,9 @@ export class StatistiquesComponent implements OnInit {
           }]
       };
 
-
     });
+
+    console.log('init getTranchesAge done');
   }
 
 
