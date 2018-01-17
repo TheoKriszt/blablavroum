@@ -100,13 +100,13 @@ mongoClient.connect(url,function(err,db){
 	var somme3650 = 0;
 	var somme50   = 0;
 
-	for (doc of documents){ 
+	for (doc of documents){
 	  if(parseInt(doc.age) < 26) somme1825 += 1;
 	     else if ((parseInt(doc.age) > 25) && (parseInt(doc.age) < 36)) somme2635 += 1;
 	        else if ((parseInt(doc.age) > 35) && (parseInt(doc.age) < 51)) somme3650 += 1;
 	           else somme50 += 1;
 	}
-	var retour = { 
+	var retour = {
 		'18-25' : somme1825,
 		'26-35' : somme2635,
 		'36-50' : somme3650,
@@ -616,7 +616,20 @@ mongoClient.connect(url,function(err,db){
     sendRes(res, JSON.stringify(answer));
   });
 
+  app.get("/trajets/maj/parsepricestoint", function (req, res) {
 
+    var convert = function(document){
+      var intValue = parseInt(document.prix, 2);
+      database.collection('trajets').update(
+        {_id:document._id},
+        {$set: {'prix': intValue}}
+      );
+    };
+
+    database.collection('trajets').find().forEach(convert);
+
+    res.sendStatus(200);
+  });
 
 });
 

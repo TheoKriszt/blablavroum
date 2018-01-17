@@ -20,7 +20,7 @@ export class MembresService {
   }
 
   getByID(id: string): Observable <any> {
-    return this.http.get(this.baseUrl + '/membres/' + id);
+    return this.http.get(this.baseUrl + '/membres/id/' + id);
   }
 
   update(model: Object): Observable<any> {
