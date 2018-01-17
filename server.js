@@ -107,12 +107,13 @@ mongoClient.connect(url,function(err,db){
 	           else somme50 += 1;
 	}
 	var retour = {
-		'18-25' : somme1825,
-		'26-35' : somme2635,
-		'36-50' : somme3650,
-		'50+'   : somme50
+		'age1825' : somme1825,
+		'age2635' : somme2635,
+		'age3650' : somme3650,
+		'age50+'   : somme50
 	};
         var json=JSON.stringify(retour);
+
         sendRes(res, json);
 
       });
