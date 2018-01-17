@@ -17,6 +17,7 @@ import {ChartModule, InplaceModule, MessagesModule} from 'primeng/primeng';
 import {AlreadyAuthGuard} from '../guards/already-auth-guard';
 import { StatistiquesComponent } from './statistiques/statistiques.component';
 import {AdminGuard} from '../guards/admin-guard';
+import { MyVehiculesComponent } from './my-vehicules/my-vehicules.component';
 
 const routes: Routes = [
   {
@@ -51,7 +52,7 @@ const routes: Routes = [
     CommonModule, HttpClientModule, BrowserModule, FormsModule, RouterModule.forChild(routes),
     TrajetsModule, InplaceModule, ReactiveFormsModule, MessagesModule, ChartModule //NGPrime
   ],
-  declarations: [MembresComponent, AuthComponent, InscriptionComponent, LoginComponent, ProfileComponent, StatistiquesComponent],
+  declarations: [MembresComponent, AuthComponent, InscriptionComponent, LoginComponent, ProfileComponent, StatistiquesComponent, MyVehiculesComponent],
   exports: [MembresComponent, AuthComponent, InscriptionComponent, LoginComponent, ProfileComponent],
   providers: [MembresService, AuthService, LoginComponent, AuthGuard, AlreadyAuthGuard, AdminGuard]
 })
