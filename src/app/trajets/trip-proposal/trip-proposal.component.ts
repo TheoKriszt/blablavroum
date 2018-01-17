@@ -81,7 +81,7 @@ export class TripProposalComponent implements OnInit {
       return;
     }
 
-    if ( this.model.dateDepart || this.model.prix === undefined || this.model.nbPlaces === undefined) {
+    if ( this.model.dateDepart === undefined || this.model.prix === undefined || this.model.nbPlaces === undefined) {
       return;
     }
 

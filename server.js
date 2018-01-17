@@ -668,7 +668,8 @@ mongoClient.connect(url,function(err,db){
   app.get("/trajets/maj/parsepricestoint", function (req, res) {
 
     var convert = function(document){
-      var intValue = parseInt(document.prix, 2);
+      var prix = document.prix || Math.floor(Math.random() * (25 - 5 + 1)) + 5;
+      var intValue = parseInt(prix);
       database.collection('trajets').update(
         {_id : document._id},
         {$set: {'prix': intValue}}
