@@ -13,11 +13,10 @@ import {AuthService} from './auth/auth.service';
 import {AuthGuard} from '../guards/auth-guard';
 import {TrajetsModule} from '../trajets/trajets.module';
 import { ProfileComponent } from './profile/profile.component';
-import {InplaceModule, MessagesModule} from 'primeng/primeng';
+import {ChartModule, InplaceModule, MessagesModule} from 'primeng/primeng';
 import {AlreadyAuthGuard} from '../guards/already-auth-guard';
 import { StatistiquesComponent } from './statistiques/statistiques.component';
 import {AdminGuard} from '../guards/admin-guard';
-import {ChartModule} from 'primeng/chart';
 
 const routes: Routes = [
   {
