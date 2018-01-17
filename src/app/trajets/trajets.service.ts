@@ -87,6 +87,16 @@ export class TrajetsService {
     };
 
     const headers = new Headers({'Content-Type': 'application/json'});
-    return this.http.post(this.baseUrl + '/trajets/update/updateDate', reservation, headers);
+    return this.http.post(this.baseUrl + '/reservation', reservation, headers);
+  }
+
+  cancelResa(tripID: string, userID: string) {
+    const reservation = {
+      'userID' : userID,
+      'tripID' : tripID
+    };
+
+    const headers = new Headers({'Content-Type': 'application/json'});
+    return this.http.post(this.baseUrl + '/reservation/remove', reservation, headers);
   }
 }

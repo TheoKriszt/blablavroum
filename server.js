@@ -495,23 +495,23 @@ mongoClient.connect(url,function(err,db){
 
   //soumet une reservation d'un utilisateur pour un trajet, via PUT (unused / to remove ?)
   // unused ?
-  app.put("/reservation/:userID/:tripID",function(req,res){
-
-    var reservation = {
-      'userID' : req.params.userID,
-      'tripID' : req.params.tripID
-    };
-
-    console.log("Ajout d'une reservation");
-
-    database.collection("trajets").insertOne(reservation, function (err, documents) {
-      if (err) {
-        console.log('ERROR : \n' + err);
-      }
-      sendRes(res, JSON.stringify(documents));
-    });
-
-  });
+  // app.put("/reservation/:userID/:tripID",function(req,res){
+  //
+  //   var reservation = {
+  //     'userID' : req.params.userID,
+  //     'tripID' : req.params.tripID
+  //   };
+  //
+  //   console.log("Ajout d'une reservation");
+  //
+  //   database.collection("trajets").insertOne(reservation, function (err, documents) {
+  //     if (err) {
+  //       console.log('ERROR : \n' + err);
+  //     }
+  //     sendRes(res, JSON.stringify(documents));
+  //   });
+  //
+  // });
 
   //soumet une reservation d'un utilisateur pour un trajet, via POST
   app.post('/reservation', function (req, res) {
@@ -529,6 +529,27 @@ mongoClient.connect(url,function(err,db){
     database.collection('trajets').update(
       { _id: oid },
       { $push: { 'passager': req.body.userID } }
+    );
+
+    sendRes(res, JSON.stringify({'status'  :'OK'}));
+
+  });
+
+  //annule une reservation
+  app.post('/reservation', function (req, res) {
+
+    if(!req.body){
+      console.log('bad request : POST sans body');
+      return res.sendStatus(400);
+    }
+
+    console.log("Annulation d'une reservation");
+
+    var oid = new ObjectID(req.body.tripID);
+
+    database.collection('trajets').update(
+      { _id: oid },
+      { $pull: { 'passager': req.body.userID } }
     );
 
     sendRes(res, JSON.stringify({'status'  :'OK'}));

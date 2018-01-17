@@ -38,13 +38,13 @@
 
 
   <div *ngIf="isAdmin()">
-    <input type="text" placeholder="2018-01-23" name="date" [(ngModel)]="newDate">
+    <input type="text" placeholder="2018-01-23" name="date" [(ngModel)]="trajet.date">
     <button class="btn btn-warning" (click)="updateDate()"> Forcer une nouvelle date</button>
   </div>
 
 
   <div *ngIf= "!complet && !archived && !hasProposed && !hadReserved">
-    <button class="btn btn-secondary" (click)="AddResa()"> Reserver maintenant !</button>
+    <button class="btn btn-secondary" (click)="addResa()"> Reserver maintenant !</button>
   </div>
 
   <div *ngIf="complet">

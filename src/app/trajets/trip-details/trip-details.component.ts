@@ -77,10 +77,10 @@ export class TripDetailsComponent implements OnInit {
    * Fonction de debug admin only : force le changement de date
    */
   updateDate() {
-    if (this.newDate === '')  {
+    if (this.trajet.date === '')  {
       return;
     }
-    this.trajetsService.updateDate(this.tripID, this.newDate).subscribe(res => {
+    this.trajetsService.updateDate(this.tripID, this.trajet.date).subscribe(res => {
       /// rien a faire
     });
   }
@@ -88,6 +88,14 @@ export class TripDetailsComponent implements OnInit {
   addResa() {
     this.trajetsService.addResa(this.tripID, Cookie.get('_id')).subscribe(res => {
       this.hadReserved = true;
+      this.trajet.placesRestantes--;
+    });
+  }
+
+  cancelResa() {
+    this.trajetsService.cancelResa(this.tripID, Cookie.get('_id')).subscribe(res => {
+      this.hadReserved = false;
+      this.trajet.placesRestantes++;
     });
   }
 
