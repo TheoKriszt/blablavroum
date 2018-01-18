@@ -1,11 +1,27 @@
-<p> 
-	<b> La moyenne de prix des trajets est de {{moyenneprix}} € pour un total de {{nbrTrajet}} trajet(s) proposé(s).</b>
-</p>
-<p> 
-	<b> La moyenne d'age des utilisateurs est de {{moyenneage}} ans pour un total de {{nbrUser}} utilisateur(s).</b>
-</p>
-<p> 
-	<b> Répartition des utilisateurs par tranche d'âge :</b>
-	<p-chart type="pie" [data]="data"></p-chart>
-</p>
+<img *ngIf="loadingStats" src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA==" />
+
+<div *ngIf="!loadingStats">
+  <p>
+    <b> La moyenne de prix des trajets est de {{moyenneprix}} € pour un total de {{nbrTrajet}} trajet(s) proposé(s).</b>
+  </p>
+  <p>
+    <b> La moyenne d'age des utilisateurs est de {{moyenneage}} ans pour un total de {{nbrUser}} utilisateur(s).</b>
+  </p>
+  <p>
+    <b> Répartition des utilisateurs par tranche d'âge :</b>
+    <p-chart type="pie" [data]="data"></p-chart>
+  </p>
+
+  <div *ngIf="trajets && trajets[0]">
+    <p>
+      <b> Repartition des trajets sur le pays (départs et destinations) </b>
+      <!--<agm-map [fitBounds]="bounds" [scrollwheel]="true" >-->
+        <agm-map [latitude]="latitude" [longitude]="longitude" [scrollwheel]="true" [zoom]="zoom"> <!-- Google Map centrée sur Montpellier -->
+        <agm-marker *ngFor="let marker of trajets" [latitude]="marker.directions.origin.lat" [longitude]="marker.directions.origin.lng"></agm-marker>
+        <agm-marker *ngFor="let marker of trajets" [latitude]="marker.directions.destination.lat" [longitude]="marker.directions.destination.lng"></agm-marker>
+      </agm-map>
+    </p>
+  </div>
+</div>
+
 

@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {AuthGuard} from "../guards/auth-guard";
 import {AuthComponent} from "./auth/auth.component";
 import {AuthService} from "./auth/auth.service";
+import {Cookie} from 'ng2-cookies';
 
 @Component({
   selector: 'app-membres',
@@ -18,8 +19,8 @@ export class MembresComponent implements OnInit{
   ngOnInit() {
   }
 
-  // isAdmin(){
-  //   return this.authComponent.isAdmin();
-  // }
+  isAdmin(): boolean {
+    return Cookie.get('isAdmin') === 'true';
+  }
 
 }

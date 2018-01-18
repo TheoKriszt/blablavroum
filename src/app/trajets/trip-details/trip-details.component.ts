@@ -1,4 +1,4 @@
-import {AfterViewInit, Component, ElementRef, NgZone, OnInit, ViewChild} from '@angular/core';
+import {Component, NgZone, OnInit} from '@angular/core';
 import {TrajetsService} from '../trajets.service';
 import {ActivatedRoute} from '@angular/router';
 import {Cookie} from 'ng2-cookies';
@@ -13,7 +13,7 @@ import {} from '@types/googlemaps';
 })
 export class TripDetailsComponent implements OnInit {
 
-  trajet: any = {};
+  trajet: any = {driverData: {}};
   loading = false;
 
   // mapOptions: any = {};
@@ -57,6 +57,9 @@ export class TripDetailsComponent implements OnInit {
           this.hasProposed = Cookie.get('_id') === this.trajet.conducteur;
           this.complet = this.trajet.complet === 'true';
 
+          console.log('Trajet chargé : ');
+          console.log(this.trajet);
+
           // this.directions = this.trajet.directions;
           this.loadMapsAPILoader();
 
@@ -73,6 +76,7 @@ export class TripDetailsComponent implements OnInit {
   isAdmin(): boolean {
     return Cookie.get('isAdmin') === 'true';
   }
+
 
   /**
    * Fonction de debug admin only : force le changement de date
@@ -140,7 +144,12 @@ export class TripDetailsComponent implements OnInit {
 
   private loadMapsAPILoader() {
     this.mapsAPILoader.load().then(() => {
-      this.directions = this.trajet.directions;
+      this.ngZone.run(() => {
+        this.directions = this.trajet.directions;
+
+
+
+      });
 
     });
   }

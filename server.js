@@ -852,8 +852,16 @@ mongoClient.connect(url,function(err,db){
     res.sendStatus(200);
   });
 
-});
+  app.get("/membres/maj/removeMembre/:mail", function (req, res) {
 
+    database.collection('membres').remove({'mail': req.params.mail});
+    // db.products.remove( { qty: { $gt: 20 } } )
+
+
+    res.sendStatus(200);
+  });
+
+});
 
 
 

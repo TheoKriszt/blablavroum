@@ -9,12 +9,19 @@ import {TrajetsService} from '../../trajets/trajets.service';
 })
 export class StatistiquesComponent implements OnInit {
 
-  public data: any;
-  moyenneage : string = '';
-  moyenneprix : string = '';
-  nbrUser : string = '';
-  nbrTrajet : string = '';
+  loadingStats = true;
 
+  public data: any;
+  moyenneage = '';
+  moyenneprix = '';
+  nbrUser = '';
+  nbrTrajet = '';
+  trajets: any;
+  // 46.3617025,3.4705509,6z
+
+  latitude = 46.3617025;
+  longitude = 3.4705509;
+  zoom = 6;
   constructor(private mservice: MembresService, private tservice: TrajetsService) {
   }
 
@@ -28,28 +35,30 @@ export class StatistiquesComponent implements OnInit {
           {
             data: [mongoRes.age1825, mongoRes.age2635, mongoRes.age3650, mongoRes.age50],
             backgroundColor: [
-              '#84095b',
-              '#962410',
-              '#0b6817',
-              '#270d99'
+              '#0080ff',
+              '#00ff7f',
+              '#fe7e00',
+              '#fe007f'
             ],
             hoverBackgroundColor: [
-              '#84095b',
-              '#962410',
-              '#0b6817',
-              '#270d99'
+              '#0080ff',
+              '#00ff7f',
+              '#fe7e00',
+              '#fe007f'
             ]
           }]
       };
 
+      this.loadingStats = false;
     });
 
-    this.mservice.getMoyenneAge().subscribe(mongoRes => {this.moyenneage = mongoRes.avg});    
-    this.mservice.getNbrUtilisateurs().subscribe(mongoRes => {this.nbrUser = mongoRes.count});
-    this.tservice.getMoyennePrix().subscribe(mongoRes => {this.moyenneprix = mongoRes.avg});
-    this.tservice.getNbrTrajet().subscribe(mongoRes => {this.nbrTrajet = mongoRes.count});
-	
-    console.log('init getMoyenneAge done');
+    this.mservice.getMoyenneAge().subscribe(mongoRes => {this.moyenneage = mongoRes.avg; });
+    this.mservice.getNbrUtilisateurs().subscribe(mongoRes => {this.nbrUser = mongoRes.count; });
+    this.tservice.getMoyennePrix().subscribe(mongoRes => {this.moyenneprix = mongoRes.avg; });
+    this.tservice.getNbrTrajet().subscribe(mongoRes => {this.nbrTrajet = mongoRes.count; });
+    this.tservice.getAllTrips().subscribe(res => {
+      this.trajets = res;
+    });
   }
 
 

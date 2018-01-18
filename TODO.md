@@ -53,9 +53,9 @@
   - ~~membres (rôle admin/non admin) (users)~~
   - ~~trajets~~
   - trajetsTypes (si la distance entre deux villes ne peut  être récupérée automatiquement) (à moins qu'on ne pase par l'API google maps)
-  - vehicules
-  - (Avis) (les infos peuvent être intégrées à membres)
-- Serveur Node avec autant de services web que nécessaires
+  - ~~vehicules~~
+  - ~~(Avis) (les infos peuvent être intégrées à membres)~~
+- ~~Serveur Node avec autant de services web que nécessaires~~
   - ~~Attention à la recherche doit être multifonctions~~
     - ~~(Ville depart, ville arrivée, date)~~ 
     - ~~(prix max, conducteur, avis sur le conducteur)~~

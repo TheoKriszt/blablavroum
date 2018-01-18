@@ -99,4 +99,8 @@ export class TrajetsService {
     const headers = new Headers({'Content-Type': 'application/json'});
     return this.http.post(this.baseUrl + '/reservation/remove', reservation, headers);
   }
+
+  getAllTrips() {
+    return this.http.get(this.baseUrl + '/trajets');
+  }
 }

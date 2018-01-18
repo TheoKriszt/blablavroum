@@ -19,6 +19,7 @@ import { StatistiquesComponent } from './statistiques/statistiques.component';
 import {AdminGuard} from '../guards/admin-guard';
 import { MyVehiculesComponent } from './my-vehicules/my-vehicules.component';
 import {VehiculesService} from './vehicules.service';
+import {AgmCoreModule} from '@agm/core';
 
 const routes: Routes = [
   {
@@ -51,7 +52,11 @@ const routes: Routes = [
 @NgModule({
   imports: [
     CommonModule, HttpClientModule, BrowserModule, FormsModule, RouterModule.forChild(routes),
-    TrajetsModule, InplaceModule, ReactiveFormsModule, MessagesModule, ChartModule, AutoCompleteModule //NGPrime
+    TrajetsModule, InplaceModule, ReactiveFormsModule, MessagesModule, ChartModule, AutoCompleteModule, //NGPrime
+    AgmCoreModule.forRoot({
+      apiKey: '***REMOVED***',
+      libraries: ['places']
+    })
   ],
   declarations: [MembresComponent, AuthComponent, InscriptionComponent, LoginComponent, ProfileComponent, StatistiquesComponent, MyVehiculesComponent],
   exports: [MembresComponent, AuthComponent, InscriptionComponent, LoginComponent, ProfileComponent],

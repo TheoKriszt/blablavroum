@@ -26,7 +26,7 @@ export class ProfileComponent implements OnInit {
         summary: '',
         detail: this.route.snapshot.queryParams['cause']
       });
-    }
+    }else this.msgs = [];
 
 
     this.membreService.getByID(Cookie.get('_id')).subscribe(res => {
