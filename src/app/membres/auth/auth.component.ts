@@ -5,6 +5,8 @@ import {Cookie} from 'ng2-cookies';
 import {AuthService} from './auth.service';
 import {Observable} from 'rxjs/Observable';
 import {Router} from '@angular/router';
+import {VehiculesService} from '../vehicules.service';
+import {isEmpty} from 'rxjs/operator/isEmpty';
 
 @Component({
   selector: 'app-auth',
@@ -23,6 +25,7 @@ export class AuthComponent implements OnInit{
   private admin = false;
 
   constructor(private authService: AuthService,
+              private vehiculeService: VehiculesService,
               private router: Router) {}
 
   ngOnInit() {
@@ -58,6 +61,15 @@ export class AuthComponent implements OnInit{
     Cookie.set('firstName', user.prenom);
     Cookie.set('lastName', user.nom);
     Cookie.set('isAdmin', (user.role.indexOf('admin') >= 0 ) ? 'true' : 'false');
+
+    this.vehiculeService.getByUserID(user._id).subscribe(res => {
+      // console.log('res', res);
+      if (res[0] !== undefined) {
+        Cookie.set('hasVehicle', 'true');
+      }else {
+        Cookie.set('hasVehicle', 'false');
+      }
+    });
 
     this.loadUser();
   }

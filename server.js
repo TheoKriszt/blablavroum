@@ -404,14 +404,14 @@ mongoClient.connect(url,function(err,db){
               delete driver.role;
               trajet.driverData = driver;
 
-              trajet.placesRestantes = trajet.nbPlace - (trajet.passager !== undefined ? trajet.passager.length : 0);
+              trajet.placesRestantes = trajet.nbPlaces - trajet.passager.length;
               trajet.complet = trajet.placesRestantes == 0 ? 'true' : 'false';
 
 
             }
           }
         }
-        console.log("fin de callback 1 : ");
+        // console.log("fin de callback 1 : ");
         console.log(trajets);
         callback(null, trajets); // envoyer la réponse JSON
       });
@@ -573,7 +573,8 @@ mongoClient.connect(url,function(err,db){
       "nbPlaces" : req.body.nbPlaces,
       "conducteur" : req.body.conducteur,
       "passager" : [],
-      "vehicule": req.body.selectedVehicule
+      "vehicule": req.body.selectedVehicule,
+      "directions": req.body.directions // lat et lng
       // "status" : "published"
     };
 

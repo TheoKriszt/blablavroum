@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {MembresService} from '../membres.service';
 import {Cookie} from 'ng2-cookies';
+import {ActivatedRoute} from '@angular/router';
+import {Message} from 'primeng/primeng';
 
 @Component({
   selector: 'app-profile',
@@ -11,10 +13,20 @@ export class ProfileComponent implements OnInit {
 
   model: Object = {};
   loading = true;
+  msgs: Message[] = [];
 
-  constructor(private membreService: MembresService) { }
+  constructor(private membreService: MembresService, private route: ActivatedRoute) { }
 
   ngOnInit() {
+    this.msgs = [];
+
+    if (this.route.snapshot.queryParams['cause'] !== '') {
+      this.msgs.push({
+        severity: 'warning',
+        summary: '',
+        detail: this.route.snapshot.queryParams['cause']
+      });
+    }
 
 
     this.membreService.getByID(Cookie.get('_id')).subscribe(res => {

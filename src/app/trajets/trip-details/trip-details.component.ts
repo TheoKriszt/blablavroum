@@ -1,8 +1,10 @@
-import {Component, OnInit} from '@angular/core';
+import {AfterViewInit, Component, ElementRef, NgZone, OnInit, ViewChild} from '@angular/core';
 import {TrajetsService} from '../trajets.service';
 import {ActivatedRoute} from '@angular/router';
 import {Cookie} from 'ng2-cookies';
 import {MembresService} from '../../membres/membres.service';
+import {MapsAPILoader} from '@agm/core';
+import {} from '@types/googlemaps';
 
 @Component({
   selector: 'app-trip-details',
@@ -11,14 +13,10 @@ import {MembresService} from '../../membres/membres.service';
 })
 export class TripDetailsComponent implements OnInit {
 
-  constructor(private route: ActivatedRoute, private trajetsService: TrajetsService, private membresService: MembresService) {
-  }
-
   trajet: any = {};
-  // driver: Object = {};
-  loading = true;
+  loading = false;
 
-  mapOptions: any = {};
+  // mapOptions: any = {};
   google: any = {};
   archived = false;
   hasProposed = false;
@@ -29,15 +27,23 @@ export class TripDetailsComponent implements OnInit {
   driverRating = 4;
   driverRated = false;
 
+  zoom = 9;
+  latitude = 43.610769; // coordonnées de Montpellier par défaut
+  longitude = 3.876716;
+
+  directions = undefined; // Map directions (itineraire)
+
+  constructor(
+    private route: ActivatedRoute,
+    private trajetsService: TrajetsService,
+    private membresService: MembresService,
+    private mapsAPILoader: MapsAPILoader,
+    private ngZone: NgZone
+  ) {}
+
+
 
   ngOnInit() {
-
-
-
-    this.mapOptions = {
-      center: {lat: 36.890257, lng: 30.707417},
-      zoom: 12
-    };
 
     this.route.params.subscribe(routeParams => {
       this.tripID = routeParams.tripID;
@@ -50,23 +56,20 @@ export class TripDetailsComponent implements OnInit {
           this.archived = (dat >= trajetDate);
           this.hasProposed = Cookie.get('_id') === this.trajet.conducteur;
           this.complet = this.trajet.complet === 'true';
+
+          // this.directions = this.trajet.directions;
+          this.loadMapsAPILoader();
+
+
         }
         this.loading = false;
       });
 
       this.checkHadReserved();
 
-
-
-
-
     });
   }
 
-  /**
-   *
-   * todo : refactor dans service auth
-   */
   isAdmin(): boolean {
     return Cookie.get('isAdmin') === 'true';
   }
@@ -110,7 +113,7 @@ export class TripDetailsComponent implements OnInit {
 
   setDriverRating() {
 
-    if (this.driverRating < 1 || this.tripID == '') {
+    if (this.driverRating < 1 || this.tripID === '') {
       return;
     }
 
@@ -134,4 +137,13 @@ export class TripDetailsComponent implements OnInit {
 
     });
   }
+
+  private loadMapsAPILoader() {
+    this.mapsAPILoader.load().then(() => {
+      this.directions = this.trajet.directions;
+
+    });
+  }
+
+
 }

@@ -15,6 +15,7 @@ import { TripDetailsComponent } from './trip-details/trip-details.component';
 import {AgmCoreModule} from '@agm/core';
 import { AgmDirectionModule } from 'agm-direction';
 import {VehiculesService} from '../membres/vehicules.service';
+import {HasVehicleGuard} from '../guards/has-vehicle-guard';
 
 
 const routes: Routes = [
@@ -29,7 +30,7 @@ const routes: Routes = [
   {
     path: 'trip-proposal',
     component: TripProposalComponent,
-    canActivate: [AuthGuard]
+    canActivate: [AuthGuard, HasVehicleGuard]
   },
   {
     path: 'reservations',
@@ -55,6 +56,6 @@ const routes: Routes = [
   ],
   exports: [TrajetsComponent, TrajetsRechercheComponent,  RouterModule, TripProposalComponent, ProposedTripsComponent], // exports pour utilisation dans un autre module (membres dashboard)
   declarations: [TrajetsComponent, TrajetsRechercheComponent, TripProposalComponent, ProposedTripsComponent, ReservationsComponent, TripDetailsComponent],
-  providers: [TrajetsService, AuthGuard, VehiculesService]
+  providers: [TrajetsService, AuthGuard, HasVehicleGuard , VehiculesService]
 })
 export class TrajetsModule { }

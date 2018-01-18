@@ -5,7 +5,6 @@ import {Cookie} from 'ng2-cookies';
 import {FormControl} from '@angular/forms';
 import {MapsAPILoader} from '@agm/core';
 import {} from '@types/googlemaps';
-import {noUndefined} from '@angular/compiler/src/util';
 import {VehiculesService} from '../../membres/vehicules.service';
 
 @Component({
@@ -170,6 +169,9 @@ export class TripProposalComponent implements OnInit {
       const originPlace: google.maps.places.PlaceResult = this.autocompleteFrom.getPlace();
       const destinationPlace: google.maps.places.PlaceResult = this.autocompleteTo.getPlace();
 
+      console.log('getPlace : ');
+      console.log(this.autocompleteFrom.getPlace());
+
       // verify result
       if (! this.checkPlaces()) {
         return;
@@ -178,7 +180,10 @@ export class TripProposalComponent implements OnInit {
       this.getDirection(originPlace, destinationPlace);
       // console.log(originPlace, destinationPlace);
 
+      this.model.directions = this.directions;
+
       this.model.adresseDepart = originPlace.formatted_address;
+      this.model.villeDepart = originPlace.vicinity;
       this.model.villeDepart = originPlace.vicinity;
       // this.model.villeDepart = originPlace.address_components[1].long_name;
 

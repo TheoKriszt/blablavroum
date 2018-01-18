@@ -50,7 +50,7 @@ export class MyVehiculesComponent implements OnInit {
   }
 
   filterBrand(event) {
-    const brands: string[] = ['Aston Martin', 'Tesla', 'Audi', 'BMW', 'Citroën', 'Dacia', 'Ferrari', 'Fiat', 'Ford', 'Honda', 'Jaguar', 'Lada', 'Mercedes', 'Peugeot', 'Renault', 'Seat', 'Skoda', 'Smart',  'Suzuki', 'Volvo', 'VW'];
+    const brands: string[] = ['Aston Martin', 'DeLorean', 'Tesla', 'Audi', 'BMW', 'Citroën', 'Dacia', 'Ferrari', 'Fiat', 'Ford', 'Honda', 'Jaguar', 'Lada', 'Mercedes', 'Peugeot', 'Renault', 'Seat', 'Skoda', 'Smart',  'Suzuki', 'Volvo', 'VW'];
     const query = event.query;
     // console.log('query : ', query);
     this.autocompleteMarques = [];
@@ -65,7 +65,7 @@ export class MyVehiculesComponent implements OnInit {
 
 
   filterModels(event: any) {
-    const models: string[] = ['A1', 'A5', 'S1', 'Q3', 'Q5', 'Clio', 'Espace', 'Megane', 'Twingo', 'Up', 'Twizy', 'Logan', 'Sandero', 'Rav4', 'Celerio', 'Citigo', 'Ibiza', 'MII', 'Dokker', 'Master', 'Panda', 'Granta', 'Ka', 'Lodgy', 'C1', 'C2', 'C3', 'C4', 'Aygo', '108', '206', '207', '1008', 'Micra'];
+    const models: string[] = ['DMC-12', 'A1', 'A5', 'S1', 'Q3', 'Q5', 'Clio', 'Espace', 'Megane', 'Twingo', 'Up', 'Twizy', 'Logan', 'Sandero', 'Rav4', 'Celerio', 'Citigo', 'Ibiza', 'MII', 'Dokker', 'Master', 'Panda', 'Granta', 'Ka', 'Lodgy', 'C1', 'C2', 'C3', 'C4', 'Aygo', '108', '206', '207', '1008', 'Micra'];
     const query = event.query;
     // console.log('query : ', query);
     this.autocompleteModeles = [];

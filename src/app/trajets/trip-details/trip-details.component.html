@@ -24,7 +24,7 @@
 
       <i class="fa fa-map-marker u-green"></i>{{trajet.depart.ville}} : ({{trajet.depart.adresse}}) <br/>
       <i class="fa fa-map-marker u-red"></i>{{trajet.arrivee.ville}} : ({{trajet.arrivee.adresse}}) <br/>
-      <i class="fa fa-car">{{trajet.vehicule.label}}</i>
+      <i class="fa fa-car"></i>{{trajet.vehicule.label}}
     </div><!-- end trip-short-info -->
 
     <div class="trip-short-price">
@@ -38,10 +38,20 @@
 
   </div>
 
-<!--TODO : remettre Google map et directions-->
+  <div class="spacer"></div>
+
   <!--<div>-->
-    <!--<p-gmap [options]="mapOptions" [style]="{'width':'100%','height':'320px'}" ></p-gmap>-->
+    <!--<input type="text"  value="{{trajet.depart.adresse}}" #searchFrom disabled>-->
+    <!--<input type="text"  value="{{trajet.arrivee.adresse}}" #searchTo disabled>-->
   <!--</div>-->
+
+
+  <!--<agm-map [scrollwheel]="true">-->
+  <agm-map [latitude]="latitude" [longitude]="longitude" [scrollwheel]="true" [zoom]="zoom"> <!-- Google Map centrée sur Montpellier -->
+    <!--<agm-marker [latitude]="latitude" [longitude]="longitude"></agm-marker>-->
+    <agm-direction *ngIf="directions" [origin]="directions.origin" [destination]="directions.destination"></agm-direction>
+  </agm-map>
+  <div class="spacer"></div>
 
 
   <div *ngIf="isAdmin()">

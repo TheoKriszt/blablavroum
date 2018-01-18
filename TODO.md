@@ -7,32 +7,37 @@
 - ~~rendre la recherche de trajet insensible à la casse (Lyon == lyon == LYON)~~
 - ~~ajouter verif formulaire avant envoi de recherche~~
 - ~~faire qu'un admin puisse promouvoir / révoquer un utilisateur admin~~ **MEH / OUTATIME**
-- pouvoir lister/supprimer un user depuis l'interface admin **PAS DE SUPPRESSION**
-- mettre l'affichage des dates des trajets au format français **pipe ?**
+- ~~pouvoir lister/supprimer un user depuis l'interface admin~~ **PAS DE SUPPRESSION**
+- ~~mettre l'affichage des dates des trajets au format français~~ **pipe ?**
 - ~~crypter le MDP~~ **OUTATIME**
 - ~~En page d'accueil, afficher les derniers trajets publiés ?~~ **OUTATIME**
 - ~~verifier ce qu'il se pass quand login incorrect~~
-- ne pouvoir proposer un trajet que si on a enregistré un véhicule
-  - ajouter vehicule à création de trajet
-- faire le truc pour donner des evaluations
-- modifier le modèle de vehicule pour {id_proprio, marque, modele, couleur}
+- ~~ne pouvoir proposer un trajet que si on a enregistré un véhicule~~
+  - ~~ajouter vehicule à création de trajet~~
+- ~~faire le truc pour donner des evaluations~~
+- ~~modifier le modèle de vehicule pour {id_proprio, marque, modele, couleur}~~
 - ~~la suppression d'un user entraine la suppression de ses trajets ?~~ **Pas de suppression d'user**
-- Archiver les trajets (tag état => passé) après date et heure de trajet // status: {published | archived}
-- Ajouter option pour afficher trajets archivés **=> seulement les trajets que j'avais reservés**
-- Rendre impossible la réservation/liberation d'un trajet archivé
-- Rendre possible l'évaluation du conducteur quand trajet archivé
-  - Evaluation : trajet_id, from_id, content, value
+- ~~Archiver les trajets (tag état => passé) après date et heure de trajet // status: {published | archived}~~
+- ~~Ajouter option pour afficher trajets archivés~~ **=> seulement les trajets que j'avais reservés**
+- ~~Rendre impossible la réservation/liberation d'un trajet archivé~~
+- ~~Rendre possible l'évaluation du conducteur quand trajet archivé~~
+  - ~~Evaluation : trajet_id, from_id, content, value~~
 - ~~Changer dans le readme la procedure d'import en base mongoDB~~
 - ~~Faire les reservations~~
-- Google map : points de depart/ arrives de tous les trajets
-- Ajout vehicule : check champs vides
+- Google map : points de depart/ arrivees de tous les trajets
+- ~~Ajout vehicule : check champs vides~~
+- **Mes reservations**
+- Insérer les jeux de tests et verifier la cohérence / simuler une démo de soutenance
+- sauvegarder la BDD de test
+- Passer en prod, build le projet
+- Préparer machine de secours avec npm installed pour la soutenance
+
 
 
 ##Nouveaux composants
 - ~~TripProposal : l'utilisateur loggé peut publier un nouveau trajet~~
 - ~~ProposedTrips : liste les trajets déjà proposés pas l'utilisateur~~
-- TripDetail : page qui permet de consulter les détails / la map du trajet + réserver
-- TripShort : affichage résumé (dans une liste) d'un trajet, style dans les résultats de recherche
+- ~~TripDetail : page qui permet de consulter les détails / la map du trajet + réserver~~
 - ~~TripReservations : liste les réservations en cours / passées d'un user~~
 - ~~UserProfile : Affiche & permet d'editer les infos de l'utilisateur~~
 
@@ -66,7 +71,7 @@
 - ~~Contrôleur (fortement conseillé)~~
 - ~~Gestion de rôles via des guards~~
 - ~~Statistiques~~
-- (Etapes) (hard !)
+- (Etapes) (hard !) **NOPE**
 
 ## Polish / code cleaning
 - essayer de virer les service / providers injectés mais non nécessaires

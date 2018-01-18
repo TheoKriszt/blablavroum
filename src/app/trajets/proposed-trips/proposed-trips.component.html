@@ -18,7 +18,8 @@
 <div *ngIf="anyTrajet">
   <ul>
     <li *ngFor = "let trajet of mesTrajets" class="trip">
-      <a class="trip-search-oneresult"> <!-- Lien vers le trajet en détail -->
+      <a [routerLink]="['/trip-details/', trajet._id]" class="trip-search-oneresult">
+      <!--<a class="trip-search-oneresult" [(routerlink)]="['trip-details/', trajet._id]"> &lt;!&ndash; Lien vers le trajet en détail &ndash;&gt;-->
         De {{trajet.depart.ville}} ({{trajet.depart.adresse}}) à {{trajet.arrivee.ville}} ({{trajet.arrivee.adresse}}) le {{trajet.date}} à {{trajet.heure}}.
         Ce trajet coûte {{trajet.prix}}€.
       </a>
