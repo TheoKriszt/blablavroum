@@ -9,11 +9,12 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { TripProposalComponent } from './trip-proposal/trip-proposal.component';
 import { ProposedTripsComponent } from './proposed-trips/proposed-trips.component';
 import {AuthGuard} from '../guards/auth-guard';
-import {CalendarModule, DropdownModule, GMapModule, SliderModule} from 'primeng/primeng';
+import {CalendarModule, DropdownModule, GMapModule, RatingModule, SliderModule} from 'primeng/primeng';
 import { ReservationsComponent } from './reservations/reservations.component';
 import { TripDetailsComponent } from './trip-details/trip-details.component';
 import {AgmCoreModule} from '@agm/core';
 import { AgmDirectionModule } from 'agm-direction';
+import {VehiculesService} from '../membres/vehicules.service';
 
 
 const routes: Routes = [
@@ -37,14 +38,15 @@ const routes: Routes = [
   },
   {
     path: 'trip-details/:tripID',
-    component: TripDetailsComponent
+    component: TripDetailsComponent,
+    canActivate: [AuthGuard]
   }
 ];
 
 @NgModule({
   imports: [
     CommonModule, HttpClientModule, FormsModule, ReactiveFormsModule , RouterModule.forChild(routes),
-    CalendarModule, DropdownModule, SliderModule, GMapModule,
+    CalendarModule, DropdownModule, SliderModule, GMapModule, RatingModule,
     AgmCoreModule.forRoot({
       apiKey: '***REMOVED***',
       libraries: ['places']
@@ -53,6 +55,6 @@ const routes: Routes = [
   ],
   exports: [TrajetsComponent, TrajetsRechercheComponent,  RouterModule, TripProposalComponent, ProposedTripsComponent], // exports pour utilisation dans un autre module (membres dashboard)
   declarations: [TrajetsComponent, TrajetsRechercheComponent, TripProposalComponent, ProposedTripsComponent, ReservationsComponent, TripDetailsComponent],
-  providers: [TrajetsService, AuthGuard]
+  providers: [TrajetsService, AuthGuard, VehiculesService]
 })
 export class TrajetsModule { }

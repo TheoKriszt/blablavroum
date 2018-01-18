@@ -23,8 +23,9 @@
 - Rendre possible l'évaluation du conducteur quand trajet archivé
   - Evaluation : trajet_id, from_id, content, value
 - ~~Changer dans le readme la procedure d'import en base mongoDB~~
-- Faire les reservations
+- ~~Faire les reservations~~
 - Google map : points de depart/ arrives de tous les trajets
+- Ajout vehicule : check champs vides
 
 
 ##Nouveaux composants
@@ -39,7 +40,7 @@
 ##FIXME
 - ~~Trouver pourquoi apres login la vue auth (inscription|connexion) ne se met pas a jour~~
 - ~~Regler les appels async foireux sur Node/Mongo~~
-- ~~prixMax de recherche trajet~~
+- ~~prixMax de recherche trajet foire car stocké en string~~
 
 
 ## Fonctionnalités minimales attendues
@@ -64,7 +65,7 @@
 - ~~Visualisation trajet sur une carte (G Maps)~~
 - ~~Contrôleur (fortement conseillé)~~
 - ~~Gestion de rôles via des guards~~
-- Statistiques
+- ~~Statistiques~~
 - (Etapes) (hard !)
 
 ## Polish / code cleaning

@@ -23,7 +23,8 @@
       {{trajet.depart.ville}} → {{trajet.arrivee.ville}} <br/>
 
       <i class="fa fa-map-marker u-green"></i>{{trajet.depart.ville}} : ({{trajet.depart.adresse}}) <br/>
-      <i class="fa fa-map-marker u-red"></i>{{trajet.arrivee.ville}} : ({{trajet.arrivee.adresse}})
+      <i class="fa fa-map-marker u-red"></i>{{trajet.arrivee.ville}} : ({{trajet.arrivee.adresse}}) <br/>
+      <i class="fa fa-car">{{trajet.vehicule.label}}</i>
     </div><!-- end trip-short-info -->
 
     <div class="trip-short-price">
@@ -57,16 +58,23 @@
     <button class="btn btn-info" (click)="addResa()"> Reserver maintenant !</button>
   </div>
 
-  <div *ngIf="complet">
-    <p> Le trajet est complet </p>
+  <div *ngIf="complet && !hadReserved">
+    <button disabled style="color: #000;" class="btn btn-warning">Le trajet est complet</button>
   </div>
 
   <div *ngIf="hadReserved && !archived">
     <button (click)="cancelResa()" class="btn btn-danger">Annuler la réservation</button>
   </div>
 
-  <div *ngIf="hadReserved && archived">
-    // Noter le conducteur ici
+  <div *ngIf="hadReserved && archived && !driverRated">
+    <label> Evaluez votre conducteur: </label>
+    <p-rating [(ngModel)]="driverRating"></p-rating>
+    <button *ngIf="!driverRated" (click)="setDriverRating()" [disabled]="driverRating < 1" class="btn btn-success">Noter le conducteur</button>
+  </div>
+
+  <div *ngIf="hadReserved && archived && driverRated">
+    <label> Votre evaluation du conducteur: </label>
+    <p-rating [(ngModel)]="driverRating" [disabled]="true"></p-rating>
   </div>
 
 </div><!-- end if !loading -->

@@ -4,7 +4,7 @@ import {
 import {Cookie} from 'ng2-cookies';
 import {AuthService} from './auth.service';
 import {Observable} from 'rxjs/Observable';
-import {Router} from "@angular/router";
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-auth',
@@ -15,11 +15,11 @@ import {Router} from "@angular/router";
 export class AuthComponent implements OnInit{
 
 
-  isLogged: boolean = false;
-  private displayedName: string = '';
+  isLogged = false;
+  private displayedName = '';
 
-  private firstName: string = '';
-  private lastName: string = '';
+  private firstName = '';
+  private lastName = '';
   private admin = false;
 
   constructor(private authService: AuthService,
@@ -30,13 +30,13 @@ export class AuthComponent implements OnInit{
     // se mettre à jour quand le service partagé lance un login
     this.authService.subject.subscribe(obs => {
       obs.subscribe(res => {
-        console.log('Requête D\'auth recue');
+        // console.log('Requête D\'auth recue');
         this.checkLogin(res);
       });
     });
 
     // au démarrage / après refresh de la page => verif. si déjà loggé
-    if( Cookie.check('mail') && !this.isLogged){
+    if ( Cookie.check('mail') && !this.isLogged) {
       this.loadUser();
     }
   }
@@ -45,11 +45,13 @@ export class AuthComponent implements OnInit{
    * Verifie le retour du service d'authentification et met à jour les Cookies de session
    * @param user {Array} retour de AuthService.login()
    */
-  checkLogin(user: any){
+  checkLogin(user: any) {
 
-    if (user){
+    if (user) {
       user = user[0];
-    }else return;
+    } else {
+      return;
+    }
 
     Cookie.set('_id', user._id);
     Cookie.set('mail', user.mail);
@@ -60,14 +62,14 @@ export class AuthComponent implements OnInit{
     this.loadUser();
   }
 
-  logout(){
+  logout() {
     // console.log('Logging out -->[]');
     Cookie.deleteAll();
     this.isLogged = false;
     this.router.navigate(['/']);
   }
 
-  isAdmin(){
+  isAdmin() {
     return this.admin;
   }
 
@@ -79,7 +81,7 @@ export class AuthComponent implements OnInit{
     this.firstName = Cookie.get('firstName');
     this.lastName = Cookie.get('lastName');
     this.displayedName = this.firstName + ' ' + this.lastName[0]; // prenom + initiale nom
-    this.admin = Cookie.get('isAdmin') == 'true';
+    this.admin = Cookie.get('isAdmin') === 'true';
 
     this.isLogged = true;
   }

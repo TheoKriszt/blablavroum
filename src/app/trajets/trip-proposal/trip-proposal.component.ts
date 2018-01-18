@@ -5,7 +5,8 @@ import {Cookie} from 'ng2-cookies';
 import {FormControl} from '@angular/forms';
 import {MapsAPILoader} from '@agm/core';
 import {} from '@types/googlemaps';
-import {noUndefined} from "@angular/compiler/src/util";
+import {noUndefined} from '@angular/compiler/src/util';
+import {VehiculesService} from '../../membres/vehicules.service';
 
 @Component({
   selector: 'app-trip-proposal',
@@ -42,14 +43,27 @@ export class TripProposalComponent implements OnInit {
   loading = false;
   heureDepart: Date = new Date(); // géré hors formulaire
 
+  //vehicules possedés
+  vehicules: any = [];
+
 
   constructor(private router: Router,
               private trajetService: TrajetsService,
+              private vehiculesService: VehiculesService,
               private mapsAPILoader: MapsAPILoader,
               private ngZone: NgZone
   ) {}
 
   ngOnInit() {
+    this.vehiculesService.getByUserID(Cookie.get('_id')).subscribe(res => {
+      for (const vehicule of res) {
+        this.vehicules.push({
+          'label': vehicule.marque + ' ' + vehicule.modele + ', couleur ' + vehicule.couleur,
+          'value': vehicule._id
+        });
+      }
+      this.model.selectedVehicule = this.vehicules[0];
+    });
     // TODO : remove
     // this.model.villeDepart = 'Montpellier';
     // this.model.adresseDepart = 'Place Eugene Bataillon';
@@ -91,8 +105,12 @@ export class TripProposalComponent implements OnInit {
     // const minutes = this.heureDepart.getMinutes() + ''.padEnd(2, '0');
 
 
-    const hours = this.heureDepart.getHours();
-    const minutes = this.heureDepart.getMinutes();
+    let hours = this.heureDepart.getHours() + '';
+    let minutes = this.heureDepart.getMinutes() + '';
+
+    hours = (hours.length === 2 ? '' : '0') + hours;
+    minutes = (minutes.length === 2 ? '' : '0') + minutes;
+
     this.model.heureDepart = hours + ':' + minutes;
 
     this.model.conducteur = Cookie.get('_id'); // id_conducteur

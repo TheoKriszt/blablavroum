@@ -24,8 +24,8 @@ export class TrajetsService {
       tripUrl += '/' + searchParams.dateDepart;
     }
 
-    console.log('searchParams');
-    console.log(searchParams);
+    // console.log('searchParams');
+    // console.log(searchParams);
 
     tripUrl += '?';
 
@@ -45,9 +45,9 @@ export class TrajetsService {
   }
 
   create(model: any): Observable <any>{
-    console.log('Creation d\'un trajet');
+    // console.log('Creation d\'un trajet');
     const body: any = model;
-    console.log(body);
+    // console.log(body);
 
     const url: string = this.baseUrl + '/trajets';
     const headers = new Headers({'Content-Type': 'application/json'});

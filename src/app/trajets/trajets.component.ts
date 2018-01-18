@@ -46,8 +46,8 @@ export class TrajetsComponent implements OnInit {
 
     this.formModel.evalMin /= 10; // 0..50 => 0..5 (permet les decimaux)
 
-    console.log('evalMin : ', this.formModel.evalMin);
-    console.log('pMax : ', this.formModel.prixMax);
+    // console.log('evalMin : ', this.formModel.evalMin);
+    // console.log('pMax : ', this.formModel.prixMax);
 
     if (this.formModel.dateDepart) {
       this.router.navigate(

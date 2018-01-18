@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {TrajetsService} from '../trajets.service';
 import {ActivatedRoute} from '@angular/router';
 import {Cookie} from 'ng2-cookies';
+import {MembresService} from '../../membres/membres.service';
 
 @Component({
   selector: 'app-trip-details',
@@ -10,7 +11,7 @@ import {Cookie} from 'ng2-cookies';
 })
 export class TripDetailsComponent implements OnInit {
 
-  constructor(private route: ActivatedRoute, private trajetsService: TrajetsService) {
+  constructor(private route: ActivatedRoute, private trajetsService: TrajetsService, private membresService: MembresService) {
   }
 
   trajet: any = {};
@@ -23,8 +24,11 @@ export class TripDetailsComponent implements OnInit {
   hasProposed = false;
   hadReserved = false;
   complet  = false;
-  newDate = '';
   tripID = '';
+
+  driverRating = 4;
+  driverRated = false;
+
 
   ngOnInit() {
 
@@ -43,25 +47,19 @@ export class TripDetailsComponent implements OnInit {
           const dat = new Date();
           this.trajet = trip[0];
           const trajetDate = new Date(this.trajet.date);
-          this.archived = (dat > trajetDate);
+          this.archived = (dat >= trajetDate);
           this.hasProposed = Cookie.get('_id') === this.trajet.conducteur;
           this.complet = this.trajet.complet === 'true';
-
         }
-        console.log('Retour du trajet : ');
-        console.log(this.trajet);
-
         this.loading = false;
       });
 
-      this.trajetsService.getMesReservations(Cookie.get('_id')).subscribe(res => {
-        for (const resa of res) {
-          if (resa._id === this.tripID) {
-            this.hadReserved = true;
-            break;
-          }
-        }
-      });
+      this.checkHadReserved();
+
+
+
+
+
     });
   }
 
@@ -99,4 +97,41 @@ export class TripDetailsComponent implements OnInit {
     });
   }
 
+  loadDriverRating() {
+    // driverRating: number;
+    this.membresService.getRating(Cookie.get('_id'), this.trajet.conducteur, this.tripID).subscribe(res => {
+      this.driverRating = res.rating;
+      this.driverRated = res.rating !== '';
+      console.log('loadDriverRating = ');
+      console.log(res);
+      console.log('driver Rated : ', this.driverRated);
+    });
+  }
+
+  setDriverRating() {
+
+    if (this.driverRating < 1 || this.tripID == '') {
+      return;
+    }
+
+    this.membresService.setRating(Cookie.get('_id'), this.trajet.conducteur, this.tripID, this.driverRating).subscribe(res => {
+      this.driverRated = true;
+    });
+  }
+
+  checkHadReserved() {
+    this.trajetsService.getMesReservations(Cookie.get('_id')).subscribe(res => {
+      for (const resa of res) {
+        if (resa._id === this.tripID) {
+          this.hadReserved = true;
+          break;
+        }
+      }
+
+      if (this.hadReserved && this.archived) {
+        this.loadDriverRating();
+      }
+
+    });
+  }
 }

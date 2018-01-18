@@ -148,18 +148,18 @@ mongoClient.connect(url,function(err,db){
   });
 
 
-// membre par mail
-  app.get("/membres/mail/:mail",function(req,res){
-    console.log("Recupération du membre avec le mail " + req.params.mail);
-    database.collection("membres").find({"mail":req.params.mail})
-      .toArray(function(err,documents){
-        //récuperation du résultat
-        var json=JSON.stringify(documents);
-        //renvoi du resultat
-        sendRes(res, json);
-
-      });
-  });
+// // membre par mail
+//   app.get("/membres/mail/:mail",function(req,res){
+//     console.log("Recupération du membre avec le mail " + req.params.mail);
+//     database.collection("membres").find({"mail":req.params.mail})
+//       .toArray(function(err,documents){
+//         //récuperation du résultat
+//         var json=JSON.stringify(documents);
+//         //renvoi du resultat
+//         sendRes(res, json);
+//
+//       });
+//   });
 
 
 //requête authentification
@@ -183,10 +183,10 @@ mongoClient.connect(url,function(err,db){
   });
 
 
-//Retire un membre
-  app.delete("/membres/:mail/",function(req,res){
-    database.collection("membres").remove({'mail':req.params.mail});
-  });
+// //Retire un membre
+//   app.delete("/membres/:mail/",function(req,res){
+//     database.collection("membres").remove({'mail':req.params.mail});
+//   });
 
 
   // ajoute un nouveau membre
@@ -253,6 +253,66 @@ mongoClient.connect(url,function(err,db){
 
     });
 });
+
+  // note laissée par le membre :from au membre :to pour le trajet :tripID
+  app.get("/membres/rating/:from/:to/:tripID",function(req,res){
+
+    var oid = new ObjectID(req.params.to);
+    var from = req.params.from;
+    var tripID = req.params.tripID;
+
+    console.log("Recherche de la note laissée par " + from + " à " + req.params.to + " pour le trajet " + tripID);
+
+    database.collection("membres").find({"_id": oid})
+      .toArray(function(err,documents){
+        if (documents[0]) {
+          documents = documents[0];
+        }else {
+          throw err;
+        }
+        let rating = '';
+        if(documents.evaluations){
+          for (let p of documents.evaluations) {
+            if (p.from === from && p.tripID == tripID){
+              console.log('MATCH');
+              rating = p.rating;
+              break;
+            }
+          }
+        }
+
+
+        var json = JSON.stringify({'rating' : rating});
+        console.log('rating : ', rating);
+        sendRes(res, json);
+      });
+  });
+
+  app.post('/membres/rating', function (req, res) {
+
+    if(!req.body){
+      console.log('bad request : ' + req.body);
+      return res.sendStatus(400);
+    }
+
+    var oid = new ObjectID(req.body.to);
+    var from = req.body.from;
+    var tripID = req.body.tripID;
+    var rating = req.body.rating;
+
+    var evaluation = {
+      'from' : from,
+      'tripID' : tripID,
+      'rating' : rating
+    };
+
+    database.collection('membres').update(
+      { _id: oid },
+      { $push: { 'evaluations': evaluation } }
+    );
+
+    sendRes(res, JSON.stringify({'status' : 'OK'}))
+  });
 
   /**
    * Trajets
@@ -332,7 +392,7 @@ mongoClient.connect(url,function(err,db){
           else {
             let avg = 0;
             for (let eval of driver.evaluations){
-              avg += eval.value;
+              avg += parseInt(eval.rating);
             }
             driver.evaluationMoyenne =(avg / driver.evaluations.length).toFixed(1);
           }
@@ -344,14 +404,47 @@ mongoClient.connect(url,function(err,db){
               delete driver.role;
               trajet.driverData = driver;
 
-              trajet.placesRestantes = trajet.nbPlace - (trajet.passagers !== undefined ? trajet.passagers.length : 0);
+              trajet.placesRestantes = trajet.nbPlace - (trajet.passager !== undefined ? trajet.passager.length : 0);
               trajet.complet = trajet.placesRestantes == 0 ? 'true' : 'false';
+
+
             }
           }
         }
+        console.log("fin de callback 1 : ");
+        console.log(trajets);
         callback(null, trajets); // envoyer la réponse JSON
       });
 
+  };
+
+  const completeVehicleData = function (trajets, callback) {
+
+    let vehicles = []; // tableau d'OID des vehicules du trajet
+
+    for (let trajet of trajets) { // recenser les vehicules
+      console.log(trajet.vehicule, '', '');
+      let oid = new ObjectID(trajet.vehicule._id);
+      vehicles.push(oid);
+    }
+
+    database.collection("vehicules").find({"_id": {$in: vehicles}})
+      .toArray(function (err, data) {
+        for (let vehicle of data) {
+          for (let trajet of trajets){
+            if (trajet.vehicule == vehicle._id) {
+              trajet.vehicule = {
+                '_id' : trajet.vehicule,
+                'label':  trajet.vehicule.modele + ' ' + trajet.vehicule.marque + ', couleur ' + trajet.vehicule.couleur
+              };
+            }
+
+          }
+        }
+
+
+        callback(null, trajets); // envoyer la réponse JSON
+      });
   };
 
   // trouve les trajets de villed à villea
@@ -384,6 +477,7 @@ mongoClient.connect(url,function(err,db){
         });
       },
         completeDriverData, // complete les trajets avec les données sur leurs conducteurs
+      completeVehicleData,
       function (trajets, callback) { // filtrer les conducteurs trop bas
         let trajetsCleaned = [];
 
@@ -425,6 +519,7 @@ mongoClient.connect(url,function(err,db){
         });
       },
       completeDriverData, // complete les trajets avec les données sur leurs conducteurs
+      completeVehicleData,
       function (trajets, callback) { // filtrer les conducteurs trop bas
         let trajetsCleaned = [];
 
@@ -477,8 +572,9 @@ mongoClient.connect(url,function(err,db){
       "prix" : parseFloat(req.body.prix),
       "nbPlaces" : req.body.nbPlaces,
       "conducteur" : req.body.conducteur,
-      "passagers" : [],
-      "status" : "published"
+      "passager" : [],
+      "vehicule": req.body.selectedVehicule
+      // "status" : "published"
     };
 
     console.log("Ajout d'un trajet " + trajet.depart.ville + ' ->' + trajet.arrivee.ville);
@@ -589,7 +685,7 @@ mongoClient.connect(url,function(err,db){
   app.get("/reservations/:userID",function(req,res){
 
     console.log('Recherche des trajets reserves par userID : ' + req.params.userID);
-    database.collection("trajets").find( {"passagers": [ req.params.userID ]} )
+    database.collection("trajets").find( {"passager": [ req.params.userID ]} )
     // database.collection("membres").find( {"_id.$oid": req.params.id} )
       .toArray(function(err,documents){
         var json = JSON.stringify(documents);
@@ -737,6 +833,20 @@ mongoClient.connect(url,function(err,db){
     };
 
     database.collection('membres').find().forEach(resetvehicules);
+
+    res.sendStatus(200);
+  });
+
+  app.get("/membres/maj/removeEvaluations/:mail", function (req, res) {
+
+    var resetevaluations = function(document){
+      database.collection('membres').update(
+        {_id : document._id},
+        {$set: {'evaluations': []}}
+      );
+    };
+
+    database.collection('membres').find({'mail': req.params.mail}).forEach(resetevaluations);
 
     res.sendStatus(200);
   });

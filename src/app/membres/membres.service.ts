@@ -44,4 +44,18 @@ export class MembresService {
     const headers = new Headers({'Content-Type': 'application/json'});
     return this.http.post(url, model, headers);
   }
+
+  getRating(from: string, to: any, tripID: string): Observable <any> {
+    return this.http.get(this.baseUrl + '/membres/rating/' + from + '/' + to + '/' + tripID);
+  }
+
+  setRating(from: string, to: any, tripID: string, driverRating: number): Observable <any> {
+    const rating = {
+      'from' : from,
+      'to' : to,
+      'tripID' : tripID,
+      'rating' : driverRating
+    };
+    return this.http.post(this.baseUrl + '/membres/rating', rating);
+  }
 }

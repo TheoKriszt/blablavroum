@@ -13,12 +13,12 @@ import {AuthService} from './auth/auth.service';
 import {AuthGuard} from '../guards/auth-guard';
 import {TrajetsModule} from '../trajets/trajets.module';
 import { ProfileComponent } from './profile/profile.component';
-import {ChartModule, InplaceModule, MessagesModule} from 'primeng/primeng';
+import {AutoCompleteModule, ChartModule, InplaceModule, MessagesModule} from 'primeng/primeng';
 import {AlreadyAuthGuard} from '../guards/already-auth-guard';
 import { StatistiquesComponent } from './statistiques/statistiques.component';
 import {AdminGuard} from '../guards/admin-guard';
 import { MyVehiculesComponent } from './my-vehicules/my-vehicules.component';
-import {VehiculesService} from "./vehicules.service";
+import {VehiculesService} from './vehicules.service';
 
 const routes: Routes = [
   {
@@ -51,7 +51,7 @@ const routes: Routes = [
 @NgModule({
   imports: [
     CommonModule, HttpClientModule, BrowserModule, FormsModule, RouterModule.forChild(routes),
-    TrajetsModule, InplaceModule, ReactiveFormsModule, MessagesModule, ChartModule //NGPrime
+    TrajetsModule, InplaceModule, ReactiveFormsModule, MessagesModule, ChartModule, AutoCompleteModule //NGPrime
   ],
   declarations: [MembresComponent, AuthComponent, InscriptionComponent, LoginComponent, ProfileComponent, StatistiquesComponent, MyVehiculesComponent],
   exports: [MembresComponent, AuthComponent, InscriptionComponent, LoginComponent, ProfileComponent],

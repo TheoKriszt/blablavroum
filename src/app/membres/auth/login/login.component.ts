@@ -31,7 +31,15 @@ export class LoginComponent implements OnInit {
       this.route.snapshot.queryParams['origin'] === 'register') {
       this.msgs.push({severity: 'success', summary: 'Compte créé', detail: 'Vous pouvez maintenant vous connecter'});
       this.model.mail = this.route.snapshot.queryParams['mail'] || '';
+    }else if (this.returnUrl !== '/') {
+      this.msgs.push({
+        severity: 'warning',
+        summary: 'Accès refusé',
+        detail: 'Vous devez être connecté(e) pour accéder à cette page'
+      });
     }
+
+    console.log('returnUrl : ' + this.returnUrl);
 
   }
 
