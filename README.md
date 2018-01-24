@@ -4,7 +4,7 @@ Master's Degree in Computer Science project consisting in mimicking a famous car
 Project generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.4.3.
 
 ## Demo
-Hopefully, if it's maintained, you can find a demo of the app [here](http://theo.kriszt.fr:4200)
+Hopefully, if it's maintained, you can find a demo of the app [here](http://theo.kriszt.fr/angular/blablavroum/)
 
 ## Development server
 Clone this repo via `git clone`
