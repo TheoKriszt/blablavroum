@@ -49,7 +49,7 @@ const routes: Routes = [
     CommonModule, HttpClientModule, FormsModule, ReactiveFormsModule , RouterModule.forChild(routes),
     CalendarModule, DropdownModule, SliderModule, GMapModule, RatingModule,
     AgmCoreModule.forRoot({
-      apiKey: '***REMOVED***',
+      apiKey: 'YOUR GOOGLE API KEY HERE',
       libraries: ['places']
     }),
     AgmDirectionModule

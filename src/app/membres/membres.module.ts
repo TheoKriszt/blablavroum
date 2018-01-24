@@ -54,7 +54,7 @@ const routes: Routes = [
     CommonModule, HttpClientModule, BrowserModule, FormsModule, RouterModule.forChild(routes),
     TrajetsModule, InplaceModule, ReactiveFormsModule, MessagesModule, ChartModule, AutoCompleteModule, //NGPrime
     AgmCoreModule.forRoot({
-      apiKey: '***REMOVED***',
+      apiKey: 'AIzaSyAOOutmMOMFrPCYsahyVjgCtm24sNZzeUI',
       libraries: ['places']
     })
   ],
