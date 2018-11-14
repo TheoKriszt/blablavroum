@@ -17,6 +17,8 @@
     ],
     "types": [
       "googlemaps"
-    ]
+    ],
+    "module": "es2015",
+    "baseUrl": "./"
   }
 }
