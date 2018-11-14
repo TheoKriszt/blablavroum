@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {TrajetsService} from '../trajets.service';
-import {Cookie} from 'ng2-cookies/src/cookie';
+import {CookieService} from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-proposed-trips',
@@ -12,10 +12,10 @@ export class ProposedTripsComponent implements OnInit {
   mesTrajets: Object = [];
   anyTrajet = false;
 
-  constructor(private trajetsService: TrajetsService) { }
+  constructor(private trajetsService: TrajetsService, private cs: CookieService) { }
 
   ngOnInit() {
-    this.trajetsService.getMesTrajetsProposes(Cookie.get('_id')).subscribe(res => {
+    this.trajetsService.getMesTrajetsProposes(this.cs.get('_id')).subscribe(res => {
       this.mesTrajets = res;
       this.anyTrajet = res[0] !== undefined;
       console.log(this.mesTrajets);

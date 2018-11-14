@@ -1,12 +1,12 @@
 import {
   Component, OnInit
 } from '@angular/core';
-import {Cookie} from 'ng2-cookies';
 import {AuthService} from './auth.service';
 import {Observable} from 'rxjs/Observable';
 import {Router} from '@angular/router';
 import {VehiculesService} from '../vehicules.service';
 import {isEmpty} from 'rxjs/operator/isEmpty';
+import {CookieService} from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-auth',
@@ -14,7 +14,7 @@ import {isEmpty} from 'rxjs/operator/isEmpty';
   styleUrls: ['./auth.component.css']
 })
 
-export class AuthComponent implements OnInit{
+export class AuthComponent implements OnInit {
 
 
   isLogged = false;
@@ -26,7 +26,8 @@ export class AuthComponent implements OnInit{
 
   constructor(private authService: AuthService,
               private vehiculeService: VehiculesService,
-              private router: Router) {}
+              private router: Router,
+              private cs: CookieService) {}
 
   ngOnInit() {
 
@@ -39,7 +40,7 @@ export class AuthComponent implements OnInit{
     });
 
     // au démarrage / après refresh de la page => verif. si déjà loggé
-    if ( Cookie.check('mail') && !this.isLogged) {
+    if ( this.cs.check('mail') && !this.isLogged) {
       this.loadUser();
     }
   }
@@ -56,18 +57,18 @@ export class AuthComponent implements OnInit{
       return;
     }
 
-    Cookie.set('_id', user._id);
-    Cookie.set('mail', user.mail);
-    Cookie.set('firstName', user.prenom);
-    Cookie.set('lastName', user.nom);
-    Cookie.set('isAdmin', (user.role.indexOf('admin') >= 0 ) ? 'true' : 'false');
+    this.cs.set('_id', user._id);
+    this.cs.set('mail', user.mail);
+    this.cs.set('firstName', user.prenom);
+    this.cs.set('lastName', user.nom);
+    this.cs.set('isAdmin', (user.role.indexOf('admin') >= 0 ) ? 'true' : 'false');
 
     this.vehiculeService.getByUserID(user._id).subscribe(res => {
       // console.log('res', res);
       if (res[0] !== undefined) {
-        Cookie.set('hasVehicle', 'true');
-      }else {
-        Cookie.set('hasVehicle', 'false');
+        this.cs.set('hasVehicle', 'true');
+      } else {
+        this.cs.set('hasVehicle', 'false');
       }
     });
 
@@ -76,7 +77,7 @@ export class AuthComponent implements OnInit{
 
   logout() {
     // console.log('Logging out -->[]');
-    Cookie.deleteAll();
+    this.cs.deleteAll();
     this.isLogged = false;
     this.router.navigate(['/']);
   }
@@ -87,13 +88,13 @@ export class AuthComponent implements OnInit{
 
 
   /**
-   * Depuis les cookies de session, met à jour les infos de base (notamment pour les guards)
+   * Depuis les this.css de session, met à jour les infos de base (notamment pour les guards)
    */
   private loadUser() {
-    this.firstName = Cookie.get('firstName');
-    this.lastName = Cookie.get('lastName');
+    this.firstName = this.cs.get('firstName');
+    this.lastName = this.cs.get('lastName');
     this.displayedName = this.firstName + ' ' + this.lastName[0]; // prenom + initiale nom
-    this.admin = Cookie.get('isAdmin') === 'true';
+    this.admin = this.cs.get('isAdmin') === 'true';
 
     this.isLogged = true;
   }

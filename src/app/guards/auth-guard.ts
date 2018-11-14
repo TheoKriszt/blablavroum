@@ -1,11 +1,12 @@
 import { Injectable } from '@angular/core';
 import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
-import {Cookie} from 'ng2-cookies/ng2-cookies';
+import { CookieService} from 'ngx-cookie-service';
 
 @Injectable()
 export class AuthGuard implements CanActivate {
 
-    constructor(private router: Router) { }
+    constructor(private router: Router, private cookieService: CookieService) {
+    }
 
   /**
    * Pour pages demandant d'être loggé : renvoie l'user sur /login si non loggés
@@ -14,7 +15,7 @@ export class AuthGuard implements CanActivate {
    * @returns {boolean}
    */
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-        if (Cookie.get('mail')) {
+        if (this.cookieService.get('mail')) {
             return true;
         }
 

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {VehiculesService} from '../vehicules.service';
-import {Cookie} from 'ng2-cookies';
+import {CookieService} from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-my-vehicules',
@@ -19,10 +19,10 @@ export class MyVehiculesComponent implements OnInit {
   autocompleteModeles: string[] = [];
   autocompleteCouleurs: string[] = [];
 
-  constructor(private vehiculesService: VehiculesService) { }
+  constructor(private vehiculesService: VehiculesService, private cs: CookieService) { }
 
   ngOnInit() {
-    this.vehiculesService.getByUserID(Cookie.get('_id')).subscribe(res => {
+    this.vehiculesService.getByUserID(this.cs.get('_id')).subscribe(res => {
       this.vehicules = res;
     });
   }
@@ -43,7 +43,7 @@ export class MyVehiculesComponent implements OnInit {
       return;
     }
 
-    this.model.ownerID = Cookie.get('_id');
+    this.model.ownerID = this.cs.get('_id');
     this.vehiculesService.create(this.model).subscribe(res => {
       this.vehicules.push(this.model);
     });

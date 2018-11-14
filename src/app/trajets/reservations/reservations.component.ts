@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {TrajetsService} from '../trajets.service';
-import {Cookie} from 'ng2-cookies/src/cookie';
+import {CookieService} from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-reservations',
@@ -11,10 +11,10 @@ export class ReservationsComponent implements OnInit {
 
   myReservations: Object = [];
 
-  constructor(private trajetsService: TrajetsService) { }
+  constructor(private trajetsService: TrajetsService, private cs: CookieService) { }
 
   ngOnInit() {
-    this.trajetsService.getMesReservations(Cookie.get('_id')).subscribe(res => {
+    this.trajetsService.getMesReservations(this.cs.get('_id')).subscribe(res => {
       console.log('Mes reservations : ');
       console.log(res);
       this.myReservations = res;

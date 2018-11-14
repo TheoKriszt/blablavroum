@@ -7,6 +7,11 @@ import {Observable} from 'rxjs';
 export class TrajetsService {
 
   baseUrl = environment.apiUrl + ':' + environment.apiPort;
+  private options = {
+    headers: new HttpHeaders({
+      'Content-Type':  'application/json'
+    })
+  };
 
 
   constructor(private http: HttpClient) {}
@@ -18,6 +23,7 @@ export class TrajetsService {
   getTrajetsRecherche(searchParams): Observable <any> {
 
     let tripUrl: string = this.baseUrl + '/trajets/search/' + searchParams.villeDepart + '/' + searchParams.villeArrivee;
+
 
     if (searchParams.dateDepart) {
       tripUrl += '/' + searchParams.dateDepart;
@@ -51,7 +57,7 @@ export class TrajetsService {
     const url: string = this.baseUrl + '/trajets';
     const headers = new Headers({'Content-Type': 'application/json'});
 
-    return this.http.post(url, body, headers);
+    return this.http.post(url, body, this.options);
   }
 
   getMoyennePrix(): Observable <any> {
@@ -76,7 +82,7 @@ export class TrajetsService {
       'date' : newDate
     };
     const headers = new Headers({'Content-Type': 'application/json'});
-    return this.http.post(this.baseUrl + '/trajets/update/updateDate', model, headers);
+    return this.http.post(this.baseUrl + '/trajets/update/updateDate', model, this.options);
   }
 
   addResa(tripID: string, userID: string): Observable <any> {
@@ -86,7 +92,7 @@ export class TrajetsService {
     };
 
     const headers = new Headers({'Content-Type': 'application/json'});
-    return this.http.post(this.baseUrl + '/reservation', reservation, headers);
+    return this.http.post(this.baseUrl + '/reservation', reservation, this.options);
   }
 
   cancelResa(tripID: string, userID: string) {
@@ -96,7 +102,7 @@ export class TrajetsService {
     };
 
     const headers = new Headers({'Content-Type': 'application/json'});
-    return this.http.post(this.baseUrl + '/reservation/remove', reservation, headers);
+    return this.http.post(this.baseUrl + '/reservation/remove', reservation, this.options);
   }
 
   getAllTrips() {

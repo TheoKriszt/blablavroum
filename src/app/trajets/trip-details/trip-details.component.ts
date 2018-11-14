@@ -1,10 +1,12 @@
+/// <reference types="@types/googlemaps" />
 import {Component, NgZone, OnInit} from '@angular/core';
 import {TrajetsService} from '../trajets.service';
 import {ActivatedRoute} from '@angular/router';
-import {Cookie} from 'ng2-cookies';
 import {MembresService} from '../../membres/membres.service';
 import {MapsAPILoader} from '@agm/core';
-import {} from '@types/googlemaps';
+import {CookieService} from 'ngx-cookie-service';
+// import {} from 'googlemaps';
+// import {} from '@types/googlemaps';
 
 @Component({
   selector: 'app-trip-details',
@@ -38,7 +40,8 @@ export class TripDetailsComponent implements OnInit {
     private trajetsService: TrajetsService,
     private membresService: MembresService,
     private mapsAPILoader: MapsAPILoader,
-    private ngZone: NgZone
+    private ngZone: NgZone,
+    private cs: CookieService
   ) {}
 
 
@@ -54,7 +57,7 @@ export class TripDetailsComponent implements OnInit {
           this.trajet = trip[0];
           const trajetDate = new Date(this.trajet.date);
           this.archived = (dat >= trajetDate);
-          this.hasProposed = Cookie.get('_id') === this.trajet.conducteur;
+          this.hasProposed = this.cs.get('_id') === this.trajet.conducteur;
           this.complet = this.trajet.complet === 'true';
 
           console.log('Trajet chargé : ');
@@ -74,7 +77,7 @@ export class TripDetailsComponent implements OnInit {
   }
 
   isAdmin(): boolean {
-    return Cookie.get('isAdmin') === 'true';
+    return this.cs.get('isAdmin') === 'true';
   }
 
 
@@ -91,14 +94,14 @@ export class TripDetailsComponent implements OnInit {
   }
 
   addResa() {
-    this.trajetsService.addResa(this.tripID, Cookie.get('_id')).subscribe(res => {
+    this.trajetsService.addResa(this.tripID, this.cs.get('_id')).subscribe(res => {
       this.hadReserved = true;
       this.trajet.placesRestantes--;
     });
   }
 
   cancelResa() {
-    this.trajetsService.cancelResa(this.tripID, Cookie.get('_id')).subscribe(res => {
+    this.trajetsService.cancelResa(this.tripID, this.cs.get('_id')).subscribe(res => {
       this.hadReserved = false;
       this.trajet.placesRestantes++;
     });
@@ -106,7 +109,7 @@ export class TripDetailsComponent implements OnInit {
 
   loadDriverRating() {
     // driverRating: number;
-    this.membresService.getRating(Cookie.get('_id'), this.trajet.conducteur, this.tripID).subscribe(res => {
+    this.membresService.getRating(this.cs.get('_id'), this.trajet.conducteur, this.tripID).subscribe(res => {
       this.driverRating = res.rating;
       this.driverRated = res.rating !== '';
       console.log('loadDriverRating = ');
@@ -121,13 +124,13 @@ export class TripDetailsComponent implements OnInit {
       return;
     }
 
-    this.membresService.setRating(Cookie.get('_id'), this.trajet.conducteur, this.tripID, this.driverRating).subscribe(res => {
+    this.membresService.setRating(this.cs.get('_id'), this.trajet.conducteur, this.tripID, this.driverRating).subscribe(res => {
       this.driverRated = true;
     });
   }
 
   checkHadReserved() {
-    this.trajetsService.getMesReservations(Cookie.get('_id')).subscribe(res => {
+    this.trajetsService.getMesReservations(this.cs.get('_id')).subscribe(res => {
       for (const resa of res) {
         if (resa._id === this.tripID) {
           this.hadReserved = true;

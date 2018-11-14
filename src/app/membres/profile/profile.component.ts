@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {MembresService} from '../membres.service';
-import {Cookie} from 'ng2-cookies';
 import {ActivatedRoute} from '@angular/router';
 import {Message} from 'primeng/primeng';
+import {CookieService} from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-profile',
@@ -15,7 +15,7 @@ export class ProfileComponent implements OnInit {
   loading = true;
   msgs: Message[] = [];
 
-  constructor(private membreService: MembresService, private route: ActivatedRoute) { }
+  constructor(private membreService: MembresService, private route: ActivatedRoute, private cs: CookieService) { }
 
   ngOnInit() {
     this.msgs = [];
@@ -29,7 +29,7 @@ export class ProfileComponent implements OnInit {
     }else this.msgs = [];
 
 
-    this.membreService.getByID(Cookie.get('_id')).subscribe(res => {
+    this.membreService.getByID(this.cs.get('_id')).subscribe(res => {
       if (res && res[0] !== undefined) {
         res = res[0];
       } else {

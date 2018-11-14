@@ -6,9 +6,9 @@ import {TrajetsModule} from './trajets/trajets.module';
 import {MembresModule} from './membres/membres.module';
 import {RouterModule} from '@angular/router';
 import {AppRoutingModule} from './app-routing.module';
-import {AuthGuard} from "./guards/auth-guard";
-import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
-
+import {AuthGuard} from './guards/auth-guard';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import { CookieService } from 'ngx-cookie-service';
 
 @NgModule({
   declarations: [
@@ -17,7 +17,7 @@ import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
   imports: [
     BrowserModule, BrowserAnimationsModule, TrajetsModule, MembresModule, RouterModule, AppRoutingModule
   ],
-  providers: [AuthGuard],
+  providers: [AuthGuard, CookieService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

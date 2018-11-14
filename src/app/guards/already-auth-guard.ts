@@ -1,11 +1,14 @@
 import { Injectable } from '@angular/core';
 import { Router, CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
-import {Cookie} from 'ng2-cookies/ng2-cookies';
+import {CookieService} from 'ngx-cookie-service';
 
 @Injectable()
 export class AlreadyAuthGuard implements CanActivate {
+  private _cookieService: CookieService;
 
-    constructor(private router: Router) { }
+    constructor(private router: Router, cookieService: CookieService) {
+      this._cookieService = cookieService;
+    }
 
   /**
    * Pour page de login : si l'user est déjà loggé : l'envoie sur dashboard
@@ -14,7 +17,8 @@ export class AlreadyAuthGuard implements CanActivate {
    * @returns {boolean}
    */
     canActivate(route: ActivatedRouteSnapshot, state: RouterStateSnapshot) {
-        if (!Cookie.get('mail')) {
+
+        if (!this._cookieService.get('mail')) {
             return true;
         }
 

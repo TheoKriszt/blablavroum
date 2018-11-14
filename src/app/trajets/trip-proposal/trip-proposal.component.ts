@@ -1,11 +1,13 @@
+/// <reference types="@types/googlemaps" />
 import {Component, ElementRef, NgZone, OnInit, ViewChild} from '@angular/core';
 import {TrajetsService} from '../trajets.service';
 import {Router} from '@angular/router';
-import {Cookie} from 'ng2-cookies';
 import {FormControl} from '@angular/forms';
 import {MapsAPILoader} from '@agm/core';
-import {} from '@types/googlemaps';
+// import {} from 'googlemaps';
+// import {} from '@types/googlemaps';
 import {VehiculesService} from '../../membres/vehicules.service';
+import {CookieService} from 'ngx-cookie-service';
 
 @Component({
   selector: 'app-trip-proposal',
@@ -50,11 +52,12 @@ export class TripProposalComponent implements OnInit {
               private trajetService: TrajetsService,
               private vehiculesService: VehiculesService,
               private mapsAPILoader: MapsAPILoader,
-              private ngZone: NgZone
+              private ngZone: NgZone,
+              private cs: CookieService
   ) {}
 
   ngOnInit() {
-    this.vehiculesService.getByUserID(Cookie.get('_id')).subscribe(res => {
+    this.vehiculesService.getByUserID(this.cs.get('_id')).subscribe(res => {
       for (const vehicule of res) {
         this.vehicules.push({
           'label': vehicule.marque + ' ' + vehicule.modele + ', couleur ' + vehicule.couleur,
@@ -112,7 +115,7 @@ export class TripProposalComponent implements OnInit {
 
     this.model.heureDepart = hours + ':' + minutes;
 
-    this.model.conducteur = Cookie.get('_id'); // id_conducteur
+    this.model.conducteur = this.cs.get('_id'); // id_conducteur
 
     // console.log('Envoi du formulaire : ');
     // console.log(this.model);
