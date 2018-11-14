@@ -1,8 +1,7 @@
-import {Injectable, isDevMode} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
-import {Observable} from 'rxjs/Observable';
-import {Headers} from '@angular/http';
-import { environment } from '../../environments/environment';
+import {Injectable} from '@angular/core';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {environment} from '../../environments/environment';
+import {Observable} from 'rxjs';
 
 
 @Injectable()
@@ -12,11 +11,21 @@ export class MembresService {
 
   baseUrl = environment.apiUrl + ':' + environment.apiPort;
 
+  // private readonly headers = {header: {'Content-Type': 'application/json'}};
+  private readonly headers = new HttpHeaders({'Content-Type': 'application/json'});
+  // private readonly headers = new Headers({'Content-Type': 'application/json'});
+  private options = {
+    headers: new HttpHeaders({
+      'Content-Type':  'application/json'
+    })
+  };
+
   create(model: any): Observable <any> {
 
     const url: string = this.baseUrl + '/membres';
-    const headers = new Headers({'Content-Type': 'application/json'});
-    return this.http.post(url, model, headers);
+
+
+    return this.http.post(url, model, this.options);
   }
 
   getByID(id: string): Observable <any> {
@@ -42,7 +51,7 @@ export class MembresService {
 
     const url: string = this.baseUrl + '/membres/update';
     const headers = new Headers({'Content-Type': 'application/json'});
-    return this.http.post(url, model, headers);
+    return this.http.post(url, model, this.options);
   }
 
   getRating(from: string, to: any, tripID: string): Observable <any> {
