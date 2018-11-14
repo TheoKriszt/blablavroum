@@ -1,8 +1,7 @@
 import {Injectable} from '@angular/core';
-import {HttpClient} from '@angular/common/http';
-import {Observable} from 'rxjs/Observable';
-// import 'rxjs/add/operator/map';
-import { environment } from '../../environments/environment';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {environment} from '../../environments/environment';
+import {Observable} from 'rxjs';
 
 @Injectable()
 export class TrajetsService {
@@ -44,7 +43,7 @@ export class TrajetsService {
     return this.http.get(this.baseUrl + '/reservations/' + user_id);
   }
 
-  create(model: any): Observable <any>{
+  create(model: any): Observable <any> {
     // console.log('Creation d\'un trajet');
     const body: any = model;
     // console.log(body);
@@ -67,9 +66,9 @@ export class TrajetsService {
     return this.http.get(this.baseUrl + '/trajets/count');
   }
 
-  getAllTrajet(): Observable <any> {
-    return this.http.get(this.baseUrl + '/trajets');
-  }
+  // getAllTrajet(): Observable <any> {
+  //   return this.http.get(this.baseUrl + '/trajets');
+  // }
 
   updateDate(tripID: string, newDate: string): Observable <any> {
     const model = {

@@ -1,9 +1,13 @@
 import {EventEmitter, Injectable, isDevMode, Output} from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+// import { HttpClient } from '@angular/common/http';
 import 'rxjs/add/operator/map';
-import {Observable} from 'rxjs/Observable';
+// import {Observable} from 'rxjs/Observable';
 import {Subject} from 'rxjs/Subject';
 import { environment } from '../../../environments/environment';
+
+import {HttpClient, HttpHeaders} from '@angular/common/http';
+// import {environment} from '../../environments/environment';
+import {Observable} from 'rxjs';
 
 /**
  * Service partagé d'authentification
